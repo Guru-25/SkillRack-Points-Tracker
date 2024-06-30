@@ -130,9 +130,9 @@ const App = () => {
       <Summary codeTest={codeTest} codeTrack={codeTrack} dt={dt} dc={dc} totalPoints={points} />
       <footer style={{ marginTop: '50px' }}>
       <br /><br />
-        Made with GPT-4o & Claude 3.5 Sonnet by <a href="https://gururaja.in" target="_blank" rel="noopener noreferrer"><b>Guru</b></a>
+        Made with GPT-4o & Claude 3.5 Sonnet by <a href="https://github.com/Guru-25" target="_blank" rel="noopener noreferrer"><b>Guru</b></a>
         <br /><br />
-        <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>Source Code</b></a>
+        Give a ⭐️ on <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>GitHub</b></a>
     </footer>
     </div>
   );
