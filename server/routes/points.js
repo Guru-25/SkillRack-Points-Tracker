@@ -38,11 +38,20 @@ async function fetchData(url) {
   }
 }
 
+async function fetchDataWithRetry(url, retries = 1) {
+  let data = await fetchData(url);
+  if (!data && retries > 0) {
+    console.log('Retrying fetch...');
+    data = await fetchData(url);
+  }
+  return data;
+}
+
 router.post('/', async (req, res) => {
   const { url } = req.body;
   const redirectedUrl = await fetchRedirectedUrl(url);
   if (redirectedUrl) {
-    const data = await fetchData(redirectedUrl);
+    const data = await fetchDataWithRetry(redirectedUrl);
 
     if (data) {
       try {
@@ -73,7 +82,7 @@ router.get('/refresh', async (req, res) => {
     return res.status(400).json({ error: 'No URL found in cookies' });
   }
 
-  const data = await fetchData(url);
+  const data = await fetchDataWithRetry(url);
   if (data) {
     res.json(data);
   } else {
