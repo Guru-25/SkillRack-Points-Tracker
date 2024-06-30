@@ -1,0 +1,15 @@
+/* App.css */
+.submit-button {
+  padding: 10px 20px;
+  width: 100%;
+  max-width: 120px;
+  background-color: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: darkgreen;
+}
