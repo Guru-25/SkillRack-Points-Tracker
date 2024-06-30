@@ -93,7 +93,7 @@ const App = () => {
 
   return (
     <div style={{ textAlign: 'center', padding: '50px' }}>
-      <h1>SkillRack Points</h1>
+      <h1>SkillRack Points Calculator</h1>
       {!isValidUrl && (
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
             <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noreferrer">SkillRack</a> -&gt; Profile -&gt; Click "View" -&gt; Copy the URL</p>
