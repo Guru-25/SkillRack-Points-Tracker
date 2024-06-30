@@ -58,10 +58,10 @@ const App = () => {
         Cookies.set('lastUrl', url);
         setName(data.name);
       } else {
-        setError('Please Try Again!!');
+        setError('Invalid URL. Please enter a valid SkillRack Profile URL!!');
       }
     } catch (error) {
-      setError('Please Try Again!!');
+      setError('Invalid URL. Please enter a valid SkillRack Profile URL!!');
       console.error(error);
     }
     setLoading(false);
