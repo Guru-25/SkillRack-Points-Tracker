@@ -45,7 +45,7 @@ const App = () => {
     setError('');
 
     if (!isValidSkillRackUrl(url)) {
-      setError('Invalid URL. Please enter a valid URL.');
+      setError('Invalid URL. Please enter a valid SkillRack Profile URL!!');
       return;
     }
 
