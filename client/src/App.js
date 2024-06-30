@@ -45,7 +45,7 @@ const App = () => {
     setError('');
 
     if (!isValidSkillRackUrl(url)) {
-      setError('Please Try Again!!');
+      setError('Invalid URL. Please enter a valid URL.');
       return;
     }
 
@@ -58,10 +58,10 @@ const App = () => {
         Cookies.set('lastUrl', url);
         setName(data.name);
       } else {
-        setError('Failed to fetch valid data from the provided URL.');
+        setError('Please Try Again!!');
       }
     } catch (error) {
-      setError('Failed to fetch data from the provided URL.');
+      setError('Please Try Again!!');
       console.error(error);
     }
     setLoading(false);
