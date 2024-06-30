@@ -125,7 +125,7 @@ router.get('/refresh', async (req, res) => {
   if (data) {
     res.json(data);
   } else {
-    res.status(500).json({ error: 'Failed to fetch data' });
+    res.status(500).json({ error: 'Failed to fetch data after retry' });
   }
 });
 
