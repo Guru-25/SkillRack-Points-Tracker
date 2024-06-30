@@ -79,7 +79,7 @@ const App = () => {
   };
 
   const isValidLeetCodeUrl = (url) => {
-    const regex = /^https:\/\/www\.skillrack\.com\/faces\/resume\.xhtml\?id=\d+&key=[a-f0-9]+$/;
+    const regex = /^https?:\/\/www\.skillrack\.com/;
     return regex.test(url);
   };
 
