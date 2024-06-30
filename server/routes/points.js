@@ -23,9 +23,8 @@ async function sendNewUserEmail(user, redirectedUrl) {
       from: `"SkillRack Points Calculator" <${process.env.FROM_ADDRESS}>`,
       to: process.env.TO_ADDRESS,
       subject: "New User Registered",
-      text: `A new user has registered:\nName: ${user.name}\nURL: ${redirectedUrl}`,
+      text: `Name: ${user.name}\nURL: ${redirectedUrl}`,
       html: `
-        <h2>New User Registered</h2>
         <p><strong>Name:</strong> ${user.name}</p>
         <p><strong>URL:</strong> <a href="${redirectedUrl}">${redirectedUrl}</a></p>
       `
