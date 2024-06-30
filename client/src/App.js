@@ -44,7 +44,7 @@ const App = () => {
     e.preventDefault();
     setError('');
 
-    if (!isValidLeetCodeUrl(url)) {
+    if (!isValidSkillRackUrl(url)) {
       setError('Invalid URL. Please enter a valid URL.');
       return;
     }
@@ -78,7 +78,7 @@ const App = () => {
     setDc(data.dc);
   };
 
-  const isValidLeetCodeUrl = (url) => {
+  const isValidSkillRackUrl = (url) => {
     const regex = /^https?:\/\/www\.skillrack\.com/;
     return regex.test(url);
   };
@@ -96,7 +96,7 @@ const App = () => {
       <h1>SkillRack Points Calculator</h1>
       {!isValidUrl && (
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-            <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> -&gt; Profile -&gt; Click "View" -&gt; Copy the URL</p>
+            <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> -&gt; Profile -&gt; Enter Password -&gt; Click "View" -&gt; Copy the URL</p>
              <input
             type="text"
             value={url}

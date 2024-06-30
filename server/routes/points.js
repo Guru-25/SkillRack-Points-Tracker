@@ -3,6 +3,19 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const User = require('../models/User');
 const router = express.Router();
+const request = require('request');
+
+async function fetchRedirectedUrl(url) {
+  return new Promise((resolve, reject) => {
+    request.get(url, function (err, res, body) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(this.uri.href);
+      }
+    });
+  });
+}
 
 async function fetchData(url) {
   try {
@@ -20,31 +33,36 @@ async function fetchData(url) {
 
     return { name, codeTest, codeTrack, dc, dt };
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching data:', error);
     return null;
   }
 }
 
 router.post('/', async (req, res) => {
   const { url } = req.body;
-  const data = await fetchData(url);
+  const redirectedUrl = await fetchRedirectedUrl(url);
+  if (redirectedUrl) {
+    const data = await fetchData(redirectedUrl);
 
-  if (data) {
-    try {
-        let user = await User.findOne({ url });
+    if (data) {
+      try {
+        let user = await User.findOne({ url: redirectedUrl });
         if (!user) {
-          user = new User({ name: data.name, url });
+          user = new User({ name: data.name, url: redirectedUrl });
           await user.save();
         }
 
-    res.cookie('lastUrl', url, { maxAge: 900000, httpOnly: true });
-    res.json(data);
-} catch (error) {
-    console.error('Error saving user data:', error);
-    res.status(500).json({ error: 'Failed to save user data' });
-  }
+        res.cookie('lastUrl', redirectedUrl, { maxAge: 900000, httpOnly: true });
+        res.json(data);
+      } catch (error) {
+        console.error('Error saving user data:', error);
+        res.status(500).json({ error: 'Failed to save user data' });
+      }
+    } else {
+      res.status(500).json({ error: 'Failed to fetch data' });
+    }
   } else {
-    res.status(500).json({ error: 'Failed to fetch data' });
+    res.status(500).json({ error: 'Failed to fetch redirected URL' });
   }
 });
 
