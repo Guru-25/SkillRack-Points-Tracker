@@ -13,3 +13,8 @@
 .submit-button:hover {
   background-color: darkgreen;
 }
+
+a {
+  color: darkmagenta;
+  text-decoration: none;
+}

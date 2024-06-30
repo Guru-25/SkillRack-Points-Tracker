@@ -96,7 +96,7 @@ const App = () => {
       <h1>SkillRack Points Calculator</h1>
       {!isValidUrl && (
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-            <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noreferrer">SkillRack</a> -&gt; Profile -&gt; Click "View" -&gt; Copy the URL</p>
+            <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> -&gt; Profile -&gt; Click "View" -&gt; Copy the URL</p>
              <input
             type="text"
             value={url}
@@ -128,6 +128,12 @@ const App = () => {
         />
       </div>
       <Summary codeTest={codeTest} codeTrack={codeTrack} dt={dt} dc={dc} totalPoints={points} />
+      <footer style={{ marginTop: '50px' }}>
+      <br /><br />
+        Made with GPT-4o & Claude 3.5 Sonnet by <a href="https://gururaja.in" target="_blank" rel="noopener noreferrer"><b>Guru</b></a>
+        <br /><br />
+        <a href="https://github.com/Guru-25/skillrack-points-calculator" target="_blank" rel="noopener noreferrer"><b>Source Code</b></a>
+    </footer>
     </div>
   );
 };
