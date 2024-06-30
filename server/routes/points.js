@@ -84,32 +84,25 @@ router.post('/', async (req, res) => {
     if (!redirectedUrl) {
       return res.status(500).json({ error: 'Failed to fetch redirected URL' });
     }
-
+    
     const data = await fetchDataWithRetry(redirectedUrl);
     if (!data) {
       return res.status(500).json({ error: 'Failed to fetch data' });
     }
-
-    // Set cookie and respond to the user immediately
+    
+    // Perform database operations before sending response
+    let user = await User.findOne({ url: redirectedUrl });
+    if (!user && data.name !== '') {
+      user = new User({ name: data.name, url: redirectedUrl });
+      await user.save();
+      await sendNewUserEmail(user, redirectedUrl);
+    }
+    
+    // Set cookie and respond to the user
     const farFutureDate = new Date(new Date().setFullYear(new Date().getFullYear() + 10));
     res.cookie('lastUrl', redirectedUrl, { expires: farFutureDate, httpOnly: true });
     res.json(data);
-
-    // Run database and email operations in the background
-    if (data){
-    setImmediate(async () => {
-      try {
-        let user = await User.findOne({ url: redirectedUrl });
-        if (!user && data.name != '') {
-          user = new User({ name: data.name, url: redirectedUrl });
-          await user.save();
-          await sendNewUserEmail(user, redirectedUrl);
-        }
-      } catch (error) {
-        console.error('Background operation error:', error);
-      }
-    });
-  }
+    
   } catch (error) {
     console.error('Error in request processing:', error);
     res.status(500).json({ error: 'An error occurred while processing the request' });
