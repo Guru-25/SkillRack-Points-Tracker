@@ -45,7 +45,7 @@ const App = () => {
     setError('');
 
     if (!isValidSkillRackUrl(url)) {
-      setError('Invalid URL. Please enter a valid URL.');
+      setError('Please Try Again!!');
       return;
     }
 
