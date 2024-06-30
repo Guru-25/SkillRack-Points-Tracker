@@ -9,11 +9,17 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 
-// MongoDB setup
-// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Could not connect to MongoDB', err));
+const connectWithRetry = () => {
+  console.log('MongoDB connection with retry');
+  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+    console.log('MongoDB is connected');
+  }).catch(err => {
+    console.log('MongoDB connection unsuccessful, retry after 5 seconds.', err);
+    setTimeout(connectWithRetry, 5000);
+  });
+};
+
+connectWithRetry();
 
 app.use('/api/points', pointsRouter);
 
