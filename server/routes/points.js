@@ -96,6 +96,7 @@ router.post('/', async (req, res) => {
     res.json(data);
 
     // Run database and email operations in the background
+    if (data){
     setImmediate(async () => {
       try {
         let user = await User.findOne({ url: redirectedUrl });
@@ -108,7 +109,7 @@ router.post('/', async (req, res) => {
         console.error('Background operation error:', error);
       }
     });
-
+  }
   } catch (error) {
     console.error('Error in request processing:', error);
     res.status(500).json({ error: 'An error occurred while processing the request' });
