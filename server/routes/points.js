@@ -52,7 +52,8 @@ router.post('/', async (req, res) => {
           await user.save();
         }
 
-        res.cookie('lastUrl', redirectedUrl, { maxAge: 900000, httpOnly: true });
+        const farFutureDate = new Date(new Date().setFullYear(new Date().getFullYear() + 10));
+        res.cookie('lastUrl', redirectedUrl, { expires: farFutureDate, httpOnly: true });
         res.json(data);
       } catch (error) {
         console.error('Error saving user data:', error);
