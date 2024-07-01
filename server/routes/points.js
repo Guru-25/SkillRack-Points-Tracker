@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
 async function sendNewUserEmail(user, redirectedUrl) {
   try {
     let info = await transporter.sendMail({
-      from: `"SkillRack Points Calculator" <${process.env.FROM_ADDRESS}>`,
+      from: `"SkillRack Points Tracker" <${process.env.FROM_ADDRESS}>`,
       to: process.env.TO_ADDRESS,
       subject: "New User Registered",
       text: `Name: ${user.name}\nURL: ${redirectedUrl}`,
