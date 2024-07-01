@@ -64,6 +64,10 @@ A Simple SkillRack points tracker using React, Express, Node.js, Axios, Cheerio,
    TO_ADDRESS=recipient_email_address
    SMTP_USER=smtp_username
    SMTP_PASS=smtp_password
+
+   # LOG
+   LOG_BOT_TOKEN=bot_token
+   LOG_CHAT_ID=chat_id
    ```
 
 ### Running the Application

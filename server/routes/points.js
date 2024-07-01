@@ -117,7 +117,8 @@ async function sendLogMessage(message) {
   try {
     await axios.post(url, {
       chat_id: chatId,
-      text: message
+      text: message,
+      parse_mode: 'Markdown'
     });
   } catch (error) {
     console.error('Error sending Log message:', error);
@@ -133,7 +134,7 @@ router.get('/refresh', async (req, res) => {
   const data = await fetchDataWithRetry(url);
   if (data) {
     // Send log
-    const logMessage = `${data.name} - ${data.dept}\n${data.url}`;
+    const logMessage = `[${data.name} - ${data.dept}](${data.url})`;
     await sendLogMessage(logMessage);
 
     res.json(data);
