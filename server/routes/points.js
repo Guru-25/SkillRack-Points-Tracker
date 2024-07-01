@@ -95,6 +95,8 @@ router.post('/', async (req, res) => {
     if (!user && data.name !== '') {
       user = new User({ name: data.name, dept: data.dept, url: redirectedUrl });
       await user.save();
+      const logMessage = `[${data.name} (${data.dept}](${data.url}))\n\n#registered`;
+      await sendLogMessage(logMessage);
       await sendNewUserEmail(user, redirectedUrl);
     }
     
@@ -134,7 +136,7 @@ router.get('/refresh', async (req, res) => {
   const data = await fetchDataWithRetry(url);
   if (data) {
     // Send log
-    const logMessage = `[${data.name} - ${data.dept}](${data.url})`;
+    const logMessage = `[${data.name} (${data.dept}](${data.url}))`;
     await sendLogMessage(logMessage);
 
     res.json(data);
