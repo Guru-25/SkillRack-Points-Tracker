@@ -25,7 +25,7 @@ async function sendNewUserEmail(user, redirectedUrl) {
       subject: "New User Registered",
       text: `Name: ${user.name}\nURL: ${redirectedUrl}`,
       html: `
-        <p><strong>Name:</strong> ${user.name}</p>
+        <p><strong>Name:</strong> ${user.name} - ${user.dept}</p>
         <p><strong>URL:</strong> <a href="${redirectedUrl}">${redirectedUrl}</a></p>
       `
     });
@@ -53,14 +53,15 @@ async function fetchData(url) {
 
     const rawName = $('div.ui.big.label.black').text().trim();
     const name = rawName.split('\n')[0].trim(); // Split by newline and take the first part
+    const dept = $('div.ui.large.label').text().trim();
     const codeTest = parseInt($('div:contains("PROGRAMS SOLVED")').next().find('.value').text().trim()) || 0;
     const codeTrack = parseInt($('div:contains("CODE TEST")').next().find('.value').text().trim()) || 0;
     const dt = parseInt($('div:contains("DC")').next().find('.value').text().trim()) || 0;
     const dc = parseInt($('div:contains("CODE TRACK")').next().find('.value').text().trim()) || 0;
 
-    console.log({ name, codeTest, codeTrack, dc, dt }); // Log the parsed values
+    console.log({ name, dept, codeTest, codeTrack, dc, dt, url }); // Log the parsed values
 
-    return { name, codeTest, codeTrack, dc, dt };
+    return { name, dept, codeTest, codeTrack, dc, dt, url};
   } catch (error) {
     console.error('Error fetching data:', error);
     return null;
@@ -92,7 +93,7 @@ router.post('/', async (req, res) => {
     // Perform database operations before sending response
     let user = await User.findOne({ url: redirectedUrl });
     if (!user && data.name !== '') {
-      user = new User({ name: data.name, url: redirectedUrl });
+      user = new User({ name: data.name, dept: data.dept, url: redirectedUrl });
       await user.save();
       await sendNewUserEmail(user, redirectedUrl);
     }
@@ -108,6 +109,21 @@ router.post('/', async (req, res) => {
   }
 });
 
+async function sendLogMessage(message) {
+  const botToken = process.env.LOG_BOT_TOKEN;
+  const chatId = process.env.LOG_CHAT_ID;
+  const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+  try {
+    await axios.post(url, {
+      chat_id: chatId,
+      text: message
+    });
+  } catch (error) {
+    console.error('Error sending Log message:', error);
+  }
+}
+
 router.get('/refresh', async (req, res) => {
   const url = req.cookies.lastUrl;
   if (!url) {
@@ -116,6 +132,10 @@ router.get('/refresh', async (req, res) => {
 
   const data = await fetchDataWithRetry(url);
   if (data) {
+    // Send log
+    const logMessage = `${data.name} - ${data.dept}\n${data.url}`;
+    await sendLogMessage(logMessage);
+
     res.json(data);
   } else {
     res.status(500).json({ error: 'Failed to fetch data after retry' });
