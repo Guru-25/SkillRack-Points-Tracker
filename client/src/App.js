@@ -70,7 +70,7 @@ const App = () => {
   const calculatePoints = (data) => {
     const totalPoints = data.codeTest * 30 + data.codeTrack * 2 + data.dt * 20 + data.dc * 2;
     setPoints(totalPoints);
-    setPercentage((totalPoints / 3000) * 100);
+    setPercentage((totalPoints / 5000) * 100);
     setLastFetched(new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
     setCodeTest(data.codeTest);
     setCodeTrack(data.codeTrack);
@@ -118,7 +118,7 @@ const App = () => {
       <div style={{ width: '200px', margin: '50px auto' }}>
         <CircularProgressbar
           value={percentage}
-          text={`${points}/3000`}
+          text={`${points}/5000`}
           styles={buildStyles({
             textColor: '#000',
             pathColor: '#4caf50',
@@ -130,7 +130,7 @@ const App = () => {
       <Summary codeTest={codeTest} codeTrack={codeTrack} dt={dt} dc={dc} totalPoints={points} />
       <footer style={{ marginTop: '50px' }}>
       <br /><br />
-        Made with GPT-4o & Claude 3.5 Sonnet by <a href="https://github.com/Guru-25" target="_blank" rel="noopener noreferrer"><b>Guru</b></a>
+        Made with GPT-4 & Claude 3.5 Sonnet by <a href="https://github.com/Guru-25" target="_blank" rel="noopener noreferrer"><b>Guru</b></a>
         <br /><br />
         Give a ⭐️ on <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>GitHub</b></a>
     </footer>
