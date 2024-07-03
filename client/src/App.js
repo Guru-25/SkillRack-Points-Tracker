@@ -39,46 +39,48 @@ const App = () => {
   useEffect(() => {
     const fetchInitialData = async () => {
       const lastUrl = Cookies.get('lastUrl');
-      console.log('Initial lastUrl cookie:', lastUrl);
-      setLoading(true);
-      try {
-        const { data } = await axios.get('/api/points/refresh');
-        if (data && data.name !== '') {
-          calculatePoints(data);
-          setIsValidUrl(true);
-          setUrl(Cookies.get('lastUrl') || '');
-          setName(data.name);
+      if (lastUrl) {
+        setLoading(true);
+        try {
+          const { data } = await axios.get(`/api/points/refresh?url=${encodeURIComponent(lastUrl)}`);
+          if (data && data.name !== '') {
+            calculatePoints(data);
+            setIsValidUrl(true);
+            setUrl(lastUrl);
+            setName(data.name);
+          }
+        } catch (error) {
+          console.error(error);
+          // If there's an error, clear the cookie
+          Cookies.remove('lastUrl');
         }
-      } catch (error) {
-        console.error(error);
+        setLoading(false);
       }
-      setLoading(false);
     };
-
+  
     fetchInitialData();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
+  
     if (!isValidSkillRackUrl(url)) {
       setError('Invalid URL. Please enter a valid SkillRack Profile URL!!');
       return;
     }
-
+  
     setLoading(true);
     try {
       const { data } = await axios.post('/api/points', { url });
       if (data && data.name !== '') {
         calculatePoints(data);
         setIsValidUrl(true);
-        Cookies.set('lastUrl', url, { 
-          expires: 7, 
+        Cookies.set('lastUrl', data.redirectedUrl, { 
+          expires: 365, // Set to expire in 1 year
           sameSite: 'Lax',
-          secure: true 
+          secure: true // Use this if your site is served over HTTPS
         });
-        console.log('Cookie set:', Cookies.get('lastUrl'));
         setName(data.name);
       } else {
         setError('Invalid URL. Please enter a valid SkillRack Profile URL!!');

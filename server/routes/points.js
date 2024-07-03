@@ -100,10 +100,8 @@ router.post('/', async (req, res) => {
       await sendNewUserEmail(user, redirectedUrl);
     }
     
-    // Set cookie and respond to the user
-    const farFutureDate = new Date(new Date().setFullYear(new Date().getFullYear() + 10));
-    res.cookie('lastUrl', redirectedUrl, { expires: farFutureDate, httpOnly: true });
-    res.json(data);
+    // Send the redirectedUrl back to the client
+    res.json({ ...data, redirectedUrl });
     
   } catch (error) {
     console.error('Error in request processing:', error);
@@ -128,9 +126,9 @@ async function sendLogMessage(message) {
 }
 
 router.get('/refresh', async (req, res) => {
-  const url = req.cookies.lastUrl;
+  const url = req.query.url;
   if (!url) {
-    return res.status(400).json({ error: 'No URL found in cookies' });
+    return res.status(400).json({ error: 'No URL provided' });
   }
 
   const data = await fetchDataWithRetry(url);
