@@ -39,21 +39,20 @@ const App = () => {
   useEffect(() => {
     const fetchInitialData = async () => {
       const lastUrl = Cookies.get('lastUrl');
-      if (lastUrl) {
-        setLoading(true);
-        try {
-          const { data } = await axios.get('/api/points/refresh');
-          if (data && data.name !== '') {
-            calculatePoints(data);
-            setIsValidUrl(true);
-            setUrl(Cookies.get('lastUrl') || '');
-            setName(data.name);
-          }
-        } catch (error) {
-          console.error(error);
+      console.log('Initial lastUrl cookie:', lastUrl);
+      setLoading(true);
+      try {
+        const { data } = await axios.get('/api/points/refresh');
+        if (data && data.name !== '') {
+          calculatePoints(data);
+          setIsValidUrl(true);
+          setUrl(Cookies.get('lastUrl') || '');
+          setName(data.name);
         }
-        setLoading(false);
+      } catch (error) {
+        console.error(error);
       }
+      setLoading(false);
     };
 
     fetchInitialData();
@@ -74,7 +73,12 @@ const App = () => {
       if (data && data.name !== '') {
         calculatePoints(data);
         setIsValidUrl(true);
-        Cookies.set('lastUrl', url);
+        Cookies.set('lastUrl', url, { 
+          expires: 7, 
+          sameSite: 'Lax',
+          secure: true 
+        });
+        console.log('Cookie set:', Cookies.get('lastUrl'));
         setName(data.name);
       } else {
         setError('Invalid URL. Please enter a valid SkillRack Profile URL!!');
