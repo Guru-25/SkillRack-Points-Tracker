@@ -20,21 +20,40 @@ const App = () => {
   const [dt, setDt] = useState(0);
   const [dc, setDc] = useState(0);
 
+  const handleLogout = () => {
+    setUrl('');
+    setPoints(0);
+    setPercentage(0);
+    setError('');
+    setIsValidUrl(false);
+    setLastFetched(null);
+    setName('');
+    setCodeTest(0);
+    setCodeTrack(0);
+    setDt(0);
+    setDc(0);
+    Cookies.remove('lastUrl');
+  };
+  
+
   useEffect(() => {
     const fetchInitialData = async () => {
-      setLoading(true);
-      try {
-        const { data } = await axios.get('/api/points/refresh');
-        if (data && data.name !== '') {
-          calculatePoints(data);
-          setIsValidUrl(true);
-          setUrl(Cookies.get('lastUrl') || '');
-          setName(data.name);
+      const lastUrl = Cookies.get('lastUrl');
+      if (lastUrl) {
+        setLoading(true);
+        try {
+          const { data } = await axios.get('/api/points/refresh');
+          if (data && data.name !== '') {
+            calculatePoints(data);
+            setIsValidUrl(true);
+            setUrl(Cookies.get('lastUrl') || '');
+            setName(data.name);
+          }
+        } catch (error) {
+          console.error(error);
         }
-      } catch (error) {
-        console.error(error);
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchInitialData();
@@ -96,8 +115,8 @@ const App = () => {
       <h1>SkillRack Points Tracker</h1>
       {!isValidUrl && (
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-            <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> -&gt; Profile -&gt; Enter Password -&gt; Click "View" -&gt; Copy the URL</p>
-             <input
+          <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> -&gt; Profile -&gt; Enter Password -&gt; Click "View" -&gt; Copy the URL</p>
+          <input
             type="text"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
@@ -112,28 +131,29 @@ const App = () => {
         <>
           <p>Last fetched: {lastFetched}</p>
           <br />
-          <h2>Hii, {name} 😊</h2>
+          <h2>Hi.. {name} 😊</h2>
+          <div style={{ width: '200px', margin: '50px auto' }}>
+            <CircularProgressbar
+              value={percentage}
+              text={`${points}/5000`}
+              styles={buildStyles({
+                textColor: '#000',
+                pathColor: '#4caf50',
+                trailColor: '#d6d6d6',
+                textSize: '16px'
+              })}
+            />
+          </div>
+          <Summary codeTest={codeTest} codeTrack={codeTrack} dt={dt} dc={dc} totalPoints={points} />
+          <button onClick={handleLogout} className="logout-button">Logout</button>
         </>
       )}
-      <div style={{ width: '200px', margin: '50px auto' }}>
-        <CircularProgressbar
-          value={percentage}
-          text={`${points}/5000`}
-          styles={buildStyles({
-            textColor: '#000',
-            pathColor: '#4caf50',
-            trailColor: '#d6d6d6',
-            textSize: '16px'
-          })}
-        />
-      </div>
-      <Summary codeTest={codeTest} codeTrack={codeTrack} dt={dt} dc={dc} totalPoints={points} />
       <footer style={{ marginTop: '50px' }}>
-      <br /><br />
+        <br /><br />
         Made with GPT-4 & Claude 3.5 Sonnet by <a href="https://github.com/Guru-25" target="_blank" rel="noopener noreferrer"><b>Guru</b></a>
         <br /><br />
         Give a ⭐️ on <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>GitHub</b></a>
-    </footer>
+      </footer>
     </div>
   );
 };
