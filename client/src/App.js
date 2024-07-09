@@ -98,7 +98,7 @@ const App = () => {
   const calculatePoints = (data) => {
     const totalPoints = data.codeTest * 30 + data.codeTrack * 2 + data.dt * 20 + data.dc * 2;
     setPoints(totalPoints);
-    setPercentage((totalPoints / 5000) * 100);
+    setPercentage((totalPoints / 3000) * 100);
     setLastFetched(new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
     setCodeTest(data.codeTest);
     setCodeTrack(data.codeTrack);
@@ -148,7 +148,7 @@ const App = () => {
           <div style={{ width: '200px', margin: '50px auto' }}>
             <CircularProgressbar
               value={percentage}
-              text={`${points}/5000`}
+              text={`${points}/3000`}
               styles={buildStyles({
                 textColor: '#000',
                 pathColor: '#4caf50',
