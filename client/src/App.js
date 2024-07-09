@@ -158,7 +158,7 @@ const App = () => {
             />
           </div>
           <Summary codeTest={codeTest} codeTrack={codeTrack} dt={dt} dc={dc} totalPoints={points} />
-          <button onClick={handleLogout} className="logout-button">Logout</button><br /><br />
+          
           {(dt + dc) !== 0 && (
             <>
               <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
@@ -174,6 +174,8 @@ const App = () => {
               )}
             </>
           )}
+          <br></br><br></br>
+          <button onClick={handleLogout} className="logout-button">Logout</button><br /><br />
         </>
       )}
       <footer style={{ marginTop: '50px' }}>
