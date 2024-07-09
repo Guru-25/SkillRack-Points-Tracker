@@ -1,0 +1,127 @@
+/* Schedule.css */
+.schedule-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center; /* Center the items */
+}
+
+.input-field {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    box-sizing: border-box; /* Ensure padding doesn't increase total width */
+}
+
+.date-input::placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+.generate-button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Make the button take up the full width */
+    max-width: 300px; /* Ensure it doesn't exceed the input field's max width */
+}
+
+.generate-button:hover {
+    background-color: #45a049;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 20px;
+}
+
+.schedule-table-container {
+    padding: 0 0px; /* Add padding around the table */
+    margin-top: 20px; /* Add margin at the top to separate from the form */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.schedule-table th,
+.schedule-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.schedule-table th {
+    background-color: #4caf50;
+    color: white;
+}
+
+.schedule-table td {
+    background-color: white;
+    color: #333;
+}
+
+.loading {
+    font-size: 18px;
+    color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .schedule-container {
+        padding: 10px;
+    }
+
+    .schedule-title {
+        font-size: 20px;
+    }
+
+    .input-field {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .generate-button {
+        font-size: 14px;
+        margin: 4px 2px;
+        padding: 8px 16px;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .form-container {
+        gap: 5px;
+    }
+}

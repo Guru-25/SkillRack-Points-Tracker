@@ -36,3 +36,21 @@ a {
 .logout-button:hover {
   background-color: #d32f2f;
 }
+
+.generate-schedule-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.generate-schedule-button:hover {
+  background-color: #45a049;
+}

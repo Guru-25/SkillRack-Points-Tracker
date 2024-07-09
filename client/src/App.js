@@ -4,6 +4,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Cookies from 'js-cookie';
 import Summary from './Summary'; // Import the Summary component
+import Schedule from './Schedule'; // Import the Schedule component
 import './App.css'; // Import the CSS file
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
   const [codeTrack, setCodeTrack] = useState(0);
   const [dt, setDt] = useState(0);
   const [dc, setDc] = useState(0);
+  const [showSchedule, setShowSchedule] = useState(false);
 
   const handleLogout = () => {
     setUrl('');
@@ -32,6 +34,7 @@ const App = () => {
     setCodeTrack(0);
     setDt(0);
     setDc(0);
+    setShowSchedule(false);
     Cookies.remove('lastUrl');
   };
   
@@ -95,7 +98,7 @@ const App = () => {
   const calculatePoints = (data) => {
     const totalPoints = data.codeTest * 30 + data.codeTrack * 2 + data.dt * 20 + data.dc * 2;
     setPoints(totalPoints);
-    setPercentage((totalPoints / 3000) * 100);
+    setPercentage((totalPoints / 5000) * 100);
     setLastFetched(new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
     setCodeTest(data.codeTest);
     setCodeTrack(data.codeTrack);
@@ -115,6 +118,10 @@ const App = () => {
       </div>
     );
   }
+
+  const handleGenerateSchedule = () => {
+    setShowSchedule(true);
+  };
 
   return (
     <div style={{ textAlign: 'center', padding: '50px' }}>
@@ -141,7 +148,7 @@ const App = () => {
           <div style={{ width: '200px', margin: '50px auto' }}>
             <CircularProgressbar
               value={percentage}
-              text={`${points}/3000`}
+              text={`${points}/5000`}
               styles={buildStyles({
                 textColor: '#000',
                 pathColor: '#4caf50',
@@ -151,7 +158,22 @@ const App = () => {
             />
           </div>
           <Summary codeTest={codeTest} codeTrack={codeTrack} dt={dt} dc={dc} totalPoints={points} />
-          <button onClick={handleLogout} className="logout-button">Logout</button>
+          <button onClick={handleLogout} className="logout-button">Logout</button><br /><br />
+          {(dt + dc) !== 0 && (
+            <>
+              <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
+              {showSchedule && (
+                <Schedule
+                  initialValues={{
+                    codeTrack: codeTrack,
+                    dt: dt,
+                    dc: dc,
+                    points: points
+                  }}
+                />
+              )}
+            </>
+          )}
         </>
       )}
       <footer style={{ marginTop: '50px' }}>
