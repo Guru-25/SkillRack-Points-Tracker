@@ -2,19 +2,20 @@
   padding: 10px 20px;
   width: 100%;
   max-width: 120px;
-  background-color: green;
+  background-color: #4caf50;
   color: white;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .submit-button:hover {
-  background-color: darkgreen;
+  background-color: #45a049;
 }
 
 a {
-  color: darkmagenta;
+  color: #271baf;
   text-decoration: none;
 }
 

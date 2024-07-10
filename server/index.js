@@ -9,8 +9,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 const connectWithRetry = () => {
-  console.log('MongoDB connection with retry');
-  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+  mongoose.connect(process.env.MONGODB_URI).then(() => {
     console.log('MongoDB is connected');
   }).catch(err => {
     console.log('MongoDB connection unsuccessful, retry after 5 seconds.', err);
