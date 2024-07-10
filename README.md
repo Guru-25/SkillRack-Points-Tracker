@@ -25,6 +25,7 @@ A Simple SkillRack points tracker using React, Express, Node.js, Axios, Cheerio,
 - Stores user data in MongoDB.
 - Handles cookies for session management.
 - Sends email notifications to admin for new user insertions.
+- Schedule Planning
 
 ## Getting Started
 

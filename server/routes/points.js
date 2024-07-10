@@ -83,6 +83,7 @@ router.post('/', async (req, res) => {
   if (req.cookies.lastUrl) {
     res.clearCookie('lastUrl');
   }
+
   const { url } = req.body;
   try {
     const redirectedUrl = await fetchRedirectedUrl(url);

@@ -137,7 +137,7 @@ const App = () => {
             type="text"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="Paste Profile URL"
+            placeholder="profile_url"
             style={{ width: '100%', maxWidth: '300px', padding: '10px', boxSizing: 'border-box' }}
           />
           <button type="submit" className="submit-button">Submit</button>
@@ -163,7 +163,7 @@ const App = () => {
           </div>
           <Summary codeTest={codeTest} codeTrack={codeTrack} codeTutor={codeTutor} dt={dt} dc={dc} totalPoints={points} />
           
-          {(dt + dc) !== 0 && (
+          {(codeTutor + codeTrack) >= 600 && (
             <>
               <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
               {showSchedule && (
@@ -178,7 +178,7 @@ const App = () => {
               )}
             </>
           )}
-          <br></br><br></br>
+          <br /><br />
           <button onClick={handleLogout} className="logout-button">Logout</button><br /><br />
         </>
       )}

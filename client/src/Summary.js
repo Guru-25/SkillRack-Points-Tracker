@@ -1,4 +1,3 @@
-// client/src/Summary.js
 import React from 'react';
 
 const Summary = ({ codeTest, codeTrack, codeTutor, dt, dc, totalPoints }) => {

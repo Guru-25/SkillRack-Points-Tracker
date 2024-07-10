@@ -114,8 +114,8 @@ const Schedule = ({ initialValues }) => {
              }
            }
           onChange={(e) => setFinishDate(e.target.value)}
-          className="input-field date-input" /* Add this class */
-          placeholder="Enter Target Date" /* Placeholder text for date input */
+          className="input-field date-input"
+          placeholder="Enter Target Date"
         />
         <button onClick={generateSchedule} className="generate-button">Generate Schedule</button>
       </div>

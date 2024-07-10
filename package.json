@@ -1,5 +1,5 @@
 {
-    "scripts": {
-      "build": "cd client && npm install && npm run build && cd ../server && npm install"
-    }
+  "scripts": {
+    "build": "cd client && npm install && npm run build && cd ../server && npm install"
   }
+}
