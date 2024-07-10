@@ -41,7 +41,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchInitialData = async () => {
-      const lastUrl = Cookies.get('lastUrl');
+      let lastUrl = Cookies.get('lastUrl');
 
       // If client-side cookie is not found, check for server-side cookie
     if (!lastUrl) {
