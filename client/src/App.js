@@ -137,7 +137,8 @@ const App = () => {
             type="text"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="profile_url"
+            placeholder="Paste Profile URL"
+            name="profile_url"
             style={{ width: '100%', maxWidth: '300px', padding: '10px', boxSizing: 'border-box' }}
           />
           <button type="submit" className="submit-button">Submit</button>
