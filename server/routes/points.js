@@ -56,12 +56,13 @@ async function fetchData(url) {
     const dept = $('div.ui.large.label').text().trim();
     const codeTest = parseInt($('div:contains("PROGRAMS SOLVED")').next().find('.value').text().trim()) || 0;
     const codeTrack = parseInt($('div:contains("CODE TEST")').next().find('.value').text().trim()) || 0;
+    const codeTutor = parseInt($('div:contains("DT")').next().find('.value').text().trim()) || 0;
     const dt = parseInt($('div:contains("DC")').next().find('.value').text().trim()) || 0;
     const dc = parseInt($('div:contains("CODE TRACK")').next().find('.value').text().trim()) || 0;
 
-    console.log({ name, dept, codeTest, codeTrack, dc, dt, url }); // Log the parsed values
+    console.log({ name, dept, codeTest, codeTrack, codeTutor, dc, dt, url }); // Log the parsed values
 
-    return { name, dept, codeTest, codeTrack, dc, dt, url};
+    return { name, dept, codeTest, codeTrack, codeTutor, dc, dt, url};
   } catch (error) {
     console.error('Error fetching data:', error);
     return null;

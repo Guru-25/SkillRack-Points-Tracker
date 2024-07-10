@@ -18,6 +18,7 @@ const App = () => {
   const [name, setName] = useState('');
   const [codeTest, setCodeTest] = useState(0);
   const [codeTrack, setCodeTrack] = useState(0);
+  const [codeTutor, setCodeTutor] = useState(0);
   const [dt, setDt] = useState(0);
   const [dc, setDc] = useState(0);
   const [showSchedule, setShowSchedule] = useState(false);
@@ -32,6 +33,7 @@ const App = () => {
     setName('');
     setCodeTest(0);
     setCodeTrack(0);
+    setCodeTutor(0);
     setDt(0);
     setDc(0);
     setShowSchedule(false);
@@ -103,6 +105,7 @@ const App = () => {
     setLastFetched(new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
     setCodeTest(data.codeTest);
     setCodeTrack(data.codeTrack);
+    setCodeTutor(data.codeTutor);
     setDt(data.dt);
     setDc(data.dc);
   };
@@ -158,7 +161,7 @@ const App = () => {
               })}
             />
           </div>
-          <Summary codeTest={codeTest} codeTrack={codeTrack} dt={dt} dc={dc} totalPoints={points} />
+          <Summary codeTest={codeTest} codeTrack={codeTrack} codeTutor={codeTutor} dt={dt} dc={dc} totalPoints={points} />
           
           {(dt + dc) !== 0 && (
             <>
