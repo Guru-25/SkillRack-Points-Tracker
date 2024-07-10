@@ -184,7 +184,7 @@ const App = () => {
       )}
       <footer style={{ marginTop: '50px' }}>
         <br /><br />
-        Made with GPT-4 & Claude 3.5 Sonnet by <a href="https://github.com/Guru-25" target="_blank" rel="noopener noreferrer"><b>Guru</b></a>
+        Made with MERN stack by <a href="https://github.com/Guru-25" target="_blank" rel="noopener noreferrer"><b>Guru</b></a>
         <br /><br />
         Give a ⭐️ on <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>GitHub</b></a>
       </footer>
