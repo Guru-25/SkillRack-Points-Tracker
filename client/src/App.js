@@ -41,22 +41,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchInitialData = async () => {
-      let lastUrl = Cookies.get('lastUrl');
-
-      // If client-side cookie is not found, check for server-side cookie
-    if (!lastUrl) {
-      try {
-        const response = await axios.get('/api/get-server-cookie');
-        if (response.data && response.data.lastUrl) {
-          lastUrl = response.data.lastUrl;
-
-          // Migrate the server-side cookie to the client-side
-          Cookies.set('lastUrl', lastUrl, { expires: 3650 }); // 3650 days is roughly 10 years
-        }
-      } catch (error) {
-        console.error('Error fetching server-side cookie:', error);
-      }
-    }
+      const lastUrl = Cookies.get('lastUrl');
       
       if (lastUrl) {
         setLoading(true);
@@ -71,7 +56,7 @@ const App = () => {
         } catch (error) {
           console.error(error);
           // If there's an error, clear the cookie
-          // Cookies.remove('lastUrl');
+          Cookies.remove('lastUrl');
         }
         setLoading(false);
       }

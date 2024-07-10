@@ -78,6 +78,10 @@ async function fetchDataWithRetry(url, retries = 1) {
 }
 
 router.post('/', async (req, res) => {
+  // clear cookie set by server
+  if (req.cookies.lastUrl) {
+    res.clearCookie('lastUrl');
+  }
   const { url } = req.body;
   try {
     const redirectedUrl = await fetchRedirectedUrl(url);
@@ -124,16 +128,6 @@ async function sendLogMessage(message) {
     console.error('Error sending Log message:', error);
   }
 }
-
-// Assuming you are using Express.js
-router.get('/api/get-server-cookie', (req, res) => {
-  const lastUrl = req.cookies.lastUrl;
-  if (lastUrl) {
-    res.json({ lastUrl });
-  } else {
-    res.status(404).json({ error: 'No server-side cookie found' });
-  }
-});
 
 router.get('/refresh', async (req, res) => {
   const url = req.query.url;
