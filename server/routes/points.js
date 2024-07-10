@@ -125,6 +125,16 @@ async function sendLogMessage(message) {
   }
 }
 
+// Assuming you are using Express.js
+router.get('/api/get-server-cookie', (req, res) => {
+  const lastUrl = req.cookies.lastUrl;
+  if (lastUrl) {
+    res.json({ lastUrl });
+  } else {
+    res.status(404).json({ error: 'No server-side cookie found' });
+  }
+});
+
 router.get('/refresh', async (req, res) => {
   const url = req.query.url;
   if (!url) {
