@@ -160,7 +160,7 @@ const App = () => {
           <div style={{ width: '200px', margin: '50px auto' }}>
             <CircularProgressbar
               value={percentage}
-              text={points < 3000 ? `${points}/3000` : `${points}`}
+              text={points <= 3000 ? `${points}/3000` : `${points}`}
               styles={buildStyles({
                 textColor: '#000',
                 pathColor: '#4caf50',
