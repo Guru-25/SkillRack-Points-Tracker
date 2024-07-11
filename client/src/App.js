@@ -160,7 +160,7 @@ const App = () => {
           <div style={{ width: '200px', margin: '50px auto' }}>
             <CircularProgressbar
               value={percentage}
-              text={`${points}/3000`}
+              text={points < 3000 ? `${points}/3000` : `${points}`}
               styles={buildStyles({
                 textColor: '#000',
                 pathColor: '#4caf50',
@@ -169,9 +169,16 @@ const App = () => {
               })}
             />
           </div>
+
+          {points >= 3000 && (
+            <>
+              <h3>Congratulations 🎉 {name} on completing 3000 points!</h3>
+              <br />
+            </>
+          )}
           <Summary codeTest={codeTest} codeTrack={codeTrack} codeTutor={codeTutor} dt={dt} dc={dc} totalPoints={points} />
           
-          {(codeTutor + codeTrack) >= 600 && (
+          {((codeTutor + codeTrack) >= 600 && points < 3000) &&  (
             <>
               <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
               {showSchedule && (
