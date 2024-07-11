@@ -105,7 +105,7 @@ const App = () => {
     const totalPoints = data.codeTest * 30 + data.codeTrack * 2 + data.dt * 20 + data.dc * 2;
     setPoints(totalPoints);
     setPercentage((totalPoints / 3000) * 100);
-    setLastFetched(new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
+    setLastFetched(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
     setCodeTest(data.codeTest);
     setCodeTrack(data.codeTrack);
     setCodeTutor(data.codeTutor);
