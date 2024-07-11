@@ -5,6 +5,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import Cookies from 'js-cookie';
 import Summary from './Summary'; // Import the Summary component
 import Schedule from './Schedule'; // Import the Schedule component
+import ScheduleDTDC from './ScheduleDTDC'; // Import the Schedule component
 import './App.css'; // Import the CSS file
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
   const [dt, setDt] = useState(0);
   const [dc, setDc] = useState(0);
   const [showSchedule, setShowSchedule] = useState(false);
+  const [showScheduleDTDC, setShowScheduleDTDC] = useState(false);
 
   const handleLogout = () => {
     setUrl('');
@@ -37,6 +39,7 @@ const App = () => {
     setDt(0);
     setDc(0);
     setShowSchedule(false);
+    setShowScheduleDTDC(false);
     Cookies.remove('lastUrl');
   };
   
@@ -127,6 +130,10 @@ const App = () => {
     setShowSchedule(true);
   };
 
+  const handleGenerateScheduleDTDC = () => {
+    setShowScheduleDTDC(true);
+  };
+
   return (
     <div style={{ textAlign: 'center', padding: '50px' }}>
       <h1>SkillRack Points Tracker</h1>
@@ -179,6 +186,20 @@ const App = () => {
               )}
             </>
           )}
+          {(codeTutor + codeTrack) < 600 && (
+            <>
+              <button onClick={handleGenerateScheduleDTDC} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
+              {showScheduleDTDC && (
+                <ScheduleDTDC
+                  initialValues={{
+                    codeTrack: codeTrack,
+                    problems: codeTrack + codeTutor
+                  }}
+                />
+              )}
+            </>
+          )}
+
           <br /><br />
           <button onClick={handleLogout} className="logout-button">Logout</button><br /><br />
         </>
