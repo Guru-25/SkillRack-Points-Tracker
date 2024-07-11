@@ -39,10 +39,18 @@ const Schedule = ({ initialValues }) => {
 
     const targetPoints = 3000;
     const today = new Date();
-    today.setUTCHours(today.getUTCHours() + 5);
-    today.setUTCMinutes(today.getUTCMinutes() + 30);
     const finish = new Date(finishDate);
-    const daysToFinish = Math.ceil((finish - today) / (1000 * 60 * 60 * 24));
+
+    // Set both dates to the start of the day (midnight) to exclude time
+    today.setHours(0, 0, 0, 0);
+    finish.setHours(0, 0, 0, 0);
+
+    // Calculate the difference in milliseconds between the two dates
+    const diffMilliseconds = finish - today;
+
+    // Convert milliseconds to fraction of a day
+    const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
+    const daysToFinish = diffMilliseconds / oneDayInMilliseconds;
 
     if (daysToFinish <= 0) {
       setError('Finish date must be in the future');
