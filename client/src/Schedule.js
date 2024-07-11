@@ -39,8 +39,10 @@ const Schedule = ({ initialValues }) => {
 
     const targetPoints = 3000;
     const today = new Date();
+    today.setUTCHours(today.getUTCHours() + 5);
+    today.setUTCMinutes(today.getUTCMinutes() + 30);
     const finish = new Date(finishDate);
-    const daysToFinish = Math.floor((finish - today) / (1000 * 60 * 60 * 24));
+    const daysToFinish = Math.ceil((finish - today) / (1000 * 60 * 60 * 24));
 
     if (daysToFinish <= 0) {
       setError('Finish date must be in the future');
