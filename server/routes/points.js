@@ -7,33 +7,6 @@ const request = require('request');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: process.env.SMTP_SECURE === 'true',
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  }
-});
-
-async function sendNewUserEmail(user, redirectedUrl) {
-  try {
-    let info = await transporter.sendMail({
-      from: `"SkillRack Points Tracker" <${process.env.FROM_ADDRESS}>`,
-      to: process.env.TO_ADDRESS,
-      subject: "New User Registered",
-      text: `Name: ${user.name}\nURL: ${redirectedUrl}`,
-      html: `
-        <p><strong>Name:</strong> ${user.name} (${user.dept})</p>
-        <p><strong>URL:</strong> <a href="${redirectedUrl}">${redirectedUrl}</a></p>
-      `
-    });
-  } catch (error) {
-    console.error('Error sending email:', error);
-  }
-}
-
 async function fetchRedirectedUrl(url) {
   return new Promise((resolve, reject) => {
     request.get(url, function (err, res, body) {
@@ -78,6 +51,50 @@ async function fetchDataWithRetry(url, retries = 1) {
   return data;
 }
 
+async function sendLogMessage(message) {
+  const botToken = process.env.LOG_BOT_TOKEN;
+  const chatId = process.env.LOG_CHAT_ID;
+  const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+  const logMessage = `[${data.name} (${data.dept})](${data.url})\n\n]`;
+
+  try {
+    await axios.post(url, {
+      chat_id: chatId,
+      text: message,
+      parse_mode: 'Markdown'
+    });
+  } catch (error) {
+    console.error('Error sending Log message:', error);
+  }
+}
+
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  secure: process.env.SMTP_SECURE === 'true',
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS
+  }
+});
+
+async function sendNewUserEmail(user, redirectedUrl) {
+  try {
+    let info = await transporter.sendMail({
+      from: `"SkillRack Points Tracker" <${process.env.FROM_ADDRESS}>`,
+      to: process.env.TO_ADDRESS,
+      subject: "New User Registered",
+      text: `Name: ${user.name}\nURL: ${redirectedUrl}`,
+      html: `
+        <p><strong>Name:</strong> ${user.name} (${user.dept})</p>
+        <p><strong>URL:</strong> <a href="${redirectedUrl}">${redirectedUrl}</a></p>
+      `
+    });
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+}
+
 router.post('/', async (req, res) => {
   // clear cookie set by server
   if (req.cookies.lastUrl) {
@@ -85,7 +102,6 @@ router.post('/', async (req, res) => {
   }
 
   const { url } = req.body;
-  let logMessage;
   try {
     const redirectedUrl = await fetchRedirectedUrl(url);
     if (!redirectedUrl) {
@@ -103,12 +119,10 @@ router.post('/', async (req, res) => {
       user = new User({ name: data.name, dept: data.dept, url: redirectedUrl });
       await user.save();
       console.log(`${data.name} is stored in DB`);
-      logMessage = `[${data.name} (${data.dept})](${data.url})\n\n#registered`;
-      await sendLogMessage(logMessage);
+      await sendLogMessage(logMessage + "#registered");
       await sendNewUserEmail(user, redirectedUrl);
     }
-    logMessage = `[${data.name} (${data.dept})](${data.url})\n\n#loggedin`;
-    await sendLogMessage(logMessage);
+    await sendLogMessage(logMessage + "#loggedin");
     // Send the redirectedUrl back to the client
     res.json({ ...data, redirectedUrl });
     
@@ -118,22 +132,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-async function sendLogMessage(message) {
-  const botToken = process.env.LOG_BOT_TOKEN;
-  const chatId = process.env.LOG_CHAT_ID;
-  const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-
-  try {
-    await axios.post(url, {
-      chat_id: chatId,
-      text: message,
-      parse_mode: 'Markdown'
-    });
-  } catch (error) {
-    console.error('Error sending Log message:', error);
-  }
-}
-
 router.get('/refresh', async (req, res) => {
   const url = req.query.url;
   if (!url) {
@@ -142,9 +140,7 @@ router.get('/refresh', async (req, res) => {
 
   const data = await fetchDataWithRetry(url);
   if (data) {
-    // Send log
-    const logMessage = `[${data.name} (${data.dept})](${data.url})\n\n#refreshed`;
-    await sendLogMessage(logMessage);
+    await sendLogMessage(logMessage + "#refreshed");
 
     res.json(data);
   } else {
