@@ -85,6 +85,7 @@ router.post('/', async (req, res) => {
   }
 
   const { url } = req.body;
+  let logMessage;
   try {
     const redirectedUrl = await fetchRedirectedUrl(url);
     if (!redirectedUrl) {
@@ -102,15 +103,14 @@ router.post('/', async (req, res) => {
       user = new User({ name: data.name, dept: data.dept, url: redirectedUrl });
       await user.save();
       console.log(`${data.name} is stored in DB`);
-      let logMessage = `[${data.name} (${data.dept})](${data.url})\n\n#registered`;
+      logMessage = `[${data.name} (${data.dept})](${data.url})\n\n#registered`;
       await sendLogMessage(logMessage);
       await sendNewUserEmail(user, redirectedUrl);
     }
-    
+    logMessage = `[${data.name} (${data.dept})](${data.url})\n\n#loggedin`;
+    await sendLogMessage(logMessage);
     // Send the redirectedUrl back to the client
     res.json({ ...data, redirectedUrl });
-    let logMessage = `[${data.name} (${data.dept})](${data.url})\n\n#loggedin`;
-    await sendLogMessage(logMessage);
     
   } catch (error) {
     console.error('Error in request processing:', error);
