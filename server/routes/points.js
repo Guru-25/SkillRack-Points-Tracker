@@ -51,8 +51,6 @@ async function fetchDataWithRetry(url, retries = 1) {
   return data;
 }
 
-const logMessage = `[${data.name} (${data.dept})](${data.url})\n\n]`;
-
 async function sendLogMessage(message) {
   const botToken = process.env.LOG_BOT_TOKEN;
   const chatId = process.env.LOG_CHAT_ID;
@@ -114,6 +112,7 @@ router.post('/', async (req, res) => {
       return res.status(500).json({ error: 'Failed to fetch data' });
     }
     
+    const logMessage = `[${data.name} (${data.dept})](${data.url})\n\n]`;
     // Perform database operations before sending response
     let user = await User.findOne({ url: redirectedUrl });
     if (!user && data.name !== '') {
@@ -141,6 +140,7 @@ router.get('/refresh', async (req, res) => {
 
   const data = await fetchDataWithRetry(url);
   if (data) {
+    const logMessage = `[${data.name} (${data.dept})](${data.url})\n\n]`;
     await sendLogMessage(logMessage + "#refreshed");
 
     res.json(data);
