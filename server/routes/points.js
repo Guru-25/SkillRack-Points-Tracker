@@ -51,11 +51,12 @@ async function fetchDataWithRetry(url, retries = 1) {
   return data;
 }
 
+const logMessage = `[${data.name} (${data.dept})](${data.url})\n\n]`;
+
 async function sendLogMessage(message) {
   const botToken = process.env.LOG_BOT_TOKEN;
   const chatId = process.env.LOG_CHAT_ID;
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-  const logMessage = `[${data.name} (${data.dept})](${data.url})\n\n]`;
 
   try {
     await axios.post(url, {
