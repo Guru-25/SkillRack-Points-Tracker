@@ -27,15 +27,15 @@ async function fetchData(url) {
     const rawName = $('div.ui.big.label.black').text().trim();
     const name = rawName.split('\n')[0].trim(); // Split by newline and take the first part
     const dept = $('div.ui.large.label').text().trim();
-    const codeTest = parseInt($('div:contains("PROGRAMS SOLVED")').next().find('.value').text().trim()) || 0;
-    const codeTrack = parseInt($('div:contains("CODE TEST")').next().find('.value').text().trim()) || 0;
     const codeTutor = parseInt($('div:contains("DT")').next().find('.value').text().trim()) || 0;
+    const codeTrack = parseInt($('div:contains("CODE TEST")').next().find('.value').text().trim()) || 0;
+    const codeTest = parseInt($('div:contains("PROGRAMS SOLVED")').next().find('.value').text().trim()) || 0;
     const dt = parseInt($('div:contains("DC")').next().find('.value').text().trim()) || 0;
     const dc = parseInt($('div:contains("CODE TRACK")').next().find('.value').text().trim()) || 0;
 
-    console.log({ name, dept, codeTest, codeTrack, codeTutor, dc, dt, url }); // Log the parsed values
+    console.log({ name, dept, codeTutor, codeTrack, codeTest, dt, dc, url }); // Log the parsed values
 
-    return { name, dept, codeTest, codeTrack, codeTutor, dc, dt, url};
+    return { name, dept, codeTutor, codeTrack, codeTest, dt, dc, url};
   } catch (error) {
     console.error('Error fetching data:', error);
     return null;
@@ -112,17 +112,19 @@ router.post('/', async (req, res) => {
       return res.status(500).json({ error: 'Failed to fetch data' });
     }
     
-    const logMessage = `[${data.name} (${data.dept})](${data.url})\n\n]`;
+    const logMessage = `[${data.name} (${data.dept})](${data.url})\n\n`;
     // Perform database operations before sending response
     let user = await User.findOne({ url: redirectedUrl });
-    if (!user && data.name !== '') {
-      user = new User({ name: data.name, dept: data.dept, url: redirectedUrl });
-      await user.save();
-      console.log(`${data.name} is stored in DB`);
-      await sendLogMessage(logMessage + "#registered");
-      await sendNewUserEmail(user, redirectedUrl);
+    if (data.name !== '') {
+      if (!user) {
+        user = new User({ name: data.name, dept: data.dept, url: redirectedUrl });
+        await user.save();
+        console.log(`${data.name} is stored in DB`);
+        await sendLogMessage(logMessage + "#registered");
+        await sendNewUserEmail(user, redirectedUrl);
+      }
+      await sendLogMessage(logMessage + "#loggedin");
     }
-    await sendLogMessage(logMessage + "#loggedin");
     // Send the redirectedUrl back to the client
     res.json({ ...data, redirectedUrl });
     
@@ -140,7 +142,7 @@ router.get('/refresh', async (req, res) => {
 
   const data = await fetchDataWithRetry(url);
   if (data) {
-    const logMessage = `[${data.name} (${data.dept})](${data.url})\n\n]`;
+    const logMessage = `[${data.name} (${data.dept})](${data.url})\n\n`;
     await sendLogMessage(logMessage + "#refreshed");
 
     res.json(data);

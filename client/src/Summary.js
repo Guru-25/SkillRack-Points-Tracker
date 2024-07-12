@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Summary = ({ codeTest, codeTrack, codeTutor, dt, dc, totalPoints }) => {
+const Summary = ({ codeTutor, codeTrack, codeTest, dt, dc, totalPoints }) => {
   return (
     <aside style={{ 
       textAlign: 'center', 

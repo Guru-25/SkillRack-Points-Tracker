@@ -17,9 +17,9 @@ const App = () => {
   const [lastFetched, setLastFetched] = useState(null);
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
-  const [codeTest, setCodeTest] = useState(0);
-  const [codeTrack, setCodeTrack] = useState(0);
   const [codeTutor, setCodeTutor] = useState(0);
+  const [codeTrack, setCodeTrack] = useState(0);
+  const [codeTest, setCodeTest] = useState(0);
   const [dt, setDt] = useState(0);
   const [dc, setDc] = useState(0);
   const [showSchedule, setShowSchedule] = useState(false);
@@ -33,9 +33,9 @@ const App = () => {
     setIsValidUrl(false);
     setLastFetched(null);
     setName('');
-    setCodeTest(0);
-    setCodeTrack(0);
     setCodeTutor(0);
+    setCodeTrack(0);
+    setCodeTest(0);
     setDt(0);
     setDc(0);
     setShowSchedule(false);
@@ -43,6 +43,17 @@ const App = () => {
     Cookies.remove('lastUrl');
   };
   
+  const calculatePoints = (data) => {
+    const totalPoints = data.codeTrack * 2 + data.codeTest * 30 + data.dt * 20 + data.dc * 2;
+    setPoints(totalPoints);
+    setPercentage((totalPoints / 3000) * 100);
+    setLastFetched(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+    setCodeTutor(data.codeTutor);
+    setCodeTrack(data.codeTrack);
+    setCodeTest(data.codeTest);
+    setDt(data.dt);
+    setDc(data.dc);
+  };
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -69,6 +80,11 @@ const App = () => {
   
     fetchInitialData();
   }, []);
+
+  const isValidSkillRackUrl = (url) => {
+    const regex = /^https?:\/\/www\.skillrack\.com/;
+    return regex.test(url);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,23 +115,6 @@ const App = () => {
       console.error(error);
     }
     setLoading(false);
-  };
-
-  const calculatePoints = (data) => {
-    const totalPoints = data.codeTest * 30 + data.codeTrack * 2 + data.dt * 20 + data.dc * 2;
-    setPoints(totalPoints);
-    setPercentage((totalPoints / 3000) * 100);
-    setLastFetched(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
-    setCodeTest(data.codeTest);
-    setCodeTrack(data.codeTrack);
-    setCodeTutor(data.codeTutor);
-    setDt(data.dt);
-    setDc(data.dc);
-  };
-
-  const isValidSkillRackUrl = (url) => {
-    const regex = /^https?:\/\/www\.skillrack\.com/;
-    return regex.test(url);
   };
 
   if (loading) {
@@ -176,7 +175,7 @@ const App = () => {
               <br />
             </>
           )}
-          <Summary codeTest={codeTest} codeTrack={codeTrack} codeTutor={codeTutor} dt={dt} dc={dc} totalPoints={points} />
+          <Summary codeTutor={codeTutor} codeTrack={codeTrack} codeTest={codeTest} dt={dt} dc={dc} totalPoints={points} />
           
           {((codeTutor + codeTrack) >= 600 && points < 3000) &&  (
             <>

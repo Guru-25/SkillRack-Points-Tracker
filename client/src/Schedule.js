@@ -20,6 +20,10 @@ const Schedule = ({ initialValues }) => {
     points: ''
   });
 
+  const calculatePoints = (tracks, dt, dc) => {
+    return tracks * 2 + dt * 20 + dc * 2;
+  };
+
   const generateSchedule = () => {
     setLoading(true);
     setError('');
@@ -73,7 +77,7 @@ const Schedule = ({ initialValues }) => {
     let finalDt = currentDt + daysToFinish;
     let finalDc = currentDc + daysToFinish;
 
-    let toScorePoints = finalDt * 20 + finalDc * 2 + currentTracks * 2;
+    let toScorePoints = currentTracks * 2 + finalDt * 20 + finalDc * 2;
     let neededPoints = targetPoints - toScorePoints;
     let trackIncrement = neededPoints / 2 / daysToFinish;
     if (trackIncrement < 0) {
@@ -82,9 +86,9 @@ const Schedule = ({ initialValues }) => {
 
     for (let i = 1; i <= daysToFinish; i++) {
       currentDate.setDate(currentDate.getDate() + 1);
+      currentTracks += trackIncrement;
       currentDt += 1;
       currentDc += 1;
-      currentTracks += trackIncrement;
 
       currentPoints = calculatePoints(currentTracks, currentDt, currentDc);
       if (flag === 1) break;
@@ -102,10 +106,6 @@ const Schedule = ({ initialValues }) => {
 
     setSchedule(newSchedule);
     setLoading(false);
-  };
-
-  const calculatePoints = (tracks, dt, dc) => {
-    return tracks * 2 + dt * 20 + dc * 2;
   };
 
   if (loading) return <div className="loading">Generating schedule...</div>;
