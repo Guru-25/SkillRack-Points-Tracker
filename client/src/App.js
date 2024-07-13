@@ -3,6 +3,7 @@ import axios from 'axios';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Cookies from 'js-cookie';
+import { Analytics } from "@vercel/analytics/react"
 import Summary from './Summary'; // Import the Summary component
 import Schedule from './Schedule'; // Import the Schedule component
 import ScheduleDTDC from './ScheduleDTDC'; // Import the Schedule component
@@ -136,6 +137,7 @@ const App = () => {
   return (
     <div style={{ textAlign: 'center', padding: '50px' }}>
       <h1>SkillRack Points Tracker</h1>
+      <Analytics/>
       {!isValidUrl && (
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
           <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> -&gt; Profile -&gt; Enter Password -&gt; Click "View" -&gt; Copy the URL</p>
