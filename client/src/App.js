@@ -29,21 +29,23 @@ const App = () => {
   const [showScheduleDTDC, setShowScheduleDTDC] = useState(false);
 
   const handleLogout = () => {
-    setUrl('');
-    setPoints(0);
-    setPercentage(0);
-    setError('');
-    setIsValidUrl(false);
-    setLastFetched(null);
-    setName('');
-    setCodeTutor(0);
-    setCodeTrack(0);
-    setCodeTest(0);
-    setDt(0);
-    setDc(0);
-    setShowSchedule(false);
-    setShowScheduleDTDC(false);
-    Cookies.remove('lastUrl');
+    if (window.confirm("Are you sure you want to log out? Refreshing the site will reload/fetch the data, so you don't need to log out and log in every time.")) {
+      setUrl('');
+      setPoints(0);
+      setPercentage(0);
+      setError('');
+      setIsValidUrl(false);
+      setLastFetched(null);
+      setName('');
+      setCodeTutor(0);
+      setCodeTrack(0);
+      setCodeTest(0);
+      setDt(0);
+      setDc(0);
+      setShowSchedule(false);
+      setShowScheduleDTDC(false);
+      Cookies.remove('lastUrl');
+    }
   };
 
   const calculatePoints = (data) => {
