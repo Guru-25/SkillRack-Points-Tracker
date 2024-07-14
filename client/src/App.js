@@ -5,11 +5,11 @@ import 'react-circular-progressbar/dist/styles.css';
 import Cookies from 'js-cookie';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
-import { Helmet } from 'react-helmet'; // Import Helmet
-import Summary from './Summary'; // Import the Summary component
-import Schedule from './Schedule'; // Import the Schedule component
-import ScheduleDTDC from './ScheduleDTDC'; // Import the Schedule component
-import './App.css'; // Import the CSS file
+import { HelmetProvider, Helmet } from 'react-helmet-async'; // Change here
+import Summary from './Summary';
+import Schedule from './Schedule';
+import ScheduleDTDC from './ScheduleDTDC';
+import './App.css';
 
 const App = () => {
   const [url, setUrl] = useState('');
@@ -141,111 +141,113 @@ const App = () => {
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: '50px' }}>
-      <Helmet>
-        <title>SkillRack Points Tracker and Calculator</title>
-        <meta name="description" content="Track and calculate your SkillRack points effortlessly using this powerful tool." />
-        <link rel="canonical" href="http://skillrack.gururaja.in" />
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "http://schema.org",
-              "@type": "WebSite",
-              "name": "SkillRack Points Tracker and Calculator",
-              "url": "http://skillrack.gururaja.in",
-              "description": "A tool to track and calculate SkillRack points using React, Express, Node.js, and more.",
-              "author": {
-                "@type": "Person",
-                "name": "Guru"
+    <HelmetProvider>
+      <div style={{ textAlign: 'center', padding: '50px' }}>
+        <Helmet>
+          <title>SkillRack Points Tracker and Calculator</title>
+          <meta name="description" content="Track and calculate your SkillRack points effortlessly using this powerful tool." />
+          <link rel="canonical" href="http://skillrack.gururaja.in" />
+          <script type="application/ld+json">
+            {`
+              {
+                "@context": "http://schema.org",
+                "@type": "WebSite",
+                "name": "SkillRack Points Tracker and Calculator",
+                "url": "http://skillrack.gururaja.in",
+                "description": "A tool to track and calculate SkillRack points using React, Express, Node.js, and more.",
+                "author": {
+                  "@type": "Person",
+                  "name": "Guru"
+                }
               }
-            }
-          `}
-        </script>
-      </Helmet>
-      <h1>SkillRack Points Tracker</h1>
-      <Analytics/>
-      <SpeedInsights/>
-      {!isValidUrl && (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-          <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> -&gt; Profile -&gt; Enter Password -&gt; Click "View" -&gt; Copy the URL</p>
-          <input
-            type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="Paste Profile URL"
-            name="profile_url"
-            style={{ width: '100%', maxWidth: '300px', padding: '10px', boxSizing: 'border-box' }}
-          />
-          <button type="submit" className="submit-button">Submit</button>
-        </form>
-      )}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {isValidUrl && (
-        <>
-          <p>Last fetched: {lastFetched}</p>
-          <br />
-          <h2>Hi.. {name} 😊</h2>
-          <div style={{ width: '200px', margin: '50px auto' }}>
-            <CircularProgressbar
-              value={percentage}
-              text={points <= 3000 ? `${points}/3000` : `${points}`}
-              styles={buildStyles({
-                textColor: '#000',
-                pathColor: '#4caf50',
-                trailColor: '#d6d6d6',
-                textSize: '16px'
-              })}
+            `}
+          </script>
+        </Helmet>
+        <h1>SkillRack Points Tracker</h1>
+        <Analytics/>
+        <SpeedInsights/>
+        {!isValidUrl && (
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+            <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> -&gt; Profile -&gt; Enter Password -&gt; Click "View" -&gt; Copy the URL</p>
+            <input
+              type="text"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="Paste Profile URL"
+              name="profile_url"
+              style={{ width: '100%', maxWidth: '300px', padding: '10px', boxSizing: 'border-box' }}
             />
-          </div>
+            <button type="submit" className="submit-button">Submit</button>
+          </form>
+        )}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {isValidUrl && (
+          <>
+            <p>Last fetched: {lastFetched}</p>
+            <br />
+            <h2>Hi.. {name} 😊</h2>
+            <div style={{ width: '200px', margin: '50px auto' }}>
+              <CircularProgressbar
+                value={percentage}
+                text={points <= 3000 ? `${points}/3000` : `${points}`}
+                styles={buildStyles({
+                  textColor: '#000',
+                  pathColor: '#4caf50',
+                  trailColor: '#d6d6d6',
+                  textSize: '16px'
+                })}
+              />
+            </div>
 
-          {points >= 3000 && (
-            <>
-              <h3>Congratulations 🎉 {name} on completing 3000 points!</h3>
-              <br />
-            </>
-          )}
-          <Summary codeTutor={codeTutor} codeTrack={codeTrack} codeTest={codeTest} dt={dt} dc={dc} totalPoints={points} />
-          
-          {((codeTutor + codeTrack) >= 600 && points < 3000) &&  (
-            <>
-              <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
-              {showSchedule && (
-                <Schedule
-                  initialValues={{
-                    codeTrack: codeTrack,
-                    dt: dt,
-                    dc: dc,
-                    points: points
-                  }}
-                />
-              )}
-            </>
-          )}
-          {(codeTutor + codeTrack) < 600 && (
-            <>
-              <button onClick={handleGenerateScheduleDTDC} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
-              {showScheduleDTDC && (
-                <ScheduleDTDC
-                  initialValues={{
-                    codeTrack: codeTrack,
-                    problems: codeTrack + codeTutor
-                  }}
-                />
-              )}
-            </>
-          )}
+            {points >= 3000 && (
+              <>
+                <h3>Congratulations 🎉 {name} on completing 3000 points!</h3>
+                <br />
+              </>
+            )}
+            <Summary codeTutor={codeTutor} codeTrack={codeTrack} codeTest={codeTest} dt={dt} dc={dc} totalPoints={points} />
+            
+            {((codeTutor + codeTrack) >= 600 && points < 3000) &&  (
+              <>
+                <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
+                {showSchedule && (
+                  <Schedule
+                    initialValues={{
+                      codeTrack: codeTrack,
+                      dt: dt,
+                      dc: dc,
+                      points: points
+                    }}
+                  />
+                )}
+              </>
+            )}
+            {(codeTutor + codeTrack) < 600 && (
+              <>
+                <button onClick={handleGenerateScheduleDTDC} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
+                {showScheduleDTDC && (
+                  <ScheduleDTDC
+                    initialValues={{
+                      codeTrack: codeTrack,
+                      problems: codeTrack + codeTutor
+                    }}
+                  />
+                )}
+              </>
+            )}
 
+            <br /><br />
+            <button onClick={handleLogout} className="logout-button">Logout</button><br /><br />
+          </>
+        )}
+        <footer style={{ marginTop: '50px' }}>
           <br /><br />
-          <button onClick={handleLogout} className="logout-button">Logout</button><br /><br />
-        </>
-      )}
-      <footer style={{ marginTop: '50px' }}>
-        <br /><br />
-        Built with MERN stack by <a href="https://github.com/Guru-25" target="_blank" rel="noopener noreferrer"><b>Guru</b></a>
-        <br /><br />
-        Give a ⭐️ on <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>GitHub</b></a>
-      </footer>
-    </div>
+          Built with MERN stack by <a href="https://github.com/Guru-25" target="_blank" rel="noopener noreferrer"><b>Guru</b></a>
+          <br /><br />
+          Give a ⭐️ on <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>GitHub</b></a>
+        </footer>
+      </div>
+    </HelmetProvider>
   );
 };
 
