@@ -1,6 +1,6 @@
-# SkillRack Points Tracker
+# SkillRack Points Tracker and Calculator
 
-A Simple SkillRack points tracker using React, Express, Node.js, Axios, Cheerio, MongoDB, Mongoose, and deployed on Vercel. This project scrapes user data from SkillRack, calculates points, and displays them with a progress bar. It also uses js-cookie for managing cookies.
+Track and calculate your SkillRack points effortlessly using this powerful tool built with React, Express, Node.js, Axios, Cheerio, MongoDB, Mongoose, and deployed on Vercel. This project is designed to scrape user data from SkillRack, calculate points, and display them with a progress bar.
 
 ## Tools and Technologies
 

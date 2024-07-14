@@ -3,8 +3,9 @@ import axios from 'axios';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Cookies from 'js-cookie';
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Helmet } from 'react-helmet'; // Import Helmet
 import Summary from './Summary'; // Import the Summary component
 import Schedule from './Schedule'; // Import the Schedule component
 import ScheduleDTDC from './ScheduleDTDC'; // Import the Schedule component
@@ -44,7 +45,7 @@ const App = () => {
     setShowScheduleDTDC(false);
     Cookies.remove('lastUrl');
   };
-  
+
   const calculatePoints = (data) => {
     const totalPoints = data.codeTrack * 2 + data.codeTest * 30 + data.dt * 20 + data.dc * 2;
     setPoints(totalPoints);
@@ -79,7 +80,7 @@ const App = () => {
         setLoading(false);
       }
     };
-  
+
     fetchInitialData();
   }, []);
 
@@ -91,12 +92,12 @@ const App = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-  
+
     if (!isValidSkillRackUrl(url)) {
       setError('Invalid URL. Please enter a valid SkillRack Profile URL!!');
       return;
     }
-  
+
     setLoading(true);
     try {
       const { data } = await axios.post('/api/points', { url });
@@ -122,6 +123,10 @@ const App = () => {
   if (loading) {
     return (
       <div style={{ textAlign: 'center', padding: '50px' }}>
+        <Helmet>
+          <title>Loading... | SkillRack Points Tracker and Calculator</title>
+          <meta name="description" content="Loading data for SkillRack Points Tracker and Calculator." />
+        </Helmet>
         <h1>Loading...</h1>
       </div>
     );
@@ -137,6 +142,26 @@ const App = () => {
 
   return (
     <div style={{ textAlign: 'center', padding: '50px' }}>
+      <Helmet>
+        <title>SkillRack Points Tracker and Calculator</title>
+        <meta name="description" content="Track and calculate your SkillRack points effortlessly using this powerful tool." />
+        <link rel="canonical" href="http://skillrack.gururaja.in" />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "http://schema.org",
+              "@type": "WebSite",
+              "name": "SkillRack Points Tracker and Calculator",
+              "url": "http://skillrack.gururaja.in",
+              "description": "A tool to track and calculate SkillRack points using React, Express, Node.js, and more.",
+              "author": {
+                "@type": "Person",
+                "name": "Guru"
+              }
+            }
+          `}
+        </script>
+      </Helmet>
       <h1>SkillRack Points Tracker</h1>
       <Analytics/>
       <SpeedInsights/>

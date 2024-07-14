@@ -1,6 +1,7 @@
 {
-  "short_name": "SkillRack Points Tracker",
-  "name": "SkillRack Points Tracker",
+  "short_name": "SkillRack Tracker",
+  "name": "SkillRack Points Tracker and Calculator",
+  "description": "Track and calculate your SkillRack points effortlessly using this powerful tool.",
   "icons": [
     {
       "src": "favicon.ico",
