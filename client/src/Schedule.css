@@ -4,16 +4,17 @@
     margin: 0 auto;
     padding: 20px;
     text-align: center;
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .schedule-title {
-    font-size: 24px;
+    font-size: 26px;
     margin-bottom: 20px;
     color: #333;
+    font-weight: bold;
 }
 
 .form-container {
@@ -33,6 +34,11 @@
     max-width: 300px;
     margin: 0 auto;
     box-sizing: border-box; /* Ensure padding doesn't increase total width */
+    transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: #4caf50;
 }
 
 .date-input::placeholder {
@@ -47,13 +53,14 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     width: 100%; /* Make the button take up the full width */
     max-width: 300px; /* Ensure it doesn't exceed the input field's max width */
 }
 
 .generate-button:hover {
     background-color: #45a049;
+    transform: translateY(-2px);
 }
 
 .error-message {
@@ -70,23 +77,30 @@
 .schedule-table {
     width: 100%;
     border-collapse: collapse;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .schedule-table th,
 .schedule-table td {
     border: 1px solid #ddd;
-    padding: 10px;
+    padding: 12px;
     font-size: 14px;
+    transition: background-color 0.3s ease;
 }
 
 .schedule-table th {
     background-color: #4caf50;
     color: white;
+    font-weight: bold;
 }
 
 .schedule-table td {
-    background-color: white;
+    background-color: #ffffff;
     color: #333;
+}
+
+.schedule-table tbody tr:hover {
+    background-color: #f1f1f1;
 }
 
 .loading {
