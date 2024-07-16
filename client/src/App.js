@@ -29,7 +29,7 @@ const App = () => {
   const [showScheduleDTDC, setShowScheduleDTDC] = useState(false);
 
   const handleLogout = () => {
-    if (window.confirm("Are you sure you want to log out? Refreshing the site will reload/fetch the data, so you don't need to log out and log in every time.")) {
+    if (window.confirm("Chuma chuma nondakudathu bro.... Are you sure you want to log out? Just refreshing the site will reload/refetch the data, so you don't need to log out and log in every time :D. Press 'Ok' to log out")) {
       setUrl('');
       setPoints(0);
       setPercentage(0);
