@@ -11,6 +11,20 @@ import Schedule from './Schedule';
 import ScheduleDTDC from './ScheduleDTDC';
 import './App.css';
 
+// Custom Modal Component
+const Modal = ({ show, onClose, onConfirm, message }) => {
+  if (!show) return null;
+  return (
+    <div className="modal">
+      <div className="modal-content">
+        <p>{message}</p>
+        <button onClick={onConfirm} className="modal-button">Ok</button>
+        <button onClick={onClose} className="modal-button">Cancel</button>
+      </div>
+    </div>
+  );
+};
+
 const App = () => {
   const [url, setUrl] = useState('');
   const [points, setPoints] = useState(0);
@@ -28,26 +42,30 @@ const App = () => {
   const [requiredPoints, setRequiredPoints] = useState(3000); // Default value
   const [showSchedule, setShowSchedule] = useState(false);
   const [showScheduleDTDC, setShowScheduleDTDC] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false); // State for logout modal
 
   const handleLogout = () => {
-    if (window.confirm("Chummma chumma lam nondakudathu bro.... Are you sure you want to logout? Just refreshing the site will reload/refetch the data, so you don't need to logout and login every time :D. Press 'Ok' to Logout")) {
-      setUrl('');
-      setPoints(0);
-      setPercentage(0);
-      setError('');
-      setIsValidUrl(false);
-      setLastFetched(null);
-      setName('');
-      setCodeTutor(0);
-      setCodeTrack(0);
-      setCodeTest(0);
-      setDt(0);
-      setDc(0);
-      setRequiredPoints(3000); // Reset to default value
-      setShowSchedule(false);
-      setShowScheduleDTDC(false);
-      Cookies.remove('lastUrl');
-    }
+    setShowLogoutModal(true); // Show the modal
+  };
+
+  const confirmLogout = () => {
+    setUrl('');
+    setPoints(0);
+    setPercentage(0);
+    setError('');
+    setIsValidUrl(false);
+    setLastFetched(null);
+    setName('');
+    setCodeTutor(0);
+    setCodeTrack(0);
+    setCodeTest(0);
+    setDt(0);
+    setDc(0);
+    setRequiredPoints(3000); // Reset to default value
+    setShowSchedule(false);
+    setShowScheduleDTDC(false);
+    Cookies.remove('lastUrl');
+    setShowLogoutModal(false); // Close the modal after logging out
   };
 
   const calculatePoints = (data) => {
@@ -252,6 +270,12 @@ const App = () => {
           <br /><br />
           Give a ⭐️ on <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>GitHub</b></a>
         </footer>
+        <Modal
+          show={showLogoutModal}
+          onClose={() => setShowLogoutModal(false)}
+          onConfirm={confirmLogout}
+          message="Are you sure you want to logout? Refreshing the site will reload the data. Press 'Ok' to Logout."
+        />
       </div>
     </HelmetProvider>
   );
