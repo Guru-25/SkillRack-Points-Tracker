@@ -72,7 +72,7 @@ const App = () => {
     const totalPoints = data.codeTrack * 2 + data.codeTest * 30 + data.dt * 20 + data.dc * 2;
     setPoints(totalPoints);
     setPercentage((totalPoints / data.requiredPoints) * 100);
-    setLastFetched(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+    setLastFetched(new Date().toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: true }));
     setCodeTutor(data.codeTutor);
     setCodeTrack(data.codeTrack);
     setCodeTest(data.codeTest);
@@ -206,7 +206,7 @@ const App = () => {
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {isValidUrl && (
           <>
-            <p>Last fetched: {lastFetched}</p>
+            <p>Updated on {lastFetched}</p>
             <br />
             <h2>Hi.. {name} 😊</h2>
             <div style={{ width: '200px', margin: '50px auto' }}>
