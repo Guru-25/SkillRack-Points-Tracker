@@ -138,10 +138,11 @@ router.post('/', async (req, res) => {
         user = new User({ name: data.name, dept: data.dept, url: redirectedUrl });
         await user.save();
         console.log(`${data.name} is stored in DB`);
-        await sendLogMessage(logMessage + "#registered");
+        await sendLogMessage(logMessage + "⭐️ #registered");
         await sendNewUserEmail(user, data.year.slice(-2), redirectedUrl);
+      } else {
+        await sendLogMessage(logMessage + "🔑 #loggedin");
       }
-      await sendLogMessage(logMessage + "#loggedin");
     }
     // Send the redirectedUrl back to the client
     res.json({ ...data, redirectedUrl });
@@ -161,7 +162,7 @@ router.get('/refresh', async (req, res) => {
   const data = await fetchDataWithRetry(url);
   if (data) {
     const logMessage = `[${data.name} (${data.dept}'${data.year.slice(-2)})](${data.url})\n\n`;
-    await sendLogMessage(logMessage + "#refreshed");
+    await sendLogMessage(logMessage + "♻️ #refreshed");
 
     res.json(data);
   } else {
