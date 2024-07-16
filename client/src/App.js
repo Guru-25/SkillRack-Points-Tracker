@@ -39,7 +39,7 @@ const App = () => {
   const [codeTest, setCodeTest] = useState(0);
   const [dt, setDt] = useState(0);
   const [dc, setDc] = useState(0);
-  const [requiredPoints, setRequiredPoints] = useState(3000); // Default value
+  const [requiredPoints, setRequiredPoints] = useState(5000); // Default value
   const [showSchedule, setShowSchedule] = useState(false);
   const [showScheduleDTDC, setShowScheduleDTDC] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false); // State for logout modal
@@ -61,7 +61,7 @@ const App = () => {
     setCodeTest(0);
     setDt(0);
     setDc(0);
-    setRequiredPoints(3000); // Reset to default value
+    setRequiredPoints(5000); // Reset to default value
     setShowSchedule(false);
     setShowScheduleDTDC(false);
     Cookies.remove('lastUrl');

@@ -47,9 +47,9 @@ async function fetchData(url) {
     const dt = parseInt($('div:contains("DC")').next().find('.value').text().trim()) || 0;
     const dc = parseInt($('div:contains("CODE TRACK")').next().find('.value').text().trim()) || 0;
 
-    let requiredPoints = 3000;
-    if ((year == 2026 || year == 2027) && dept === 'CSE') {
-      requiredPoints = 5000;
+    let requiredPoints = 5000;
+    if (year == 2025) {
+      requiredPoints = 3000;
     }
     console.log({ name, dept, year, codeTutor, codeTrack, codeTest, dt, dc, requiredPoints, url}); // Log the parsed values
 
@@ -95,15 +95,15 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-async function sendNewUserEmail(user, redirectedUrl) {
+async function sendNewUserEmail(user, year, redirectedUrl) {
   try {
     let info = await transporter.sendMail({
       from: `"SkillRack Points Tracker" <${process.env.FROM_ADDRESS}>`,
       to: process.env.TO_ADDRESS,
       subject: "New User Registered",
-      text: `Name: ${user.name}\nURL: ${redirectedUrl}`,
+      text: `Name: ${user.name} (${user.dept}'${year})\nURL: ${redirectedUrl}`,
       html: `
-        <p><strong>Name:</strong> ${user.name} (${user.dept})</p>
+        <p><strong>Name:</strong> ${user.name} (${user.dept}'${year})</p>
         <p><strong>URL:</strong> <a href="${redirectedUrl}">${redirectedUrl}</a></p>
       `
     });
@@ -130,7 +130,7 @@ router.post('/', async (req, res) => {
       return res.status(500).json({ error: 'Failed to fetch data' });
     }
     
-    const logMessage = `[${data.name} (${data.dept})](${data.url})\n\n`;
+    const logMessage = `[${data.name} (${data.dept}'${data.year.slice(-2)})](${data.url})\n\n`;
     // Perform database operations before sending response
     let user = await User.findOne({ url: redirectedUrl });
     if (data.name !== '') {
@@ -139,7 +139,7 @@ router.post('/', async (req, res) => {
         await user.save();
         console.log(`${data.name} is stored in DB`);
         await sendLogMessage(logMessage + "#registered");
-        await sendNewUserEmail(user, redirectedUrl);
+        await sendNewUserEmail(user, data.year.slice(-2), redirectedUrl);
       }
       await sendLogMessage(logMessage + "#loggedin");
     }
@@ -160,7 +160,7 @@ router.get('/refresh', async (req, res) => {
 
   const data = await fetchDataWithRetry(url);
   if (data) {
-    const logMessage = `[${data.name} (${data.dept})](${data.url})\n\n`;
+    const logMessage = `[${data.name} (${data.dept}'${data.year.slice(-2)})](${data.url})\n\n`;
     await sendLogMessage(logMessage + "#refreshed");
 
     res.json(data);
