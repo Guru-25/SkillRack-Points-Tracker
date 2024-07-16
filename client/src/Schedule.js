@@ -17,7 +17,8 @@ const Schedule = ({ initialValues }) => {
     codeTrack: '',
     dt: '',
     dc: '',
-    points: ''
+    points: '',
+    requiredPoints: '',
   });
 
   const calculatePoints = (tracks, dt, dc) => {
@@ -28,7 +29,7 @@ const Schedule = ({ initialValues }) => {
     setLoading(true);
     setError('');
 
-    const { codeTrack, dt, dc, points } = initialValuesState;
+    const { codeTrack, dt, dc, points, requiredPoints } = initialValuesState;
 
     if (!finishDate) {
       setError('Please enter the date');
@@ -41,7 +42,7 @@ const Schedule = ({ initialValues }) => {
     let currentDc = parseInt(dc);
     let currentPoints = parseInt(points);
 
-    const targetPoints = 5000;
+    const targetPoints = parseInt(requiredPoints);
     const today = new Date();
     const finish = new Date(finishDate);
 
@@ -108,21 +109,23 @@ const Schedule = ({ initialValues }) => {
     setLoading(false);
   };
 
+  const { requiredPoints } = initialValuesState; // Extract targetPoints from initialValuesState
+
   if (loading) return <div className="loading">Generating schedule...</div>;
 
   return (
     <div className="schedule-container">
-      <h2 className="schedule-title">Schedule to Reach 5000 Points</h2>
+      <h2 className="schedule-title">Schedule to Reach {requiredPoints} Points</h2>
       <div className="form-container">
         <input
           type="text"
           value={finishDate}
           onFocus={
-            (e)=> {
+            (e) => {
               e.currentTarget.type = "date";
               e.currentTarget.focus();
-             }
-           }
+            }
+          }
           onChange={(e) => setFinishDate(e.target.value)}
           className="input-field date-input"
           placeholder="Enter Target Date"
@@ -132,28 +135,28 @@ const Schedule = ({ initialValues }) => {
       {error && <div className="error-message">{error}</div>}
       {schedule.length > 0 && (
         <div className="schedule-table-container">
-        <table className="schedule-table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Tracks</th>
-              <th>DT</th>
-              <th>DC</th>
-              <th>Points</th>
-            </tr>
-          </thead>
-          <tbody>
-            {schedule.map((day, index) => (
-              <tr key={index}>
-                <td>{day.date}</td>
-                <td>{day.tracks}</td>
-                <td>{day.dt}</td>
-                <td>{day.dc}</td>
-                <td>{day.points}</td>
+          <table className="schedule-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Tracks</th>
+                <th>DT</th>
+                <th>DC</th>
+                <th>Points</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {schedule.map((day, index) => (
+                <tr key={index}>
+                  <td>{day.date}</td>
+                  <td>{day.tracks}</td>
+                  <td>{day.dt}</td>
+                  <td>{day.dc}</td>
+                  <td>{day.points}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

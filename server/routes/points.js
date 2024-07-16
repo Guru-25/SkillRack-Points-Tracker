@@ -27,15 +27,33 @@ async function fetchData(url) {
     const rawName = $('div.ui.big.label.black').text().trim();
     const name = rawName.split('\n')[0].trim(); // Split by newline and take the first part
     const dept = $('div.ui.large.label').text().trim();
+    // Locate the text containing the year information and extract the year
+    const textNodes = $('div.ui.four.wide.center.aligned.column').contents().filter(function() {
+      return this.nodeType === 3; // Node type 3 is a text node
+    });
+
+    let year;
+    textNodes.each(function() {
+      const text = $(this).text().trim();
+      const match = text.match(/\(Second Year\)\s*(\d{4})/);
+      if (match) {
+          year = match[1];
+          return false; // Break the loop
+      }
+    });
     const codeTutor = parseInt($('div:contains("DT")').next().find('.value').text().trim()) || 0;
     const codeTrack = parseInt($('div:contains("CODE TEST")').next().find('.value').text().trim()) || 0;
     const codeTest = parseInt($('div:contains("PROGRAMS SOLVED")').next().find('.value').text().trim()) || 0;
     const dt = parseInt($('div:contains("DC")').next().find('.value').text().trim()) || 0;
     const dc = parseInt($('div:contains("CODE TRACK")').next().find('.value').text().trim()) || 0;
 
-    console.log({ name, dept, codeTutor, codeTrack, codeTest, dt, dc, url }); // Log the parsed values
+    let requiredPoints = 3000;
+    if ((year == 2026 || year == 2027) && dept === 'CSE') {
+      requiredPoints = 5000;
+    }
+    console.log({ name, dept, year, codeTutor, codeTrack, codeTest, dt, dc, requiredPoints, url}); // Log the parsed values
 
-    return { name, dept, codeTutor, codeTrack, codeTest, dt, dc, url};
+    return { name, dept, year, codeTutor, codeTrack, codeTest, dt, dc, requiredPoints, url};
   } catch (error) {
     console.error('Error fetching data:', error);
     return null;

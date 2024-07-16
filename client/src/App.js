@@ -5,7 +5,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import Cookies from 'js-cookie';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
-import { HelmetProvider, Helmet } from 'react-helmet-async'; // Change here
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 import Summary from './Summary';
 import Schedule from './Schedule';
 import ScheduleDTDC from './ScheduleDTDC';
@@ -25,6 +25,7 @@ const App = () => {
   const [codeTest, setCodeTest] = useState(0);
   const [dt, setDt] = useState(0);
   const [dc, setDc] = useState(0);
+  const [requiredPoints, setRequiredPoints] = useState(3000); // Default value
   const [showSchedule, setShowSchedule] = useState(false);
   const [showScheduleDTDC, setShowScheduleDTDC] = useState(false);
 
@@ -42,6 +43,7 @@ const App = () => {
       setCodeTest(0);
       setDt(0);
       setDc(0);
+      setRequiredPoints(3000); // Reset to default value
       setShowSchedule(false);
       setShowScheduleDTDC(false);
       Cookies.remove('lastUrl');
@@ -51,13 +53,14 @@ const App = () => {
   const calculatePoints = (data) => {
     const totalPoints = data.codeTrack * 2 + data.codeTest * 30 + data.dt * 20 + data.dc * 2;
     setPoints(totalPoints);
-    setPercentage((totalPoints / 5000) * 100);
+    setPercentage((totalPoints / data.requiredPoints) * 100);
     setLastFetched(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
     setCodeTutor(data.codeTutor);
     setCodeTrack(data.codeTrack);
     setCodeTest(data.codeTest);
     setDt(data.dt);
     setDc(data.dc);
+    setRequiredPoints(data.requiredPoints);
   };
 
   useEffect(() => {
@@ -191,7 +194,7 @@ const App = () => {
             <div style={{ width: '200px', margin: '50px auto' }}>
               <CircularProgressbar
                 value={percentage}
-                text={points <= 5000 ? `${points}/5000` : `${points}`}
+                text={points <= requiredPoints ? `${points}/${requiredPoints}` : `${points}`}
                 styles={buildStyles({
                   textColor: '#000',
                   pathColor: '#4caf50',
@@ -201,15 +204,15 @@ const App = () => {
               />
             </div>
 
-            {points >= 5000 && (
+            {points >= requiredPoints && (
               <>
-                <h3>Congratulations 🎉 {name} on completing 5000 points!</h3>
+                <h3>Congratulations 🎉 {name} on completing {requiredPoints} points!</h3>
                 <br />
               </>
             )}
             <Summary codeTutor={codeTutor} codeTrack={codeTrack} codeTest={codeTest} dt={dt} dc={dc} totalPoints={points} />
             
-            {((codeTutor + codeTrack) >= 600 && points < 5000) &&  (
+            {((codeTutor + codeTrack) >= 600 && points < requiredPoints) &&  (
               <>
                 <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
                 {showSchedule && (
@@ -218,7 +221,8 @@ const App = () => {
                       codeTrack: codeTrack,
                       dt: dt,
                       dc: dc,
-                      points: points
+                      points: points,
+                      requiredPoints: requiredPoints
                     }}
                   />
                 )}
