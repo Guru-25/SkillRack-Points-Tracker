@@ -67,6 +67,8 @@ button:hover {
 .generate-schedule-button {
   background-color: #4caf50;
   color: white;
+  padding: 15px 20px;
+  font-size: 15px;
 }
 
 .generate-schedule-button:hover {
