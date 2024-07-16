@@ -41,7 +41,7 @@ const Schedule = ({ initialValues }) => {
     let currentDc = parseInt(dc);
     let currentPoints = parseInt(points);
 
-    const targetPoints = 3000;
+    const targetPoints = 5000;
     const today = new Date();
     const finish = new Date(finishDate);
 
@@ -112,7 +112,7 @@ const Schedule = ({ initialValues }) => {
 
   return (
     <div className="schedule-container">
-      <h2 className="schedule-title">Schedule to Reach 3000 Points</h2>
+      <h2 className="schedule-title">Schedule to Reach 5000 Points</h2>
       <div className="form-container">
         <input
           type="text"

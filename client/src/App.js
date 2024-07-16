@@ -51,7 +51,7 @@ const App = () => {
   const calculatePoints = (data) => {
     const totalPoints = data.codeTrack * 2 + data.codeTest * 30 + data.dt * 20 + data.dc * 2;
     setPoints(totalPoints);
-    setPercentage((totalPoints / 3000) * 100);
+    setPercentage((totalPoints / 5000) * 100);
     setLastFetched(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
     setCodeTutor(data.codeTutor);
     setCodeTrack(data.codeTrack);
@@ -191,7 +191,7 @@ const App = () => {
             <div style={{ width: '200px', margin: '50px auto' }}>
               <CircularProgressbar
                 value={percentage}
-                text={points <= 3000 ? `${points}/3000` : `${points}`}
+                text={points <= 5000 ? `${points}/5000` : `${points}`}
                 styles={buildStyles({
                   textColor: '#000',
                   pathColor: '#4caf50',
@@ -201,15 +201,15 @@ const App = () => {
               />
             </div>
 
-            {points >= 3000 && (
+            {points >= 5000 && (
               <>
-                <h3>Congratulations 🎉 {name} on completing 3000 points!</h3>
+                <h3>Congratulations 🎉 {name} on completing 5000 points!</h3>
                 <br />
               </>
             )}
             <Summary codeTutor={codeTutor} codeTrack={codeTrack} codeTest={codeTest} dt={dt} dc={dc} totalPoints={points} />
             
-            {((codeTutor + codeTrack) >= 600 && points < 3000) &&  (
+            {((codeTutor + codeTrack) >= 600 && points < 5000) &&  (
               <>
                 <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
                 {showSchedule && (
