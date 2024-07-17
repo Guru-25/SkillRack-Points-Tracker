@@ -1,8 +1,6 @@
 {
   "version": 2,
-   {
-     "regions": ["bom1"]
-   }
+  "regions": ["bom1"],
   "builds": [
     {
       "src": "server/index.js",
