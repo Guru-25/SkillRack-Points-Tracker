@@ -34,13 +34,13 @@ async function fetchData(url) {
 
     let year;
     textNodes.each(function() {
-  const text = $(this).text().trim();
-  const match = text.match(/\((First Year|Second Year|Pre-Final Year)\)\s*(\d{4})/);
-  if (match) {
-      year = match[2]; // The year is captured in the second group
-      return false; // Break the loop
-  }
-});
+      const text = $(this).text().trim();
+      const match = text.match(/\(Year\)\s*(\d{4})/);
+      if (match) {
+          year = match[2]; // The year is captured in the second group
+          return false; // Break the loop
+      }
+    });
     const codeTutor = parseInt($('div:contains("DT")').next().find('.value').text().trim()) || 0;
     const codeTrack = parseInt($('div:contains("CODE TEST")').next().find('.value').text().trim()) || 0;
     const codeTest = parseInt($('div:contains("PROGRAMS SOLVED")').next().find('.value').text().trim()) || 0;
