@@ -35,9 +35,9 @@ async function fetchData(url) {
     let year;
     textNodes.each(function() {
       const text = $(this).text().trim();
-      const match = text.match(/\(Year\)\s*(\d{4})/);
+      const match = text.match(/\((First Year|Second Year|Pre-Final Year)\)\s*(\d{4})/);
       if (match) {
-          year = match[1]; // The year is captured in the second group
+          year = match[2]; // The year is captured in the second group
           return false; // Break the loop
       }
     });
