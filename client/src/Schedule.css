@@ -1,6 +1,6 @@
 /* Schedule.css */
 .schedule-container {
-    max-width: 800px;
+    max-width: 400px;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
@@ -11,7 +11,7 @@
 }
 
 .schedule-title {
-    font-size: 26px;
+    font-size: 20px;
     margin-bottom: 20px;
     color: #333;
     font-weight: bold;
@@ -26,12 +26,12 @@
 }
 
 .input-field {
-    padding: 10px;
+    padding: 12px 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
     width: 100%;
-    max-width: 300px;
+    max-width: 200px;
     margin: 0 auto;
     box-sizing: border-box; /* Ensure padding doesn't increase total width */
     transition: border-color 0.3s ease;

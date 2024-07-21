@@ -115,10 +115,10 @@ const Schedule = ({ initialValues }) => {
 
   return (
     <div className="schedule-container">
-      <h2 className="schedule-title">Schedule to Reach {requiredPoints} Points</h2>
+      <h2 className="schedule-title">Schedule for {requiredPoints} Points</h2>
       <div className="form-container">
         <input
-          type="text"
+          type="date"
           value={finishDate}
           onFocus={
             (e) => {
@@ -130,7 +130,7 @@ const Schedule = ({ initialValues }) => {
           className="input-field date-input"
           placeholder="Enter Target Date"
         />
-        <button onClick={generateSchedule} className="generate-button">Generate Schedule</button>
+        <button onClick={generateSchedule} className="generate-button">Generate</button>
       </div>
       {error && <div className="error-message">{error}</div>}
       {schedule.length > 0 && (
