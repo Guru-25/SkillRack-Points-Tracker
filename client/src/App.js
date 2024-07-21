@@ -214,7 +214,7 @@ const App = () => {
           <>
             <p>Updated on {lastFetched}</p>
             <br />
-            <h2>Hi.. {name} 😊</h2>
+            <h2>Hi {name} ✨✨</h2>
             <div style={{ width: '200px', margin: '50px auto' }}>
               <CircularProgressbar
                 value={percentage}
