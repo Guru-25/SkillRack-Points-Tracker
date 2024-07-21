@@ -47,32 +47,32 @@ button:hover {
 .submit-button {
   width: 100%;
   max-width: 120px;
-  background-color: #4caf50;
+  background-color: hsl(120, 100%, 27%);
   color: white;
 }
 
 .submit-button:hover {
-  background-color: #45a049;
+  background-color: hsl(120, 100%, 24%);
 }
 
 .logout-button {
-  background-color: #f44336;
+  background-color: hsl(0, 91%, 48%);
   color: white;
 }
 
 .logout-button:hover {
-  background-color: #d32f2f;
+  background-color: hsl(0, 91%, 45%);
 }
 
 .generate-schedule-button {
-  background-color: #4caf50;
+  background-color: hsl(120, 100%, 27%);
   color: white;
   padding: 15px 20px;
   font-size: 15px;
 }
 
 .generate-schedule-button:hover {
-  background-color: #45a049;
+  background-color: hsl(120, 100%, 24%);
 }
 
 /* Link Styles */
@@ -110,21 +110,21 @@ a:hover {
 }
 
 .modal-button {
-  background-color: #4caf50;
+  background-color: hsl(120, 100%, 27%);
   color: white;
   margin: 10px;
 }
 
 .modal-button:hover {
-  background-color: #45a049;
+  background-color: hsl(120, 100%, 24%);
 }
 
 .modal-button:first-of-type {
-  background-color: #f44336;
+  background-color: hsl(0, 91%, 48%);
 }
 
 .modal-button:first-of-type:hover {
-  background-color: #d32f2f;
+  background-color: hsl(0, 91%, 45%);
 }
 
 /* Footer Styles */

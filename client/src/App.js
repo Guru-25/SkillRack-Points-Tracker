@@ -229,10 +229,11 @@ const App = () => {
               </>
             )}
             <Summary codeTutor={codeTutor} codeTrack={codeTrack} codeTest={codeTest} dt={dt} dc={dc} totalPoints={points} />
+            <br />
             
             {((codeTutor + codeTrack) >= 600 && points < requiredPoints) &&  (
               <>
-                <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
+                <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br /><br />
                 {showSchedule && (
                   <Schedule
                     initialValues={{

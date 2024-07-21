@@ -47,19 +47,18 @@
 
 .generate-button {
     padding: 10px 20px;
-    background-color: #4caf50;
+    background-color: hsl(120, 100%, 27%);
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%; /* Make the button take up the full width */
-    max-width: 300px; /* Ensure it doesn't exceed the input field's max width */
+    padding: 12px 20px;
 }
 
 .generate-button:hover {
-    background-color: #45a049;
+    background-color: hsl(120, 100%, 24%);
     transform: translateY(-2px);
 }
 
@@ -89,7 +88,7 @@
 }
 
 .schedule-table th {
-    background-color: #4caf50;
+    background-color: hsl(120, 100%, 27%);
     color: white;
     font-weight: bold;
 }
