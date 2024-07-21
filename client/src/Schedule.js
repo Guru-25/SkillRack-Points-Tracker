@@ -139,10 +139,10 @@ const Schedule = ({ initialValues }) => {
             <thead>
               <tr>
                 <th>Date</th>
-                <th>Tracks</th>
+                <th>Track</th>
                 <th>DT</th>
                 <th>DC</th>
-                <th>Points</th>
+                <th>PTS</th>
               </tr>
             </thead>
             <tbody>
