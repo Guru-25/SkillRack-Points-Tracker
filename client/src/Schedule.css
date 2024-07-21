@@ -46,15 +46,14 @@
 }
 
 .generate-button {
-    padding: 10px 20px;
     background-color: hsl(120, 100%, 27%);
     color: white;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    padding: 12px 20px;
+    font-size: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    padding: 12px 20px;
 }
 
 .generate-button:hover {
