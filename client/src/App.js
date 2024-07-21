@@ -16,7 +16,7 @@ const Modal = ({ show, onClose, onConfirm, message }) => {
   if (!show) return null;
   return (
     <div className="modal">
-      <div className="modal-content">
+      <div className="modal-content fade-in">
         <p>{message}</p>
         <button onClick={onConfirm} className="modal-button">Ok</button>
         <button onClick={onClose} className="modal-button">Cancel</button>
@@ -231,19 +231,21 @@ const App = () => {
             <Summary codeTutor={codeTutor} codeTrack={codeTrack} codeTest={codeTest} dt={dt} dc={dc} totalPoints={points} />
             <br />
             
-            {((codeTutor + codeTrack) >= 600 && points < requiredPoints) &&  (
+            {((codeTutor + codeTrack) >= 600 && points < requiredPoints) && (
               <>
                 <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br /><br />
                 {showSchedule && (
-                  <Schedule
-                    initialValues={{
-                      codeTrack: codeTrack,
-                      dt: dt,
-                      dc: dc,
-                      points: points,
-                      requiredPoints: requiredPoints
-                    }}
-                  />
+                  <div className="fade-in">
+                    <Schedule
+                      initialValues={{
+                        codeTrack: codeTrack,
+                        dt: dt,
+                        dc: dc,
+                        points: points,
+                        requiredPoints: requiredPoints
+                      }}
+                    />
+                  </div>
                 )}
               </>
             )}
@@ -251,12 +253,14 @@ const App = () => {
               <>
                 <button onClick={handleGenerateScheduleDTDC} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
                 {showScheduleDTDC && (
-                  <ScheduleDTDC
-                    initialValues={{
-                      codeTrack: codeTrack,
-                      problems: codeTrack + codeTutor
-                    }}
-                  />
+                  <div className="fade-in">
+                    <ScheduleDTDC
+                      initialValues={{
+                        codeTrack: codeTrack,
+                        problems: codeTrack + codeTutor
+                      }}
+                    />
+                  </div>
                 )}
               </>
             )}

@@ -108,7 +108,7 @@ const ScheduledtDc = ({ initialValues }) => {
       </div>
       {error && <div className="error-message">{error}</div>}
       {schedule.length > 0 && (
-        <div className="schedule-table-container">
+        <div className="schedule-table-container fade-in">
           <table className="schedule-table">
             <thead>
               <tr>
