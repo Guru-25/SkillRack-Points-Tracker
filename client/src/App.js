@@ -75,9 +75,8 @@ const App = () => {
   };
 
   const calculatePoints = (data) => {
-    const totalPoints = data.codeTrack * 2 + data.codeTest * 30 + data.dt * 20 + data.dc * 2;
-    setPoints(totalPoints);
-    setPercentage((totalPoints / data.requiredPoints) * 100);
+    setPoints(data.points);
+    setPercentage((data.points / data.requiredPoints) * 100);
     setLastFetched(new Date().toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: true }));
     setCodeTutor(data.codeTutor);
     setCodeTrack(data.codeTrack);
@@ -104,7 +103,7 @@ const App = () => {
         } catch (error) {
           console.error(error);
           // If there's an error, clear the cookie
-          // Cookies.remove('lastUrl');
+          Cookies.remove('lastUrl');
         }
         setLoading(false);
       }
