@@ -51,9 +51,12 @@ async function fetchData(url) {
     if (year == 2025) {
       requiredPoints = 3000;
     }
-    console.log({ name, dept, year, codeTutor, codeTrack, codeTest, dt, dc, requiredPoints, url}); // Log the parsed values
 
-    return { name, dept, year, codeTutor, codeTrack, codeTest, dt, dc, requiredPoints, url};
+    const points = codeTrack * 2 + codeTest * 30 + dt * 20 + dc * 2;
+
+    console.log({ name, dept, year, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, url}); // Log the parsed values
+
+    return { name, dept, year, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, url};
   } catch (error) {
     console.error('Error fetching data:', error);
     return null;
@@ -130,7 +133,7 @@ router.post('/', async (req, res) => {
       return res.status(500).json({ error: 'Failed to fetch data' });
     }
     
-    const logMessage = `[${data.name} (${data.dept}'${data.year.slice(-2)})](${data.url})\n\n`;
+    const logMessage = `[${data.name} (${data.dept}'${data.year.slice(-2)})](${data.url})\n\n(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points}\n\n`;
     // Perform database operations before sending response
     let user = await User.findOne({ url: redirectedUrl });
     if (data.name !== '') {
@@ -161,7 +164,7 @@ router.get('/refresh', async (req, res) => {
 
   const data = await fetchDataWithRetry(url);
   if (data) {
-    const logMessage = `[${data.name} (${data.dept}'${data.year.slice(-2)})](${data.url})\n\n`;
+    const logMessage = `[${data.name} (${data.dept}'${data.year.slice(-2)})](${data.url})\n\n(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points}\n\n`;
     await sendLogMessage(logMessage + "♻️ #refreshed");
 
     res.json(data);
