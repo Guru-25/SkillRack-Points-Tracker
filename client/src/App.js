@@ -104,7 +104,7 @@ const App = () => {
         } catch (error) {
           console.error(error);
           // If there's an error, clear the cookie
-          Cookies.remove('lastUrl');
+          // Cookies.remove('lastUrl');
         }
         setLoading(false);
       }
