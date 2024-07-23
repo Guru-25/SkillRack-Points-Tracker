@@ -94,7 +94,7 @@ const App = () => {
       if (lastUrl) {
         setLoading(true);
         try {
-          const { data } = await axios.get(`/api?url=${encodeURIComponent(lastUrl)}`);
+          const { data } = await axios.get(`/api/points/refresh?url=${encodeURIComponent(lastUrl)}`);
           if (data && data.name !== '') {
             fetchData(data);
             setIsValidUrl(true);
@@ -129,7 +129,7 @@ const App = () => {
 
     setLoading(true);
     try {
-      const { data } = await axios.post('/api', { url });
+      const { data } = await axios.post('/api/points', { url });
       if (data && data.name !== '') {
         fetchData(data);
         setIsValidUrl(true);

@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const pointsRouter = require('./routes/api');
+const pointsRouter = require('./routes/points');
 require('dotenv').config();
 
 const app = express();
@@ -19,7 +19,7 @@ const connectWithRetry = () => {
 
 connectWithRetry();
 
-app.use('/api', pointsRouter);
+app.use('/api/points', pointsRouter);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

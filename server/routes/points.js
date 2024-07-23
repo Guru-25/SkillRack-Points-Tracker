@@ -154,7 +154,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
+router.get('/refresh', async (req, res) => {
   const url = req.query.url;
   if (!url) {
     return res.status(400).json({ error: 'No URL provided' });
