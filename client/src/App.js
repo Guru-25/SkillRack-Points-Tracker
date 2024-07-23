@@ -74,10 +74,11 @@ const App = () => {
     window.location.reload();
   };
 
-  const calculatePoints = (data) => {
+  const fetchData = (data) => {
+    setName(data.name);
     setPoints(data.points);
-    setPercentage((data.points / data.requiredPoints) * 100);
-    setLastFetched(new Date().toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: true }));
+    setPercentage(data.percentage);
+    setLastFetched(data.lastFetched);
     setCodeTutor(data.codeTutor);
     setCodeTrack(data.codeTrack);
     setCodeTest(data.codeTest);
@@ -93,9 +94,9 @@ const App = () => {
       if (lastUrl) {
         setLoading(true);
         try {
-          const { data } = await axios.get(`/api/points/refresh?url=${encodeURIComponent(lastUrl)}`);
+          const { data } = await axios.get(`/api?url=${encodeURIComponent(lastUrl)}`);
           if (data && data.name !== '') {
-            calculatePoints(data);
+            fetchData(data);
             setIsValidUrl(true);
             setUrl(lastUrl);
             setName(data.name);
@@ -128,16 +129,15 @@ const App = () => {
 
     setLoading(true);
     try {
-      const { data } = await axios.post('/api/points', { url });
+      const { data } = await axios.post('/api', { url });
       if (data && data.name !== '') {
-        calculatePoints(data);
+        fetchData(data);
         setIsValidUrl(true);
         Cookies.set('lastUrl', data.redirectedUrl, { 
           expires: 365, // Set to expire in 1 year
           sameSite: 'Lax',
           secure: true // Use this if your site is served over HTTPS
         });
-        setName(data.name);
       } else {
         setError('Invalid URL. Please enter a valid SkillRack Profile URL!!');
       }
@@ -227,7 +227,7 @@ const App = () => {
               />
             </div>
 
-            {points >= requiredPoints && (
+            {points >= requiredPoints && requiredPoints !== 0 && (
               <>
                 <h3>Congratulations 🎉 {name} on completing {requiredPoints} points!</h3>
                 <br />

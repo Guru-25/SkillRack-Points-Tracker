@@ -24,39 +24,37 @@ async function fetchData(url) {
     const { data } = await axios.get(url);
     const $ = cheerio.load(data);
 
-    const rawName = $('div.ui.big.label.black').text().trim();
-    const name = rawName.split('\n')[0].trim(); // Split by newline and take the first part
-    const dept = $('div.ui.large.label').text().trim();
-    // Locate the text containing the year information and extract the year
-    const textNodes = $('div.ui.four.wide.center.aligned.column').contents().filter(function() {
-      return this.nodeType === 3; // Node type 3 is a text node
-    });
-
-    let year;
-    textNodes.each(function() {
-      const text = $(this).text().trim();
-      const match = text.match(/\((First Year|Second Year|Pre-Final Year|Final Year)\)\s*(\d{4})/);
-      if (match) {
-          year = match[2]; // The year is captured in the second group
-          return false; // Break the loop
-      }
-    });
+    const rawText = $('div.ui.four.wide.center.aligned.column').text().trim().split('\n');
+    const name = rawText[0].trim();
+    const dept = rawText[4].trim();
+    const year = rawText[8].trim().match(/\d{4}$/)[0];
+    const collegeName = rawText[6].trim();
     const codeTutor = parseInt($('div:contains("DT")').next().find('.value').text().trim()) || 0;
     const codeTrack = parseInt($('div:contains("CODE TEST")').next().find('.value').text().trim()) || 0;
     const codeTest = parseInt($('div:contains("PROGRAMS SOLVED")').next().find('.value').text().trim()) || 0;
     const dt = parseInt($('div:contains("DC")').next().find('.value').text().trim()) || 0;
     const dc = parseInt($('div:contains("CODE TRACK")').next().find('.value').text().trim()) || 0;
 
-    let requiredPoints = 5000;
-    if (year == 2025) {
-      requiredPoints = 3000;
-    }
-
     const points = codeTrack * 2 + codeTest * 30 + dt * 20 + dc * 2;
 
-    console.log({ name, dept, year, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, url}); // Log the parsed values
+    let requiredPoints = 0;
+    if (collegeName === "Thiagarajar College of Engineering (TCE), Madurai") {
+      if (year === "2025") {
+        requiredPoints = 3000;
+      } else {
+        requiredPoints = 5000;
+      }
+    }
 
-    return { name, dept, year, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, url};
+    const percentageCalculate = points / requiredPoints * 100;
+    const percentage = percentageCalculate === Infinity ? 100 : percentageCalculate;
+
+    const date = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: true });
+    const lastFetched = date.split(',')[1].trim();
+
+    console.log({ name, dept, year, collegeName, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, percentage, lastFetched, url}); // Log the parsed values
+
+    return { name, dept, year, collegeName, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, percentage, lastFetched, url};
   } catch (error) {
     console.error('Error fetching data:', error);
     return null;
@@ -156,7 +154,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/refresh', async (req, res) => {
+router.get('/', async (req, res) => {
   const url = req.query.url;
   if (!url) {
     return res.status(400).json({ error: 'No URL provided' });
