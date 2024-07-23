@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Summary = ({ codeTutor, codeTrack, codeTest, dt, dc, totalPoints }) => {
+const Summary = ({ codeTutor, codeTrack, codeTest, dt, dc, totalPoints, percentage }) => {
   return (
     <aside style={{ 
       textAlign: 'center', 
@@ -18,7 +18,7 @@ const Summary = ({ codeTutor, codeTrack, codeTest, dt, dc, totalPoints }) => {
       <p>Daily Test: {dt} x 20 = {dt * 20}</p>
       <p>Daily Challenge: {dc} x 2 = {dc * 2}</p>
       <hr />
-      <p><strong>Total Points: {totalPoints}</strong></p>
+      <p><strong>Total Points: {totalPoints}</strong> ({parseFloat(percentage.toFixed(2))}%)</p>
     </aside>
   );
 };
