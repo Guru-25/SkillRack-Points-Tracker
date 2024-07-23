@@ -104,7 +104,7 @@ const ScheduledtDc = ({ initialValues }) => {
           className="input-field date-input"
           placeholder="Enter Target Date"
         />
-        <button onClick={generateSchedule} className="generate-button">Generate Schedule</button>
+        <button onClick={generateSchedule} className="generate-button">Generate</button>
       </div>
       {error && <div className="error-message">{error}</div>}
       {schedule.length > 0 && (
