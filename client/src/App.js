@@ -18,8 +18,8 @@ const Modal = ({ show, onClose, onConfirm, message }) => {
     <div className="modal">
       <div className="modal-content fade-in">
         <p>{message}</p>
-        <button onClick={onConfirm} className="modal-button">Ok</button>
-        <button onClick={onClose} className="modal-button">Cancel</button>
+        <button onClick={onConfirm} className="modal-button">Yes</button>
+        <button onClick={onClose} className="modal-button">No</button>
       </div>
     </div>
   );
@@ -272,13 +272,13 @@ const App = () => {
           <br /><br />
           Built with MERN stack by <a href="https://github.com/Guru-25" target="_blank" rel="noopener noreferrer"><b>Guru</b></a>
           <br /><br />
-          Give a ⭐️ on <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>GitHub</b></a>
+          Contact: <a href="mailto:mail@gururaja.in"><b>mail@gururaja.in</b></a>
         </footer>
         <Modal
           show={showLogoutModal}
           onClose={() => setShowLogoutModal(false)}
           onConfirm={confirmLogout}
-          message="Are you sure you want to logout? Refreshing the site will reload the data. Press 'Ok' to Logout."
+          message="Are you sure you want to Logout?"
         />
       </div>
     </HelmetProvider>
