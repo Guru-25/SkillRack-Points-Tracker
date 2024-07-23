@@ -117,7 +117,7 @@ const App = () => {
     setError('');
 
     if (!isValidSkillRackUrl(url)) {
-      setError('Invalid URL. Please enter a valid SkillRack Profile URL!!');
+      setError('Please enter a valid SkillRack Profile URL!!');
       return;
     }
 
@@ -133,7 +133,7 @@ const App = () => {
           secure: true // Use this if your site is served over HTTPS
         });
       } else {
-        setError('Invalid URL. Please enter a valid SkillRack Profile URL!!');
+        setError('Please enter a valid SkillRack Profile URL!!');
       }
     } catch (error) {
       setError('Invalid URL. Please enter a valid SkillRack Profile URL!!');

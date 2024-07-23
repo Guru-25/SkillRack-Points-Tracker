@@ -25,7 +25,7 @@ const ScheduledtDc = ({ initialValues }) => {
     const { codeTrack, problems } = initialValuesState;
 
     if (!finishDate) {
-      setError('Please enter the date');
+      setError('Please enter the date!!');
       setLoading(false);
       return;
     }
@@ -49,7 +49,7 @@ const ScheduledtDc = ({ initialValues }) => {
     const daysToFinish = diffMilliseconds / oneDayInMilliseconds;
 
     if (daysToFinish <= 0) {
-      setError('Finish date must be in the future');
+      setError('Date must be in the future!!');
       setLoading(false);
       return;
     }
@@ -92,17 +92,10 @@ const ScheduledtDc = ({ initialValues }) => {
       <h2 className="schedule-title">Schedule to Unlock DT/DC</h2>
       <div className="form-container">
         <input
-          type="text"
+          type="date"
           value={finishDate}
-          onFocus={
-            (e) => {
-              e.currentTarget.type = "date";
-              e.currentTarget.focus();
-            }
-          }
           onChange={(e) => setFinishDate(e.target.value)}
           className="input-field date-input"
-          placeholder="Enter Target Date"
         />
         <button onClick={generateSchedule} className="generate-button">Generate</button>
       </div>
