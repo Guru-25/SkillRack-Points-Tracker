@@ -7,6 +7,7 @@ const request = require('request');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
+// Fetch redirected URL
 async function fetchRedirectedUrl(url) {
   return new Promise((resolve, reject) => {
     request.get(url, function (err, res, body) {
@@ -19,11 +20,13 @@ async function fetchRedirectedUrl(url) {
   });
 }
 
+// Fetch data from SkillRack profile
 async function fetchData(url) {
   try {
     const { data } = await axios.get(url);
     const $ = cheerio.load(data);
 
+    // Extract data from the page
     const rawText = $('div.ui.four.wide.center.aligned.column').text().trim().split('\n');
     const name = rawText[0].trim();
     const dept = rawText[4].trim();
@@ -35,20 +38,17 @@ async function fetchData(url) {
     const dt = parseInt($('div:contains("DC")').next().find('.value').text().trim()) || 0;
     const dc = parseInt($('div:contains("CODE TRACK")').next().find('.value').text().trim()) || 0;
 
+    // Calculate points and percentage
     const points = codeTrack * 2 + codeTest * 30 + dt * 20 + dc * 2;
-
     let requiredPoints = 0;
     if (collegeName === "Thiagarajar College of Engineering (TCE), Madurai") {
-      if (year === "2025") {
-        requiredPoints = 3000;
-      } else {
-        requiredPoints = 5000;
-      }
+      requiredPoints = (year === "2025") ? 3000 : 5000;
     }
 
     const percentageCalculate = points / requiredPoints * 100;
     const percentage = percentageCalculate === Infinity ? 100 : percentageCalculate;
 
+    // Format last fetched date
     const date = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: true });
     const lastFetched = date.split(',')[1].trim();
 
@@ -61,6 +61,7 @@ async function fetchData(url) {
   }
 }
 
+// Retry fetching data if it fails initially
 async function fetchDataWithRetry(url, retries = 1) {
   let data = await fetchData(url);
   if (!data && retries > 0) {
@@ -70,6 +71,7 @@ async function fetchDataWithRetry(url, retries = 1) {
   return data;
 }
 
+// Send log message to Telegram bot
 async function sendLogMessage(message) {
   const botToken = process.env.LOG_BOT_TOKEN;
   const chatId = process.env.LOG_CHAT_ID;
@@ -86,6 +88,7 @@ async function sendLogMessage(message) {
   }
 }
 
+// Configure nodemailer transporter
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: process.env.SMTP_PORT,
@@ -96,9 +99,10 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+// Send email notification for new user
 async function sendNewUserEmail(user, year, redirectedUrl) {
   try {
-    let info = await transporter.sendMail({
+    await transporter.sendMail({
       from: `"SkillRack Points Tracker" <${process.env.FROM_ADDRESS}>`,
       to: process.env.TO_ADDRESS,
       subject: "New User Registered",
@@ -113,8 +117,9 @@ async function sendNewUserEmail(user, year, redirectedUrl) {
   }
 }
 
+// Handle POST request for tracking points
 router.post('/', async (req, res) => {
-  // clear cookie set by server
+  // Clear cookie set by server
   if (req.cookies.lastUrl) {
     res.clearCookie('lastUrl');
   }
@@ -132,6 +137,7 @@ router.post('/', async (req, res) => {
     }
     
     const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n\`(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${parseFloat(data.percentage.toFixed(2))}%)\`\n\n`;
+    
     // Perform database operations before sending response
     let user = await User.findOne({ url: redirectedUrl });
     if (data.name !== '') {
@@ -142,18 +148,19 @@ router.post('/', async (req, res) => {
         await sendLogMessage(logMessage + "⭐️ " + `[Registered](${data.url})`);
         await sendNewUserEmail(user, data.year.slice(-2), redirectedUrl);
       } else {
-        await sendLogMessage(logMessage + "🔑 " + `[Loggedin](${data.url})`);
+        await sendLogMessage(logMessage + "🔑 " + `[Logged in](${data.url})`);
       }
     }
+    
     // Send the redirectedUrl back to the client
     res.json({ ...data, redirectedUrl });
-    
   } catch (error) {
     console.error('Error in request processing:', error);
     res.status(500).json({ error: 'An error occurred while processing the request' });
   }
 });
 
+// Handle GET request for refreshing data
 router.get('/refresh', async (req, res) => {
   const url = req.query.url;
   if (!url) {
@@ -164,7 +171,6 @@ router.get('/refresh', async (req, res) => {
   if (data) {
     const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n\`(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${parseFloat(data.percentage.toFixed(2))}%)\`\n\n`;
     await sendLogMessage(logMessage + "♻️ " + `[Refreshed](${data.url})`);
-
     res.json(data);
   } else {
     res.status(500).json({ error: 'Failed to fetch data after retry' });

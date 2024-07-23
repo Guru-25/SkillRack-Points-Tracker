@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -26,86 +26,70 @@ const Modal = ({ show, onClose, onConfirm, message }) => {
 };
 
 const App = () => {
-  const [url, setUrl] = useState('');
-  const [points, setPoints] = useState(0);
-  const [percentage, setPercentage] = useState(0);
-  const [error, setError] = useState('');
-  const [isValidUrl, setIsValidUrl] = useState(false);
-  const [lastFetched, setLastFetched] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [name, setName] = useState('');
-  const [codeTutor, setCodeTutor] = useState(0);
-  const [codeTrack, setCodeTrack] = useState(0);
-  const [codeTest, setCodeTest] = useState(0);
-  const [dt, setDt] = useState(0);
-  const [dc, setDc] = useState(0);
-  const [requiredPoints, setRequiredPoints] = useState(0);
-  const [showSchedule, setShowSchedule] = useState(false);
-  const [showScheduleDTDC, setShowScheduleDTDC] = useState(false);
-  const [showLogoutModal, setShowLogoutModal] = useState(false); // State for logout modal
-
-  const handleLogout = () => {
-    setShowLogoutModal(true); // Show the modal
+  const initialState = {
+    url: '',
+    points: 0,
+    percentage: 0,
+    error: '',
+    isValidUrl: false,
+    lastFetched: null,
+    loading: false,
+    name: '',
+    codeTutor: 0,
+    codeTrack: 0,
+    codeTest: 0,
+    dt: 0,
+    dc: 0,
+    requiredPoints: 0,
+    showSchedule: false,
+    showScheduleDTDC: false,
+    showLogoutModal: false
   };
 
-  const confirmLogout = () => {
-    setUrl('');
-    setPoints(0);
-    setPercentage(0);
-    setError('');
-    setIsValidUrl(false);
-    setLastFetched(null);
-    setName('');
-    setCodeTutor(0);
-    setCodeTrack(0);
-    setCodeTest(0);
-    setDt(0);
-    setDc(0);
-    setRequiredPoints(0);
-    setShowSchedule(false);
-    setShowScheduleDTDC(false);
-    Cookies.remove('lastUrl');
-    setShowLogoutModal(false); // Close the modal after logging out
-  };
+  const [state, setState] = useState(initialState);
 
-  const fetchData = (data) => {
-    setName(data.name);
-    setPoints(data.points);
-    setPercentage(data.percentage);
-    setLastFetched(data.lastFetched);
-    setCodeTutor(data.codeTutor);
-    setCodeTrack(data.codeTrack);
-    setCodeTest(data.codeTest);
-    setDt(data.dt);
-    setDc(data.dc);
-    setRequiredPoints(data.requiredPoints);
-  };
+  const handleStateChange = useCallback((newState) => {
+    setState((prevState) => ({ ...prevState, ...newState }));
+  }, []);
+
+  const fetchData = useCallback((data) => {
+    handleStateChange({
+      name: data.name,
+      points: data.points,
+      percentage: data.percentage,
+      lastFetched: data.lastFetched,
+      codeTutor: data.codeTutor,
+      codeTrack: data.codeTrack,
+      codeTest: data.codeTest,
+      dt: data.dt,
+      dc: data.dc,
+      requiredPoints: data.requiredPoints
+    });
+  }, [handleStateChange]);
 
   useEffect(() => {
     const fetchInitialData = async () => {
       const lastUrl = Cookies.get('lastUrl');
-      
+
       if (lastUrl) {
-        setLoading(true);
+        handleStateChange({ loading: true });
         try {
           const { data } = await axios.get(`/api/points/refresh?url=${encodeURIComponent(lastUrl)}`);
           if (data && data.name !== '') {
             fetchData(data);
-            setIsValidUrl(true);
-            setUrl(lastUrl);
-            setName(data.name);
+            handleStateChange({ isValidUrl: true, url: lastUrl });
           }
         } catch (error) {
           console.error(error);
           // If there's an error, clear the cookie
           Cookies.remove('lastUrl');
         }
-        setLoading(false);
+        handleStateChange({ loading: false });
       }
     };
 
     fetchInitialData();
-  }, []);
+  }, [fetchData, handleStateChange]);
 
   const isValidSkillRackUrl = (url) => {
     const regex = /^https?:\/\/www\.skillrack\.com/;
@@ -114,35 +98,52 @@ const App = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    handleStateChange({ error: '' });
 
-    if (!isValidSkillRackUrl(url)) {
-      setError('Please enter a valid SkillRack Profile URL!!');
+    if (!isValidSkillRackUrl(state.url)) {
+      handleStateChange({ error: 'Please enter a valid SkillRack Profile URL!!' });
       return;
     }
 
-    setLoading(true);
+    handleStateChange({ loading: true });
     try {
-      const { data } = await axios.post('/api/points', { url });
+      const { data } = await axios.post('/api/points', { url: state.url });
       if (data && data.name !== '') {
         fetchData(data);
-        setIsValidUrl(true);
-        Cookies.set('lastUrl', data.redirectedUrl, { 
+        handleStateChange({ isValidUrl: true });
+        Cookies.set('lastUrl', data.redirectedUrl, {
           expires: 365, // Set to expire in 1 year
           sameSite: 'Lax',
           secure: true // Use this if your site is served over HTTPS
         });
       } else {
-        setError('Please enter a valid SkillRack Profile URL!!');
+        handleStateChange({ error: 'Please enter a valid SkillRack Profile URL!!' });
       }
     } catch (error) {
-      setError('Invalid URL. Please enter a valid SkillRack Profile URL!!');
+      handleStateChange({ error: 'Invalid URL. Please enter a valid SkillRack Profile URL!!' });
       console.error(error);
     }
-    setLoading(false);
+    handleStateChange({ loading: false });
   };
 
-  if (loading) {
+  const handleLogout = () => {
+    handleStateChange({ showLogoutModal: true });
+  };
+
+  const confirmLogout = () => {
+    setState(initialState);
+    Cookies.remove('lastUrl');
+  };
+
+  const handleGenerateSchedule = () => {
+    handleStateChange({ showSchedule: true });
+  };
+
+  const handleGenerateScheduleDTDC = () => {
+    handleStateChange({ showScheduleDTDC: true });
+  };
+
+  if (state.loading) {
     return (
       <div style={{ textAlign: 'center', padding: '50px' }}>
         <Helmet>
@@ -153,14 +154,6 @@ const App = () => {
       </div>
     );
   }
-
-  const handleGenerateSchedule = () => {
-    setShowSchedule(true);
-  };
-
-  const handleGenerateScheduleDTDC = () => {
-    setShowScheduleDTDC(true);
-  };
 
   return (
     <HelmetProvider>
@@ -188,13 +181,13 @@ const App = () => {
         <h1>SkillRack Points Tracker</h1>
         <Analytics/>
         <SpeedInsights/>
-        {!isValidUrl && (
+        {!state.isValidUrl && (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
             <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> -&gt; Profile -&gt; Enter Password -&gt; Click "View" -&gt; Copy the URL</p>
             <input
               type="text"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
+              value={state.url}
+              onChange={(e) => handleStateChange({ url: e.target.value })}
               placeholder="Paste Profile URL"
               name="profile_url"
               style={{ width: '100%', maxWidth: '300px', padding: '10px', boxSizing: 'border-box' }}
@@ -202,16 +195,16 @@ const App = () => {
             <button type="submit" className="submit-button">Submit</button>
           </form>
         )}
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {isValidUrl && (
+        {state.error && <p style={{ color: 'red' }}>{state.error}</p>}
+        {state.isValidUrl && (
           <>
-            <p>Updated on {lastFetched}</p>
+            <p>Updated on {state.lastFetched}</p>
             <br />
-            <h2>Hi.. {name} 😊</h2>
+            <h2>Hi.. {state.name} 😊</h2>
             <div style={{ width: '200px', margin: '50px auto' }}>
               <CircularProgressbar
-                value={percentage}
-                text={points <= requiredPoints ? `${points}/${requiredPoints}` : `${points}`}
+                value={state.percentage}
+                text={state.points <= state.requiredPoints ? `${state.points}/${state.requiredPoints}` : `${state.points}`}
                 styles={buildStyles({
                   textColor: '#000',
                   pathColor: '#4caf50',
@@ -221,42 +214,50 @@ const App = () => {
               />
             </div>
 
-            {points >= requiredPoints && requiredPoints !== 0 && (
+            {state.points >= state.requiredPoints && state.requiredPoints !== 0 && (
               <>
-                <h3>Congratulations 🎉 {name} on completing {requiredPoints} points!</h3>
+                <h3>Congratulations 🎉 {state.name} on completing {state.requiredPoints} points!</h3>
                 <br />
               </>
             )}
-            <Summary codeTutor={codeTutor} codeTrack={codeTrack} codeTest={codeTest} dt={dt} dc={dc} totalPoints={points} percentage={percentage}/>
+            <Summary
+              codeTutor={state.codeTutor}
+              codeTrack={state.codeTrack}
+              codeTest={state.codeTest}
+              dt={state.dt}
+              dc={state.dc}
+              totalPoints={state.points}
+              percentage={state.percentage}
+            />
             <br />
             
-            {((codeTutor + codeTrack) >= 600 && points < requiredPoints) && (
+            {((state.codeTutor + state.codeTrack) >= 600 && state.points < state.requiredPoints) && (
               <>
                 <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br /><br />
-                {showSchedule && (
+                {state.showSchedule && (
                   <div className="fade-in">
                     <Schedule
                       initialValues={{
-                        codeTrack: codeTrack,
-                        dt: dt,
-                        dc: dc,
-                        points: points,
-                        requiredPoints: requiredPoints
+                        codeTrack: state.codeTrack,
+                        dt: state.dt,
+                        dc: state.dc,
+                        points: state.points,
+                        requiredPoints: state.requiredPoints
                       }}
                     />
                   </div>
                 )}
               </>
             )}
-            {(codeTutor + codeTrack) < 600 && (
+            {(state.codeTutor + state.codeTrack) < 600 && (
               <>
                 <button onClick={handleGenerateScheduleDTDC} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
-                {showScheduleDTDC && (
+                {state.showScheduleDTDC && (
                   <div className="fade-in">
                     <ScheduleDTDC
                       initialValues={{
-                        codeTrack: codeTrack,
-                        problems: codeTrack + codeTutor
+                        codeTrack: state.codeTrack,
+                        problems: state.codeTrack + state.codeTutor
                       }}
                     />
                   </div>
@@ -275,8 +276,8 @@ const App = () => {
           Contact: <a href="mailto:mail@gururaja.in"><b>mail@gururaja.in</b></a>
         </footer>
         <Modal
-          show={showLogoutModal}
-          onClose={() => setShowLogoutModal(false)}
+          show={state.showLogoutModal}
+          onClose={() => handleStateChange({ showLogoutModal: false })}
           onConfirm={confirmLogout}
           message="Are you sure you want to Logout?"
         />
