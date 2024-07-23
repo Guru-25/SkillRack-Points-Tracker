@@ -49,11 +49,6 @@ const App = () => {
   };
 
   const confirmLogout = () => {
-    // Clear cookies, local storage, and session storage
-    Cookies.remove('lastUrl');
-    localStorage.clear();
-    sessionStorage.clear();
-
     setUrl('');
     setPoints(0);
     setPercentage(0);
@@ -69,9 +64,8 @@ const App = () => {
     setRequiredPoints(5000); // Reset to default value
     setShowSchedule(false);
     setShowScheduleDTDC(false);
-
-    // Optionally, reload the page to ensure all site data is cleared
-    window.location.reload();
+    Cookies.remove('lastUrl');
+    setShowLogoutModal(false); // Close the modal after logging out
   };
 
   const fetchData = (data) => {
