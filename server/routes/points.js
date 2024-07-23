@@ -131,7 +131,7 @@ router.post('/', async (req, res) => {
       return res.status(500).json({ error: 'Failed to fetch data' });
     }
     
-    const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points}\n\n`;
+    const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${parseFloat(data.percentage.toFixed(2))}%)\n\n`;
     // Perform database operations before sending response
     let user = await User.findOne({ url: redirectedUrl });
     if (data.name !== '') {
@@ -162,7 +162,7 @@ router.get('/refresh', async (req, res) => {
 
   const data = await fetchDataWithRetry(url);
   if (data) {
-    const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points}\n\n`;
+    const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${parseFloat(data.percentage.toFixed(2))}%)\n\n`;
     await sendLogMessage(logMessage + "♻️ " + `[Refreshed](${data.url})`);
 
     res.json(data);
