@@ -48,6 +48,15 @@ const App = () => {
     setShowLogoutModal(true); // Show the modal
   };
 
+  const clearCacheData = () => {
+    caches.keys().then((names) => {
+        names.forEach((name) => {
+            caches.delete(name);
+        });
+    });
+    alert("Complete Cache Cleared");
+  };
+
   const confirmLogout = () => {
     setUrl('');
     setPoints(0);
@@ -65,6 +74,7 @@ const App = () => {
     setShowSchedule(false);
     setShowScheduleDTDC(false);
     Cookies.remove('lastUrl');
+    clearCacheData();
     setShowLogoutModal(false); // Close the modal after logging out
   };
 
