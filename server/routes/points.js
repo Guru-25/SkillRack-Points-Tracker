@@ -4,7 +4,6 @@ const cheerio = require('cheerio');
 const User = require('../models/User');
 const router = express.Router();
 const request = require('request');
-const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 // Fetch redirected URL
@@ -71,49 +70,23 @@ async function fetchDataWithRetry(url, retries = 1) {
   return data;
 }
 
+const IS_RECORD_ENABLED = process.env.IS_RECORD_ENABLED === 'true';
+
 // Send log message to Telegram bot
-async function sendLogMessage(message) {
-  const botToken = process.env.LOG_BOT_TOKEN;
-  const chatId = process.env.LOG_CHAT_ID;
+async function sendLogMessage(message, topic) {
+  const botToken = process.env.BOT_TOKEN;
+  const chatId = process.env.CHAT_ID;
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
   try {
     await axios.post(url, {
       chat_id: chatId,
+      message_thread_id: topic,
       text: message,
       parse_mode: 'Markdown'
     });
   } catch (error) {
     console.error('Error sending Log message:', error);
-  }
-}
-
-// Configure nodemailer transporter
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: process.env.SMTP_SECURE === 'true',
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  }
-});
-
-// Send email notification for new user
-async function sendNewUserEmail(user, year, redirectedUrl) {
-  try {
-    await transporter.sendMail({
-      from: `"SkillRack Points Tracker" <${process.env.FROM_ADDRESS}>`,
-      to: process.env.TO_ADDRESS,
-      subject: "New User Registered",
-      text: `Name: ${user.name} (${user.dept}'${year})\nURL: ${redirectedUrl}`,
-      html: `
-        <p><strong>Name:</strong> ${user.name} (${user.dept}'${year})</p>
-        <p><strong>URL:</strong> <a href="${redirectedUrl}">${redirectedUrl}</a></p>
-      `
-    });
-  } catch (error) {
-    console.error('Error sending email:', error);
   }
 }
 
@@ -124,36 +97,38 @@ router.post('/', async (req, res) => {
     res.clearCookie('lastUrl');
   }
 
-  const { url } = req.body;
+  let { url } = req.body;
   try {
-    const redirectedUrl = await fetchRedirectedUrl(url);
-    if (!redirectedUrl) {
-      return res.status(500).json({ error: 'Failed to fetch redirected URL' });
-    }
-    
-    const data = await fetchDataWithRetry(redirectedUrl);
-    if (!data) {
-      return res.status(500).json({ error: 'Failed to fetch data' });
-    }
-    
-    const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n\`(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${parseFloat(data.percentage.toFixed(2))}%)\`\n\n`;
-    
-    // Perform database operations before sending response
-    let user = await User.findOne({ url: redirectedUrl });
-    if (data.name !== '') {
-      if (!user) {
-        user = new User({ name: data.name, dept: data.dept, url: redirectedUrl });
-        await user.save();
-        console.log(`${data.name} is stored in DB`);
-        await sendLogMessage(logMessage + "⭐️ " + `[Registered](${data.url})`);
-        await sendNewUserEmail(user, data.year.slice(-2), redirectedUrl);
-      } else {
-        await sendLogMessage(logMessage + "🔑 " + `[Logged in](${data.url})`);
+    if (!url.includes('resume')) {
+      url = await fetchRedirectedUrl(url);
+      console.log("fetched");
+      if (!url) {
+        return res.status(500).json({ error: 'Failed to fetch redirected URL' });
       }
     }
     
-    // Send the redirectedUrl back to the client
-    res.json({ ...data, redirectedUrl });
+    const data = await fetchDataWithRetry(url);
+    if (!data) {
+      return res.status(500).json({ error: 'Failed to fetch data' });
+    }
+
+    if (IS_RECORD_ENABLED) {
+      // Perform database operations before sending response
+      let user = await User.findOne({ url: url });
+      const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n\`(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${parseFloat(data.percentage.toFixed(2))}%)\`\n\n`;
+      if (data.name !== '') {
+        if (!user) {
+          user = new User({ name: data.name, dept: data.dept, url: url });
+          await user.save();
+          console.log(`${data.name} is stored in DB`);
+          await sendLogMessage(logMessage + `[Profile](${data.url})`, process.env.TOPIC1_ID); // Registered
+        } else {
+          await sendLogMessage(logMessage, process.env.TOPIC2_ID); // Logged in
+        }
+      }
+    }
+    
+    res.json(data);
   } catch (error) {
     console.error('Error in request processing:', error);
     res.status(500).json({ error: 'An error occurred while processing the request' });
@@ -170,7 +145,9 @@ router.get('/refresh', async (req, res) => {
   const data = await fetchDataWithRetry(url);
   if (data) {
     const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n\`(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${parseFloat(data.percentage.toFixed(2))}%)\`\n\n`;
-    await sendLogMessage(logMessage + "♻️ " + `[Refreshed](${data.url})`);
+    if (IS_RECORD_ENABLED) {
+      await sendLogMessage(logMessage, process.env.TOPIC3_ID); // Refreshed
+    }
     res.json(data);
   } else {
     res.status(500).json({ error: 'Failed to fetch data after retry' });

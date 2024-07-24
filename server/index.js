@@ -8,16 +8,20 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 
-const connectWithRetry = () => {
-  mongoose.connect(process.env.MONGODB_URI).then(() => {
-    console.log('MongoDB is connected');
-  }).catch(err => {
-    console.log(err);
-    setTimeout(connectWithRetry, 5000);
-  });
-};
+const IS_RECORD_ENABLED = process.env.IS_RECORD_ENABLED === 'true';
 
-connectWithRetry();
+if (IS_RECORD_ENABLED) {
+  const connectWithRetry = () => {
+    mongoose.connect(process.env.MONGODB_URI).then(() => {
+      console.log('MongoDB is connected');
+    }).catch(err => {
+      console.log(err);
+      setTimeout(connectWithRetry, 5000); // Retry connection after 5 seconds
+    });
+  };
+
+  connectWithRetry();
+}
 
 app.use('/api/points', pointsRouter);
 
