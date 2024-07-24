@@ -111,7 +111,7 @@ const App = () => {
       if (data && data.name !== '') {
         fetchData(data);
         handleStateChange({ isValidUrl: true });
-        Cookies.set('lastUrl', data.url, {
+        Cookies.set('lastUrl', data.redirectedUrl, {
           expires: 365, // Set to expire in 1 year
           sameSite: 'Lax',
           secure: true // Use this if your site is served over HTTPS
