@@ -271,10 +271,8 @@ const App = () => {
         )}
         <footer style={{ marginTop: '50px' }}>
           <br /><br />
-          Built with MERN stack by <a href="https://github.com/Guru-25" target="_blank" rel="noopener noreferrer"><b>Guru</b></a>
-          <br /><br />
-          Contact: <a href="mailto:mail@gururaja.in"><b>mail@gururaja.in</b></a>
-        </footer>
+          Built with <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>MERN stack</b></a>
+          </footer>
         <Modal
           show={state.showLogoutModal}
           onClose={() => handleStateChange({ showLogoutModal: false })}
