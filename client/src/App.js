@@ -40,6 +40,7 @@ const App = () => {
     codeTest: 0,
     dt: 0,
     dc: 0,
+    medals: 0,
     requiredPoints: 0,
     showSchedule: false,
     showScheduleDTDC: false,
@@ -63,6 +64,7 @@ const App = () => {
       codeTest: data.codeTest,
       dt: data.dt,
       dc: data.dc,
+      medals: data.medals,
       requiredPoints: data.requiredPoints
     });
   }, [handleStateChange]);
@@ -226,6 +228,7 @@ const App = () => {
               codeTest={state.codeTest}
               dt={state.dt}
               dc={state.dc}
+              medals={state.medals}
               totalPoints={state.points}
               percentage={state.percentage}
             />

@@ -36,6 +36,9 @@ async function fetchData(url) {
     const codeTest = parseInt($('div:contains("PROGRAMS SOLVED")').next().find('.value').text().trim()) || 0;
     const dt = parseInt($('div:contains("DC")').next().find('.value').text().trim()) || 0;
     const dc = parseInt($('div:contains("CODE TRACK")').next().find('.value').text().trim()) || 0;
+    const gold = parseInt($('div:contains("LEVEL")').next().find('.value').text().trim()) || 0;
+    const silver = parseInt($('div:contains("GOLD")').next().find('.value').text().trim()) || 0;
+    const bronze = parseInt($('div:contains("SILVER")').next().find('.value').text().trim()) || 0;
 
     // Calculate points and percentage
     const points = codeTrack * 2 + codeTest * 30 + dt * 20 + dc * 2;
@@ -51,9 +54,11 @@ async function fetchData(url) {
     const date = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true });
     const lastFetched = date.split(',')[1].trim();
 
-    console.log({ name, dept, year, collegeName, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, percentage, lastFetched, url}); // Log the parsed values
+    const medals = gold + silver + bronze;
 
-    return { name, dept, year, collegeName, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, percentage, lastFetched, url};
+    console.log({ name, dept, year, collegeName, codeTutor, codeTrack, codeTest, dt, dc, medals, points, requiredPoints, percentage, lastFetched, url}); // Log the parsed values
+
+    return { name, dept, year, collegeName, codeTutor, codeTrack, codeTest, dt, dc, medals, points, requiredPoints, percentage, lastFetched, url};
   } catch (error) {
     console.error('Error fetching data:', error);
     return null;
