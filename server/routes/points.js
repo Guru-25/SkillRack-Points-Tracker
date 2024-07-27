@@ -48,7 +48,7 @@ async function fetchData(url) {
     const percentage = percentageCalculate === Infinity ? 100 : percentageCalculate;
 
     // Format last fetched date
-    const date = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: true });
+    const date = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true });
     const lastFetched = date.split(',')[1].trim();
 
     console.log({ name, dept, year, collegeName, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, percentage, lastFetched, url}); // Log the parsed values
