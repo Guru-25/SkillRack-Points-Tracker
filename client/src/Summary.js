@@ -17,7 +17,7 @@ const Summary = ({ codeTutor, codeTrack, codeTest, dt, dc, medals, totalPoints, 
       <p>Code Test: {codeTest} x 30 = {codeTest * 30}</p>
       <p>Daily Test: {dt} x 20 = {dt * 20}</p>
       <p>Daily Challenge: {dc} x 2 = {dc * 2}</p>
-      <p>Medals: {medals}</p>
+      <p>Medals = {medals}</p>
       <hr />
       <p><strong>Total Points: {totalPoints}</strong> ({parseFloat(percentage.toFixed(2))}%)</p>
     </aside>
