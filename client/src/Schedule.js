@@ -6,6 +6,8 @@ const Schedule = ({ initialValues }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [finishDate, setFinishDate] = useState('');
+  const [manualTarget, setManualTarget] = useState(false);
+  const [targetPoints, setTargetPoints] = useState('');
 
   useEffect(() => {
     if (initialValues) {
@@ -37,12 +39,25 @@ const Schedule = ({ initialValues }) => {
       return;
     }
 
+    if (manualTarget && !targetPoints) {
+      setError('Please enter target points!!');
+      setLoading(false);
+      return;
+    }
+
     let currentTracks = parseInt(codeTrack);
     let currentDt = parseInt(dt);
     let currentDc = parseInt(dc);
     let currentPoints = parseInt(points);
 
-    const targetPoints = parseInt(requiredPoints);
+    const targetPointsValue = manualTarget ? parseInt(targetPoints) : parseInt(requiredPoints);
+
+    if (targetPointsValue <= currentPoints) {
+      setError('Target points must be greater than current points!!');
+      setLoading(false);
+      return;
+    }
+
     const today = new Date();
     const finish = new Date(finishDate);
 
@@ -79,7 +94,7 @@ const Schedule = ({ initialValues }) => {
     let finalDc = currentDc + daysToFinish;
 
     let toScorePoints = currentTracks * 2 + finalDt * 20 + finalDc * 2;
-    let neededPoints = targetPoints - toScorePoints;
+    let neededPoints = targetPointsValue - toScorePoints;
     let trackIncrement = neededPoints / 2 / daysToFinish;
     if (trackIncrement < 0) {
       trackIncrement = 0;
@@ -93,7 +108,7 @@ const Schedule = ({ initialValues }) => {
 
       currentPoints = calculatePoints(currentTracks, currentDt, currentDc);
       if (flag === 1) break;
-      if (currentPoints >= targetPoints) {
+      if (currentPoints >= targetPointsValue) {
         flag = 1;
       }
       newSchedule.push({
@@ -109,7 +124,7 @@ const Schedule = ({ initialValues }) => {
     setLoading(false);
   };
 
-  const { requiredPoints } = initialValuesState; // Extract targetPoints from initialValuesState
+  const { requiredPoints } = initialValuesState; // Extract requiredPoints from initialValuesState
 
   if (loading) return <div className="loading">Generating schedule...</div>;
 
@@ -123,6 +138,26 @@ const Schedule = ({ initialValues }) => {
           onChange={(e) => setFinishDate(e.target.value)}
           className="input-field date-input"
         />
+        <div className="manual-target-container">
+          <label>
+            <input
+              type="checkbox"
+              checked={manualTarget}
+              onChange={() => setManualTarget(!manualTarget)}
+            />
+            &nbsp;Manually set target points
+            <br /><br />
+          </label>
+          {manualTarget && (
+            <input
+              type="number"
+              value={targetPoints}
+              onChange={(e) => setTargetPoints(e.target.value)}
+              placeholder="Enter points"
+              className="input-field target-input"
+            />
+          )}
+        </div>
         <button onClick={generateSchedule} className="generate-button">Generate</button>
       </div>
       {error && <div className="error-message">{error}</div>}

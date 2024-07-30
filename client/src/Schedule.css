@@ -152,3 +152,7 @@
 .fade-in {
     animation: fadeIn 0.5s ease-in-out;
 }
+
+.manual-target-container {
+    margin: 10px 0;
+}
