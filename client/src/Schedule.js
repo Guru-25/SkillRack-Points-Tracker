@@ -12,6 +12,7 @@ const Schedule = ({ initialValues }) => {
   useEffect(() => {
     if (initialValues) {
       setInitialValues(initialValues);
+      setTargetPoints(initialValues.requiredPoints); // Set the default value for target points
     }
   }, [initialValues]);
 
@@ -146,16 +147,18 @@ const Schedule = ({ initialValues }) => {
               onChange={() => setManualTarget(!manualTarget)}
             />
             &nbsp;Manually set target points
-            <br /><br />
           </label>
           {manualTarget && (
-            <input
-              type="number"
-              value={targetPoints}
-              onChange={(e) => setTargetPoints(e.target.value)}
-              placeholder="Enter points"
-              className="input-field target-input"
-            />
+            <div className="fade-in">
+              <br />
+              <input
+                type="number"
+                value={targetPoints}
+                onChange={(e) => setTargetPoints(e.target.value)}
+                placeholder="Enter points"
+                className="input-field target-input"
+              />
+            </div>
           )}
         </div>
         <button onClick={generateSchedule} className="generate-button">Generate</button>
