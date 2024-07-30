@@ -279,7 +279,7 @@ const App = () => {
               <aside>
                 <details>
                   <summary>Is the required points incorrect?</summary>
-                  <p>If the required points ({state.requiredPoints} points) is incorrect, please <a href="mailto:mail@gururaja.in">email us</a>.</p>
+                  <p>If required points ({state.requiredPoints}) is incorrect, please <a href="mailto:mail@gururaja.in">email us</a>.</p>
                 </details>
               </aside>
               <br /><br />
