@@ -8,6 +8,10 @@ body {
   padding: 0;
 }
 
+h1 {
+  font-size: 30px;
+}
+
 /* Form Styles */
 form {
   display: flex;
