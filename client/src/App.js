@@ -47,6 +47,8 @@ const App = () => {
     showLogoutModal: false
   };
 
+  const [isStandalone, setIsStandalone] = useState(false);
+
   const [state, setState] = useState(initialState);
 
   const handleStateChange = useCallback((newState) => {
@@ -70,6 +72,19 @@ const App = () => {
   }, [handleStateChange]);
 
   useEffect(() => {
+    // Check if the app is running as an installed PWA
+    const checkStandalone = () => {
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        setIsStandalone(true);
+      } else if (window.navigator.standalone) {  // For iOS devices
+        setIsStandalone(true);
+      } else {
+        setIsStandalone(false);
+      }
+    };
+
+    checkStandalone();
+
     const fetchInitialData = async () => {
       const lastUrl = Cookies.get('lastUrl');
 
@@ -274,6 +289,13 @@ const App = () => {
         )}
         <footer style={{ marginTop: '50px' }}>
           <br /><br />
+          {!isStandalone && (
+            <a href="https://github.com/Guru-25/skillrack-points-tracker/releases" target="_blank" rel="noopener noreferrer">
+              <img src=".assets/badge_github.png" alt="Get it on GitHub" height="80" />
+            </a>
+          )}
+          <br /><br />
+          
           {state.isValidUrl && (
             <>
               <aside>
@@ -285,7 +307,7 @@ const App = () => {
               <br /><br />
             </>
           )}
-          Powered by <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>Express.js</b></a> ❤️
+          Powered by <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>MERN stack</b></a> ❤️
         </footer>
         <Modal
           show={state.showLogoutModal}
