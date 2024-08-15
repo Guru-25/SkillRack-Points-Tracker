@@ -48,6 +48,7 @@ const App = () => {
   };
 
   const [isStandalone, setIsStandalone] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const [state, setState] = useState(initialState);
 
@@ -83,7 +84,15 @@ const App = () => {
       }
     };
 
+    // Check if the user is on a mobile device
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust the width as necessary
+    };
+
     checkStandalone();
+    checkMobile();
+
+    window.addEventListener('resize', checkMobile);
 
     const fetchInitialData = async () => {
       const lastUrl = Cookies.get('lastUrl');
@@ -289,13 +298,13 @@ const App = () => {
         )}
         <footer style={{ marginTop: '50px' }}>
           <br /><br />
-          {!isStandalone && (
-            <a href="https://github.com/Guru-25/skillrack-points-tracker/releases" target="_blank" rel="noopener noreferrer">
+          {!isStandalone && isMobile && (
+            <a href="https://github.com/Guru-25/skillrack-points-tracker/releases">
               <img src=".assets/badge_github.png" alt="Get it on GitHub" height="80" />
             </a>
           )}
           <br /><br />
-          
+
           {state.isValidUrl && (
             <>
               <aside>
