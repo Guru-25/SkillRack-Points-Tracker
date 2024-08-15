@@ -1,6 +1,24 @@
+<img src="https://github.com/Guru-25/skillrack-points-tracker/raw/main/.assets/banner.png">
+
 # SkillRack Points Tracker and Calculator
 
 Track and calculate your SkillRack points effortlessly using this powerful tool built with React, Express, Node.js, Axios and Cheerio. This project is designed to scrape user data from SkillRack, calculate points, and display them with a progress bar.
+
+## Features
+
+- Scrapes user data from SkillRack.
+- Calculates points based on the user's activities.
+- Displays points with a circular progress bar.
+- Stores user data in MongoDB.
+- Handles cookies for session management.
+- Schedule Planning
+- Public API ⚡️
+
+## Download
+
+[<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png"
+    alt="Get it on GitHub"
+    height="80">](https://github.com/Guru-25/skillrack-points-tracker/releases)
 
 ## Tools and Technologies
 
@@ -12,16 +30,6 @@ Track and calculate your SkillRack points effortlessly using this powerful tool 
 - **react-circular-progressbar**: Progress bar component for React.
 - **js-cookie**: Handling cookies in the browser.
 - **dotenv**: Managing environment variables.
-
-## Features
-
-- Scrapes user data from SkillRack.
-- Calculates points based on the user's activities.
-- Displays points with a circular progress bar.
-- Stores user data in MongoDB.
-- Handles cookies for session management.
-- Schedule Planning
-- Public API ⚡️
 
 ## API Documentation
 
@@ -216,6 +224,18 @@ https://skillrack.gururaja.in/api/points
 ## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request for review.
+
+## Support the project
+
+Development is financed by individual user contributions, i.e. you donating or becoming a sponsor ❤️.
+
+* Donate on [UPI](https://gururaja.in/donate)
+* [Become a sponsor](https://github.com/sponsors/Guru-25) on GitHub
+
+## Get help
+
+* [Mail](mailto:mail@gururaja.in)
+* [Github Discussions](https://github.com/Guru-25/skillrack-points-tracker/discussions)
 
 ## License
 
