@@ -47,8 +47,8 @@ const App = () => {
     showLogoutModal: false
   };
 
-  const [isStandalone, setIsStandalone] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  // const [isStandalone, setIsStandalone] = useState(false);
+  // const [isMobile, setIsMobile] = useState(false);
 
   const [state, setState] = useState(initialState);
 
@@ -299,7 +299,7 @@ const App = () => {
         <footer style={{ marginTop: '50px' }}>
           <br /><br />
           {/* {!isStandalone && isMobile && (
-            <a href="https://github.com/Guru-25/skillrack-points-tracker/releases">
+            <a href="https://github.com/Guru-25/skillrack-points-tracker/releases" target="_blank" rel="noopener noreferrer">
               <img src=".assets/badge_github.png" alt="Get it on GitHub" height="80" />
             </a>
           )}
@@ -316,7 +316,7 @@ const App = () => {
               <br /><br />
             </>
           )}
-          Powered by <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>MERN stack</b></a> ❤️
+          Built with <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>MERN stack</b></a> ❤️
         </footer>
         <Modal
           show={state.showLogoutModal}
