@@ -73,26 +73,26 @@ const App = () => {
   }, [handleStateChange]);
 
   useEffect(() => {
-    // Check if the app is running as an installed PWA
-    const checkStandalone = () => {
-      if (window.matchMedia('(display-mode: standalone)').matches) {
-        setIsStandalone(true);
-      } else if (window.navigator.standalone) {  // For iOS devices
-        setIsStandalone(true);
-      } else {
-        setIsStandalone(false);
-      }
-    };
+    // // Check if the app is running as an installed PWA
+    // const checkStandalone = () => {
+    //   if (window.matchMedia('(display-mode: standalone)').matches) {
+    //     setIsStandalone(true);
+    //   } else if (window.navigator.standalone) {  // For iOS devices
+    //     setIsStandalone(true);
+    //   } else {
+    //     setIsStandalone(false);
+    //   }
+    // };
 
-    // Check if the user is on a mobile device
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768); // Adjust the width as necessary
-    };
+    // // Check if the user is on a mobile device
+    // const checkMobile = () => {
+    //   setIsMobile(window.innerWidth <= 768); // Adjust the width as necessary
+    // };
 
-    checkStandalone();
-    checkMobile();
+    // checkStandalone();
+    // checkMobile();
 
-    window.addEventListener('resize', checkMobile);
+    // window.addEventListener('resize', checkMobile);
 
     const fetchInitialData = async () => {
       const lastUrl = Cookies.get('lastUrl');
@@ -298,12 +298,12 @@ const App = () => {
         )}
         <footer style={{ marginTop: '50px' }}>
           <br /><br />
-          {!isStandalone && isMobile && (
+          {/* {!isStandalone && isMobile && (
             <a href="https://github.com/Guru-25/skillrack-points-tracker/releases">
               <img src=".assets/badge_github.png" alt="Get it on GitHub" height="80" />
             </a>
           )}
-          <br /><br />
+          <br /><br /> */}
 
           {state.isValidUrl && (
             <>
