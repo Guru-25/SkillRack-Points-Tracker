@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "in.gururaja.skillrack",
+    "sha256_cert_fingerprints": ["7C:90:1F:C8:C9:D8:2F:D1:3C:29:21:F2:0F:6C:82:D7:40:31:E3:B6:7C:BE:4D:5D:34:53:14:18:10:A6:0E:F1"]
+  }
+}]
