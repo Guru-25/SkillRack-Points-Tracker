@@ -43,8 +43,18 @@ async function fetchData(url) {
     // Calculate points and percentage
     const points = codeTrack * 2 + codeTest * 30 + dt * 20 + dc * 2;
     let requiredPoints = 0;
-    if (collegeName === "Thiagarajar College of Engineering (TCE), Madurai") {
-      requiredPoints = (year === "2025" || dept !== "CSE") ? 3000 : 5000;
+
+    const collegeCriteria = {
+      "Thiagarajar College of Engineering (TCE), Madurai": (year, dept) => {
+        return (year === "2025" || dept !== "CSE") ? 3000 : 5000;
+      },
+      "K.L.N College of Engineering, Madurai": (year) => {
+        return (year === "2025" || year === "2026") ? 1500 : 0;
+      }
+    };
+
+    if (collegeCriteria[collegeName]) {
+      requiredPoints = collegeCriteria[collegeName](year, dept);
     }
 
     const percentageCalculate = points / requiredPoints * 100;
