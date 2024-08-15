@@ -49,7 +49,7 @@ https://skillrack.gururaja.in/api/points
   Example:
   ```json
   {
-    "url": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    "url": "http://www.skillrack.com/profile/xxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   }
   ```
 
@@ -73,18 +73,13 @@ https://skillrack.gururaja.in/api/points
         "requiredPoints": 3000,
         "percentage": 81.73333333333333,
         "lastFetched": "8:47:55 pm",
-        "url": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        "url": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "redirectedUrl": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
       }
      
   - On Failure:
     - **500 Internal Server Error**
 
-      ```json
-      {
-        "error": "Failed to fetch redirected URL"
-      }
-      ```
-      or
       ```json
       {
         "error": "Failed to fetch data"
@@ -128,7 +123,7 @@ https://skillrack.gururaja.in/api/points
         "requiredPoints": 3000,
         "percentage": 81.73333333333333,
         "lastFetched": "8:47:55 pm",
-        "url": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        "url": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
       }
 
   - On Failure:
@@ -149,7 +144,7 @@ https://skillrack.gururaja.in/api/points
    ```bash
    curl -X POST https://skillrack.gururaja.in/api/points/ \
    -H "Content-Type: application/json" \
-   -d '{"url": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}'
+   -d '{"url": "https://www.skillrack.com/profile/xxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}'
    ```
 
 2. **Refreshing Points Data**
