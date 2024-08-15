@@ -239,4 +239,4 @@ Development is financed by individual user contributions, i.e. you donating or b
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+SkillRack Points Tracker's code is available under a GPL v3 license - see the LICENSE.md file for details.
