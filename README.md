@@ -13,12 +13,12 @@ Track and calculate your SkillRack points effortlessly using this powerful tool 
 - Handles cookies for session management.
 - Schedule Planning
 - Public API ⚡️
-
+<!-- 
 ## Download
 
-[<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png"
+[<img src="https://github.com/Guru-25/skillrack-points-tracker/raw/main/client/public/.assets/badge_github.png"
     alt="Get it on GitHub"
-    height="80">](https://github.com/Guru-25/skillrack-points-tracker/releases)
+    height="80">](https://github.com/Guru-25/skillrack-points-tracker/releases) -->
 
 ## Tools and Technologies
 
