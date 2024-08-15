@@ -21,6 +21,144 @@ Track and calculate your SkillRack points effortlessly using this powerful tool 
 - Stores user data in MongoDB.
 - Handles cookies for session management.
 - Schedule Planning
+- Public API ⚡️
+
+## API Documentation
+
+The SkillRack Points Tracker API allows you to track and calculate points based on activities from SkillRack. Below is the documentation for the available endpoints.
+
+### Base URL
+```
+https://skillrack.gururaja.in/api/points
+```
+
+### Endpoints
+
+#### 1. **POST /**
+
+**Description:** Track SkillRack points by processing a provided URL and scraping the relevant data.
+
+- **Endpoint:**
+  ```
+  POST / 
+  ```
+
+- **Request Body:**
+  - `url` (string, required): The URL to scrape data from. If the URL is not a direct link to a resume, the API will handle redirections to fetch the correct URL.
+
+  Example:
+  ```json
+  {
+    "url": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+  ```
+
+- **Response:**
+  - On Success:
+    - **200 OK**
+      
+     ```json
+      {
+        "name": "GURU RAJA R",
+        "dept": "IT",
+        "year": "2026",
+        "collegeName": "Thiagarajar College of Engineering (TCE), Madurai",
+        "codeTutor": 300,
+        "codeTrack": 730,
+        "codeTest": 0,
+        "dt": 45,
+        "dc": 46,
+        "medals": 329,
+        "points": 2452,
+        "requiredPoints": 3000,
+        "percentage": 81.73333333333333,
+        "lastFetched": "8:47:55 pm",
+        "url": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+     
+  - On Failure:
+    - **500 Internal Server Error**
+
+      ```json
+      {
+        "error": "Failed to fetch redirected URL"
+      }
+      ```
+      or
+      ```json
+      {
+        "error": "Failed to fetch data"
+      }
+      ```
+
+#### 2. **GET /refresh**
+
+**Description:** Refresh the data for a given URL by re-scraping and re-calculating the points.
+
+- **Endpoint:**
+  ```
+  GET /refresh
+  ```
+
+- **Query Parameters:**
+  - `url` (string, required): The URL to refresh data from.
+
+  Example:
+  ```
+  https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  ```
+
+- **Response:**
+  - On Success:
+    - **200 OK**
+
+      ```json
+      {
+        "name": "GURU RAJA R",
+        "dept": "IT",
+        "year": "2026",
+        "collegeName": "Thiagarajar College of Engineering (TCE), Madurai",
+        "codeTutor": 300,
+        "codeTrack": 730,
+        "codeTest": 0,
+        "dt": 45,
+        "dc": 46,
+        "medals": 329,
+        "points": 2452,
+        "requiredPoints": 3000,
+        "percentage": 81.73333333333333,
+        "lastFetched": "8:47:55 pm",
+        "url": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+
+  - On Failure:
+    - **500 Internal Server Error**
+
+      ```json
+      {
+        "error": "Failed to fetch data after retry"
+      }
+      ```
+
+### Example Use Cases
+
+1. **Tracking Points for a New User**
+
+   Send a POST request to the `/` endpoint with the user's SkillRack profile URL. The API will return the user's points and other details.
+
+   ```bash
+   curl -X POST https://skillrack.gururaja.in/api/points/ \
+   -H "Content-Type: application/json" \
+   -d '{"url": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}'
+   ```
+
+2. **Refreshing Points Data**
+
+   To refresh the points for a user, send a GET request to the `/refresh` endpoint with the user's SkillRack profile URL as a query parameter.
+
+   ```bash
+   curl -X GET "https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+   ```
 
 ## Getting Started
 
@@ -51,7 +189,8 @@ Track and calculate your SkillRack points effortlessly using this powerful tool 
    ```env
    IS_RECORD_ENABLED=true_or_false
 
-   ## Only required when IS_RECORD_ENABLED is true
+   ## The following is only required when IS_RECORD_ENABLED is true
+   
    # MongoDB connection string
    MONGODB_URI=your_mongodb_uri
 
