@@ -285,7 +285,7 @@ const App = () => {
               <br /><br />
             </>
           )}
-          Built with <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>MERN stack</b></a> ❤️
+          Powered by <a href="https://github.com/Guru-25/skillrack-points-tracker" target="_blank" rel="noopener noreferrer"><b>Express.js</b></a> ❤️
         </footer>
         <Modal
           show={state.showLogoutModal}
