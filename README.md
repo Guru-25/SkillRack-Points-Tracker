@@ -1,4 +1,4 @@
-<img src="https://github.com/Guru-25/skillrack-points-tracker/raw/main/.assets/banner.png" width="192" height="192">
+<img src="https://github.com/Guru-25/skillrack-points-tracker/raw/main/.assets/banner.jpg" width="192" height="192">
 
 # SkillRack Points Tracker and Calculator
 
