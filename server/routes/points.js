@@ -48,7 +48,7 @@ async function fetchData(url) {
     }
 
     const percentageCalculate = points / requiredPoints * 100;
-    const percentage = percentageCalculate === Infinity ? 100 : percentageCalculate;
+    const percentage = !isFinite(percentageCalculate) ? 100 : percentageCalculate;
 
     // Format last fetched date
     const date = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true });
