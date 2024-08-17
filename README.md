@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/Guru-25/Skillrack-Points-Tracker/main/.assets/logo.jpg" width="192" height="192">
+<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/.assets/logo.jpg" width="192" height="192">
 
 # SkillRack Points Tracker
 
@@ -16,13 +16,13 @@ Track and calculate your SkillRack points effortlessly using this powerful tool 
 <!-- 
 ## Download
 
-[<img src="https://raw.githubusercontent.com/Guru-25/Skillrack-Points-Tracker/main/client/public/.assets/badge_googleplay.png"
+[<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/client/public/.assets/badge_googleplay.png"
     alt="Get it on Google Play"
     height="80">](https://play.google.com/store/apps/details?id=in.gururaja.skillrack) 
-[<img src="https://raw.githubusercontent.com/Guru-25/Skillrack-Points-Tracker/main/.assets/badge_github.png"
+[<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/.assets/badge_github.png"
     alt="Get it on GitHub"
-    height="80">](https://github.com/Guru-25/Skillrack-Points-Tracker/releases) 
-[<img src="https://raw.githubusercontent.com/Guru-25/Skillrack-Points-Tracker/main/.assets/badge_izzyondroid.png"
+    height="80">](https://github.com/Guru-25/SkillRack-Points-Tracker/releases) 
+[<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/.assets/badge_izzyondroid.png"
     alt="Get it on IzzyOnDroid"
     height="80">](https://apt.izzysoft.de/fdroid/index/apk/in.gururaja.skillrack) -->
 
@@ -181,8 +181,8 @@ https://skillrack.gururaja.in/api/points
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/Skillrack-Points-Tracker.git
-   cd Skillrack-Points-Tracker
+   git clone https://github.com/yourusername/SkillRack-Points-Tracker.git
+   cd SkillRack-Points-Tracker
    ```
 
 2. Install dependencies for the client and server:
@@ -241,7 +241,7 @@ Development is financed by individual user contributions, i.e. you donating or b
 ## Get help
 
 * [Mail](mailto:mail@gururaja.in)
-* [Github Discussions](https://github.com/Guru-25/Skillrack-Points-Tracker/discussions)
+* [Github Discussions](https://github.com/Guru-25/SkillRack-Points-Tracker/discussions)
 
 ## License
 

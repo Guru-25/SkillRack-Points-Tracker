@@ -312,7 +312,7 @@ const App = () => {
               <br /><br />
             </>
           )}
-          Built with <a href="https://github.com/Guru-25/Skillrack-Points-Tracker" target="_blank" rel="noopener noreferrer"><b>MERN stack</b></a> ❤️
+          Built with <a href="https://github.com/Guru-25/SkillRack-Points-Tracker" target="_blank" rel="noopener noreferrer"><b>MERN stack</b></a> ❤️
         </footer>
         <Modal
           show={state.showLogoutModal}
