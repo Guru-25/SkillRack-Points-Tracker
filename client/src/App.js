@@ -172,10 +172,6 @@ const App = () => {
   if (state.loading) {
     return (
       <div style={{ textAlign: 'center', padding: '50px' }}>
-        <Helmet>
-          <title>Loading... | SkillRack Points Tracker and Calculator</title>
-          <meta name="description" content="Loading data for SkillRack Points Tracker and Calculator." />
-        </Helmet>
         <h1>Loading...</h1>
       </div>
     );
@@ -185,7 +181,7 @@ const App = () => {
     <HelmetProvider>
       <div style={{ textAlign: 'center', padding: '50px' }}>
         <Helmet>
-          <title>SkillRack Points Tracker and Calculator</title>
+          <title>SkillRack Tracker</title>
           <meta name="description" content="Track and calculate your SkillRack points effortlessly using this powerful tool." />
           <link rel="canonical" href="http://skillrack.gururaja.in" />
           <script type="application/ld+json">
@@ -193,9 +189,9 @@ const App = () => {
               {
                 "@context": "http://schema.org",
                 "@type": "WebSite",
-                "name": "SkillRack Points Tracker and Calculator",
+                "name": "SkillRack Tracker",
                 "url": "http://skillrack.gururaja.in",
-                "description": "A tool to track and calculate SkillRack points using React, Express, Node.js, and more.",
+                "description": "Track and calculate your SkillRack points effortlessly using this powerful tool.",
                 "author": {
                   "@type": "Person",
                   "name": "Guru"
