@@ -26,7 +26,7 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
 
 ## Screenshots
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" height="500dp" /><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" height="500dp" /><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" height="500dp" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" height="500dp" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" height="500dp" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" height="500dp" />
 
 ## Tools and Technologies
 
