@@ -295,8 +295,8 @@ const App = () => {
         <footer style={{ marginTop: '50px' }}>
           <br /><br />
           {/* {!isStandalone && isMobile && (
-            <a href="https://github.com/Guru-25/skillrack-points-tracker/releases" target="_blank" rel="noopener noreferrer">
-              <img src=".assets/badge_github.png" alt="Get it on GitHub" height="80" />
+            <a href="https://play.google.com/store/apps/details?id=in.gururaja.in.skillrack" target="_blank" rel="noopener noreferrer">
+              <img src=".assets/badge_googleplay.png" alt="Get it on Google Play" height="80" />
             </a>
           )}
           <br /><br /> */}

@@ -1,6 +1,6 @@
-<img src="https://github.com/Guru-25/skillrack-points-tracker/raw/main/.assets/banner.jpg" width="192" height="192">
+<img src="https://raw.githubusercontent.com/Guru-25/skillrack-points-tracker/main/.assets/logo.jpg" width="192" height="192">
 
-# SkillRack Points Tracker and Calculator
+# SkillRack Points Tracker
 
 Track and calculate your SkillRack points effortlessly using this powerful tool built with React, Express, Node.js, Axios and Cheerio. This project is designed to scrape user data from SkillRack, calculate points, and display them with a progress bar.
 
@@ -16,9 +16,15 @@ Track and calculate your SkillRack points effortlessly using this powerful tool 
 <!-- 
 ## Download
 
-[<img src="https://github.com/Guru-25/skillrack-points-tracker/raw/main/client/public/.assets/badge_github.png"
+[<img src="https://raw.githubusercontent.com/Guru-25/skillrack-points-tracker/main/client/public/.assets/badge_googleplay.png"
+    alt="Get it on Google Play"
+    height="80">](https://play.google.com/store/apps/details?id=in.gururaja.skillrack) 
+[<img src="https://raw.githubusercontent.com/Guru-25/skillrack-points-tracker/main/.assets/badge_github.png"
     alt="Get it on GitHub"
-    height="80">](https://github.com/Guru-25/skillrack-points-tracker/releases) -->
+    height="80">](https://github.com/Guru-25/skillrack-points-tracker/releases) 
+[<img src="https://raw.githubusercontent.com/Guru-25/skillrack-points-tracker/main/.assets/badge_izzyondroid.png"
+    alt="Get it on IzzyOnDroid"
+    height="80">](https://apt.izzysoft.de/fdroid/index/apk/in.gururaja.skillrack) -->
 
 ## Tools and Technologies
 
