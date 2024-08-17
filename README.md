@@ -24,6 +24,10 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
     alt="Get it on IzzyOnDroid"
     height="80">](https://apt.izzysoft.de/fdroid/index/apk/in.gururaja.skillrack) 
 
+## Screenshots
+
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" height="500dp" /><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" height="500dp" /><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" height="500dp" />
+
 ## Tools and Technologies
 
 - **React**: Frontend user interface.
