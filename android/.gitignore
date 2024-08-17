@@ -1,0 +1,16 @@
+# Ignore build artifacts
+*.apk
+*.idsig
+
+# Ignore gradle wrapper files
+.gradle/
+gradle/
+
+# Ignore key files
+signingKey.keystore
+
+# Ignore properties and other configuration files
+gradle.properties
+
+# Ignore build output
+app/build/
