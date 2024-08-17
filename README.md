@@ -9,8 +9,6 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
 - Scrapes user data from SkillRack.
 - Calculates points based on the user's activities.
 - Displays points with a circular progress bar.
-- Stores user data in MongoDB.
-- Handles cookies for session management.
 - Schedule Planning
 - Public API ⚡️
 

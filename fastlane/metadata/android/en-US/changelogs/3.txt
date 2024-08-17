@@ -1,0 +1,2 @@
+- Remove unnecessary permissions
+- Added source code to public

@@ -1,0 +1,10 @@
+<i>SkillRack Tracker</i> allows you to track and calculate your SkillRack points effortlessly. Designed to scrape user data from <a href="https://www.skillrack.com">SkillRack.com</a>, it calculates points and displays them with a circular progress bar, providing a seamless and intuitive experience.
+
+<b>Features:</b>
+<ul>
+    <li>Scrapes user data from SkillRack</li>
+    <li>Calculates points based on the user's activities</li>
+    <li>Displays points with a circular progress bar</li>
+    <li>Schedule Planning</li>
+    <li>Public API ⚡️</li>
+</ul>
