@@ -22,7 +22,10 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
     height="80">](https://github.com/Guru-25/SkillRack-Points-Tracker/releases) 
 [<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/.assets/badge_izzyondroid.png"
     alt="Get it on IzzyOnDroid"
-    height="80">](https://apt.izzysoft.de/fdroid/index/apk/in.gururaja.skillrack) 
+    height="80">](https://apt.izzysoft.de/fdroid/index/apk/in.gururaja.skillrack)
+[<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/.assets/badge_f-droid.png"
+    alt="Get it on F-Droid"
+    height="80">](https://gitlab.com/fdroid/fdroiddata/-/merge_requests/15593) -->
 
 ## Screenshots
 
