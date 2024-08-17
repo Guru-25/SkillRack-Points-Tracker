@@ -244,7 +244,7 @@ Development is financed by individual user contributions, i.e. you becoming a sp
 
   or
 
-  <a href="https://gururaja.in/donate" target="_blank" rel="noopener noreferrer">
+  <a href="https://gururaja.in/donate">
       <img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/.assets/badge_upi.svg" alt="UPI Pay" height="40">
   </a>
   
