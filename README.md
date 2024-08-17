@@ -2,7 +2,7 @@
 
 # SkillRack Points Tracker
 
-Track and calculate your SkillRack points effortlessly using this powerful tool built with React, Express, Node.js, Axios and Cheerio. This project is designed to scrape user data from SkillRack, calculate points, and display them with a progress bar.
+Track and calculate your SkillRack points effortlessly with this powerful Progressive Web App (PWA), built using React, Express, Node.js, Axios, and Cheerio. Whether you’re using it on the web or as a native Android app, this project scrapes user data from SkillRack, calculates points, and displays them with a progress bar, providing a seamless experience across platforms.
 
 ## Features
 
@@ -13,18 +13,18 @@ Track and calculate your SkillRack points effortlessly using this powerful tool 
 - Handles cookies for session management.
 - Schedule Planning
 - Public API ⚡️
-<!-- 
-## Download
 
+## Download
+<!-- 
 [<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/client/public/.assets/badge_googleplay.png"
     alt="Get it on Google Play"
-    height="80">](https://play.google.com/store/apps/details?id=in.gururaja.skillrack) 
+    height="80">](https://play.google.com/store/apps/details?id=in.gururaja.skillrack) -->
 [<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/.assets/badge_github.png"
     alt="Get it on GitHub"
     height="80">](https://github.com/Guru-25/SkillRack-Points-Tracker/releases) 
 [<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/.assets/badge_izzyondroid.png"
     alt="Get it on IzzyOnDroid"
-    height="80">](https://apt.izzysoft.de/fdroid/index/apk/in.gururaja.skillrack) -->
+    height="80">](https://apt.izzysoft.de/fdroid/index/apk/in.gururaja.skillrack) 
 
 ## Tools and Technologies
 
