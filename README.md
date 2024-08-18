@@ -13,10 +13,10 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
 - Public API ⚡️
 
 ## Download
-<!-- 
+
 [<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/client/public/.assets/badge_googleplay.png"
     alt="Get it on Google Play"
-    height="80">](https://play.google.com/store/apps/details?id=in.gururaja.skillrack) -->
+    height="80">](https://github.com/Guru-25/skillrack-points-tracker?tab=readme-ov-file#support-the-project)
 [<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/.assets/badge_github.png"
     alt="Get it on GitHub"
     height="80">](https://github.com/Guru-25/SkillRack-Points-Tracker/releases) 
