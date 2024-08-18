@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/.assets/logo.jpg" width="192" height="192">
+<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/fastlane/metadata/android/en-US/images/icon.png" width="192" height="192">
 
 # SkillRack Points Tracker
 
