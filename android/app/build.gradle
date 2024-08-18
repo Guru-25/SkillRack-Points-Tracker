@@ -24,8 +24,8 @@ def twaManifest = [
     applicationId: 'in.gururaja.skillrack',
     hostName: 'skillrack.gururaja.in', // The domain being opened in the TWA.
     launchUrl: '/', // The start path for the TWA. Must be relative to the domain.
-    name: 'SkillRack Tracker', // The application name.
-    launcherName: 'SkillRack Tracker', // The name shown on the Android Launcher.
+    name: 'SkillTRack', // The application name.
+    launcherName: 'SkillTRack', // The name shown on the Android Launcher.
     themeColor: '#000000', // The color used for the status bar.
     themeColorDark: '#000000', // The color used for the dark status bar.
     navigationColor: '#000000', // The color used for the navigation bar.
@@ -57,8 +57,8 @@ android {
         applicationId "in.gururaja.skillrack"
         minSdkVersion 19
         targetSdkVersion 35
-        versionCode 5
-        versionName "1.0.5"
+        versionCode 6
+        versionName "1.0.6"
 
         // The name for the application
         resValue "string", "appName", twaManifest.name

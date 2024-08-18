@@ -1,0 +1,3 @@
+- Changed App name to SkillTRack (SkilRack + Track = SkillRack Tracker)
+- Added Maskable icon
+- Update Splash and Launcher Logo
