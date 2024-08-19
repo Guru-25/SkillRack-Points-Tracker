@@ -29,6 +29,8 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
 
 > [!NOTE]  
 > The app is not yet published on Google Play as the Google Developer account requires a $25 (~₹2100 INR) fee. Clicking the button will take you to a donation link. If you can contribute, your support is appreciated!
+
+![video](https://github.com/user-attachments/assets/eb267ab0-04bb-4f09-a54b-8fbd31909ad9)
 </details>
 
 ## Screenshots
