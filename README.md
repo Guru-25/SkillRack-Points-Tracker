@@ -21,13 +21,14 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
     alt="Get it on IzzyOnDroid"
     height="80">](https://apt.izzysoft.de/fdroid/index/apk/in.gururaja.skillrack)
 
-<details>
-  <summary>Soon</summary>
   <p>
     <a href="#support-the-project">
       <img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/client/public/.assets/badge_googleplay.png" alt="Get it on Google Play" height="80">
     </a>
   </p>
+
+> [!NOTE]  
+> The app is not yet published on Google Play as the Google Developer account requires a $25 (~₹2100 INR) fee. Clicking the button will take you to a donation link. If you can contribute, your support is appreciated!
 </details>
 
 ## Screenshots
