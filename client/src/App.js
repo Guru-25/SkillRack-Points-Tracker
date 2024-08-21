@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import axios from 'axios';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -7,8 +7,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import Summary from './Summary';
-import Schedule from './Schedule';
-import ScheduleDTDC from './ScheduleDTDC';
 import './App.css';
 
 // Custom Modal Component
@@ -24,6 +22,9 @@ const Modal = ({ show, onClose, onConfirm, message }) => {
     </div>
   );
 };
+
+const Schedule = React.lazy(() => import('./Schedule'));
+const ScheduleDTDC = React.lazy(() => import('./ScheduleDTDC'));
 
 const App = () => {
   const initialState = {
@@ -259,14 +260,17 @@ const App = () => {
                 <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br /><br />
                 {state.showSchedule && (
                   <div className="fade-in">
-                    <Schedule
-                      initialValues={{
-                        codeTrack: state.codeTrack,
-                        dt: state.dt,
-                        dc: state.dc,
-                        points: state.points,
-                        requiredPoints: state.requiredPoints
-                      }}
+                    <Suspense
+                      fallback={<div>Loading...</div>}
+                      children={<Schedule
+                        initialValues={{
+                          codeTrack: state.codeTrack,
+                          dt: state.dt,
+                          dc: state.dc,
+                          points: state.points,
+                          requiredPoints: state.requiredPoints
+                        }}
+                      />}
                     />
                   </div>
                 )}
@@ -277,11 +281,14 @@ const App = () => {
                 <button onClick={handleGenerateScheduleDTDC} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
                 {state.showScheduleDTDC && (
                   <div className="fade-in">
-                    <ScheduleDTDC
-                      initialValues={{
-                        codeTrack: state.codeTrack,
-                        problems: state.codeTrack + state.codeTutor
-                      }}
+                    <Suspense
+                      fallback={<div>Loading...</div>}
+                      children={<ScheduleDTDC
+                        initialValues={{
+                          codeTrack: state.codeTrack,
+                          problems: state.codeTrack + state.codeTutor
+                        }}
+                      />}
                     />
                   </div>
                 )}
