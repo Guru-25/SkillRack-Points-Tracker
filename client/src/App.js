@@ -209,7 +209,7 @@ const App = () => {
             <input
               type="text"
               value={state.url}
-              onChange={(e) => handleStateChange({ url: e.target.value })}
+              onChange={(e) => handleStateChange({ url: e.target.value.trim() })}
               placeholder="Paste Profile URL"
               name="profile_url"
               style={{ width: '100%', maxWidth: '300px', padding: '10px', boxSizing: 'border-box' }}
