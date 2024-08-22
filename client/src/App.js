@@ -302,6 +302,7 @@ const App = () => {
           <br /><br /> */}
           {!state.isValidUrl && (
             <>
+            Status<br /><br />
               <a href="https://status.gururaja.in" target="_blank" rel="noopener noreferrer">
                 <img
                   src="https://uptime.betterstack.com/status-badges/v1/monitor/1ii67.svg"
