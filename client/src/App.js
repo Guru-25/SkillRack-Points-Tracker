@@ -300,17 +300,6 @@ const App = () => {
             </a>
           )}
           <br /><br /> */}
-          {!state.isValidUrl && (
-            <>
-              <a href="https://status.gururaja.in" target="_blank" rel="noopener noreferrer">
-                <img
-                  src="https://uptime.betterstack.com/status-badges/v1/monitor/1ii67.svg"
-                  alt="SkillRack Status"
-                />
-              </a>
-              <br /><br /><br />
-            </>
-          )}
           {state.isValidUrl && (
             <>
               <aside>
