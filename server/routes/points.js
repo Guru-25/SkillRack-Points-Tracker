@@ -128,12 +128,16 @@ router.post('/', async (req, res) => {
     }
 
     if (IS_RECORD_ENABLED) {
+      // Extract the resume id from the URL
+      const urlParams = new URLSearchParams(new URL(url).search);
+      const resumeId = urlParams.get('id');
+
       // Perform database operations before sending response
-      let user = await User.findOne({ url: url });
+      let user = await User.findOne({ id: resumeId });
       const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n\`(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${parseFloat(data.percentage.toFixed(2))}%)\`\n\n`;
       if (data.name !== '') {
         if (!user) {
-          user = new User({ name: data.name, dept: data.dept, url: url });
+          user = new User({ id: resumeId , name: data.name, dept: data.dept, url: url });
           await user.save();
           console.log(`${data.name} is stored in DB`);
           await sendLogMessage(logMessage + `[Profile](${data.url})`, process.env.TOPIC1_ID); // Registered
