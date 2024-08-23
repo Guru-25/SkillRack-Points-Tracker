@@ -137,7 +137,7 @@ router.post('/', async (req, res) => {
       const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n\`(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${parseFloat(data.percentage.toFixed(2))}%)\`\n\n`;
       if (data.name !== '') {
         if (!user) {
-          user = new User({ id: resumeId , name: data.name, dept: data.dept, url: url });
+          user = new User({ id: resumeId, name: data.name, dept: data.dept, url: url });
           await user.save();
           console.log(`${data.name} is stored in DB`);
           await sendLogMessage(logMessage + `[Profile](${data.url})`, process.env.TOPIC1_ID); // Registered
@@ -146,9 +146,8 @@ router.post('/', async (req, res) => {
         }
       }
     }
-    
-    const redirectedUrl = url;
-    res.json({ ...data, redirectedUrl });
+
+    res.json(data);
   } catch (error) {
     console.error('Error in request processing:', error);
     res.status(500).json({ error: 'An error occurred while processing the request' });
