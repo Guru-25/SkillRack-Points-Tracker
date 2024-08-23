@@ -74,7 +74,7 @@ https://skillrack.gururaja.in/api/points
   Example:
   ```json
   {
-    "url": "http://www.skillrack.com/profile/xxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    "url": "http://www.skillrack.com/profile/<resumeId>/<resumeKey>"
   }
   ```
 
@@ -84,22 +84,22 @@ https://skillrack.gururaja.in/api/points
       
      ```json
       {
+        "id": "<resumeId>",
         "name": "GURU RAJA R",
         "dept": "IT",
         "year": "2026",
-        "collegeName": "Thiagarajar College of Engineering (TCE), Madurai",
+        "college": "Thiagarajar College of Engineering (TCE), Madurai",
         "codeTutor": 300,
         "codeTrack": 730,
         "codeTest": 0,
-        "dt": 45,
-        "dc": 46,
-        "medals": 329,
-        "points": 2452,
+        "dt": 52,
+        "dc": 52,
+        "medals": 342,
+        "points": 2604,
         "requiredPoints": 3000,
-        "percentage": 81.73333333333333,
-        "lastFetched": "8:47:55 pm",
-        "url": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "redirectedUrl": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        "percentage": 86.8,
+        "lastFetched": "1:48:29 am",
+        "url": "https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
       }
      
   - On Failure:
@@ -125,7 +125,7 @@ https://skillrack.gururaja.in/api/points
 
   Example:
   ```
-  https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>
   ```
 
 - **Response:**
@@ -134,10 +134,11 @@ https://skillrack.gururaja.in/api/points
 
       ```json
       {
+        "id": "<resumeId>",
         "name": "GURU RAJA R",
         "dept": "IT",
         "year": "2026",
-        "collegeName": "Thiagarajar College of Engineering (TCE), Madurai",
+        "college": "Thiagarajar College of Engineering (TCE), Madurai",
         "codeTutor": 300,
         "codeTrack": 730,
         "codeTest": 0,
@@ -148,7 +149,7 @@ https://skillrack.gururaja.in/api/points
         "requiredPoints": 3000,
         "percentage": 81.73333333333333,
         "lastFetched": "8:47:55 pm",
-        "url": "https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        "url": "https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
       }
 
   - On Failure:
@@ -169,7 +170,7 @@ https://skillrack.gururaja.in/api/points
    ```bash
    curl -X POST https://skillrack.gururaja.in/api/points/ \
    -H "Content-Type: application/json" \
-   -d '{"url": "https://www.skillrack.com/profile/xxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}'
+   -d '{"url": "http://www.skillrack.com/profile/<resumeId>/<resumeKey>"}'
    ```
 
 2. **Refreshing Points Data**
@@ -177,7 +178,7 @@ https://skillrack.gururaja.in/api/points
    To refresh the points for a user, send a GET request to the `/refresh` endpoint with the user's SkillRack profile URL as a query parameter.
 
    ```bash
-   curl -X GET "https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com/faces/resume.xhtml?id=xxxxxx&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+   curl -X GET "https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
    ```
 
 ## Getting Started

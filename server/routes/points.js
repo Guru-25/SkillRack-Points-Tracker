@@ -22,6 +22,10 @@ async function fetchRedirectedUrl(url) {
 // Fetch data from SkillRack profile
 async function fetchData(url) {
   try {
+    // Extract the resume id from the URL
+    const urlParams = new URLSearchParams(new URL(url).search);
+    const id = urlParams.get('id');
+
     const { data } = await axios.get(url);
     const $ = cheerio.load(data);
 
@@ -30,7 +34,7 @@ async function fetchData(url) {
     const name = rawText[0].trim();
     const dept = rawText[4].trim();
     const year = rawText[8].trim().match(/\d{4}$/)[0];
-    const collegeName = rawText[6].trim();
+    const college = rawText[6].trim();
     const codeTutor = parseInt($('div:contains("DT")').next().find('.value').text().trim()) || 0;
     const codeTrack = parseInt($('div:contains("CODE TEST")').next().find('.value').text().trim()) || 0;
     const codeTest = parseInt($('div:contains("PROGRAMS SOLVED")').next().find('.value').text().trim()) || 0;
@@ -53,8 +57,8 @@ async function fetchData(url) {
       }
     };
 
-    if (collegeCriteria[collegeName]) {
-      requiredPoints = collegeCriteria[collegeName](year, dept);
+    if (collegeCriteria[college]) {
+      requiredPoints = collegeCriteria[college](year, dept);
     }
 
     const percentageCalculate = points / requiredPoints * 100;
@@ -66,9 +70,9 @@ async function fetchData(url) {
 
     const medals = gold + silver + bronze;
 
-    console.log({ name, dept, year, collegeName, codeTutor, codeTrack, codeTest, dt, dc, medals, points, requiredPoints, percentage, lastFetched, url}); // Log the parsed values
+    console.log({ id, name, dept, year, college, codeTutor, codeTrack, codeTest, dt, dc, medals, points, requiredPoints, percentage, lastFetched, url}); // Log the parsed values
 
-    return { name, dept, year, collegeName, codeTutor, codeTrack, codeTest, dt, dc, medals, points, requiredPoints, percentage, lastFetched, url};
+    return { id, name, dept, year, college, codeTutor, codeTrack, codeTest, dt, dc, medals, points, requiredPoints, percentage, lastFetched, url};
   } catch (error) {
     console.error('Error fetching data:', error);
     return null;
@@ -128,16 +132,12 @@ router.post('/', async (req, res) => {
     }
 
     if (IS_RECORD_ENABLED) {
-      // Extract the resume id from the URL
-      const urlParams = new URLSearchParams(new URL(url).search);
-      const resumeId = urlParams.get('id');
-
       // Perform database operations before sending response
-      let user = await User.findOne({ id: resumeId });
+      let user = await User.findOne({ id: data.id });
       const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n\`(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${parseFloat(data.percentage.toFixed(2))}%)\`\n\n`;
       if (data.name !== '') {
         if (!user) {
-          user = new User({ id: resumeId, name: data.name, dept: data.dept, url: url });
+          user = new User({ id: data.id, name: data.name, dept: data.dept, url: url });
           await user.save();
           console.log(`${data.name} is stored in DB`);
           await sendLogMessage(logMessage + `[Profile](${data.url})`, process.env.TOPIC1_ID); // Registered
