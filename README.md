@@ -34,7 +34,7 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
 
 ## Screenshots
 
-<img src="metadata/en-US/images/phoneScreenshots/1.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/2.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/3.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/4.png" height="500dp" />
+<img src="metadata/en-US/images/phoneScreenshots/1.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/2.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/3.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/4.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/5.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/6.png" height="500dp" />
 
 ## Tools and Technologies
 
@@ -206,7 +206,6 @@ https://skillrack.gururaja.in/api/points
    IS_RECORD_ENABLED=true_or_false (default: false)
 
    ## The following are only required when IS_RECORD_ENABLED is true
-   
    # RECORD
    MONGODB_URI=your_mongodb_uri
    BOT_TOKEN=your_bot_token
