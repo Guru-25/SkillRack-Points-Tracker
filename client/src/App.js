@@ -182,15 +182,16 @@ const App = () => {
       <div style={{ textAlign: 'center', padding: '50px' }}>
         <Helmet>
           <title>SkillRack Tracker</title>
+          <meta property="og:title" content="SkillRack Tracker" />
           <meta name="description" content="Track and calculate your SkillRack points effortlessly using this powerful tool." />
-          <link rel="canonical" href="http://skillrack.gururaja.in" />
+          <link rel="canonical" href="https://skillrack.gururaja.in" />
           <script type="application/ld+json">
             {`
               {
-                "@context": "http://schema.org",
+                "@context": "https://schema.org",
                 "@type": "WebSite",
-                "name": "SkillRack Points Tracker and Calculator",
-                "url": "http://skillrack.gururaja.in",
+                "name": "SkillRack Tracker",
+                "url": "https://skillrack.gururaja.in",
                 "description": "Track and calculate your SkillRack points effortlessly using this powerful tool.",
                 "author": {
                   "@type": "Person",
