@@ -1,8 +1,8 @@
-<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/fastlane/metadata/android/en-US/images/icon.png" width="192" height="192">
+<img src="metadata/en-US/images/featureGraphic.png" width="400">
 
 # SkillRack Points Tracker
 
-Track and calculate your SkillRack points effortlessly with this powerful Progressive Web App (PWA), built using React, Express, Node.js, Axios, and Cheerio. Whether you’re using it on the web or as a native Android app, this project scrapes user data from SkillRack, calculates points, and displays them with a progress bar, providing a seamless experience across platforms.
+Track and calculate your SkillRack points effortlessly with this powerful Progressive Web App (PWA), built using React, Express, Node.js, Axios, and Cheerio. Whether you’re using it on the web as a PWA or as a native Android app packaged with a Trusted Web Activity (TWA), this project scrapes user data from SkillRack, calculates points, and displays them with a progress bar, providing a seamless experience across platforms.
 
 ## Features
 
@@ -14,28 +14,27 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
 
 ## Download
   
-[<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/.assets/badge_github.png"
+[<img src=".assets/badge_github.png"
     alt="Get it on GitHub"
     height="80">](https://github.com/Guru-25/SkillRack-Points-Tracker/releases)
-[<img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/.assets/badge_izzyondroid.png"
+[<img src=".assets/badge_izzyondroid.png"
     alt="Get it on IzzyOnDroid"
     height="80">](https://apt.izzysoft.de/fdroid/index/apk/in.gururaja.skillrack)
 
-  <p>
-    <a href="#support-the-project">
-      <img src="https://raw.githubusercontent.com/Guru-25/SkillRack-Points-Tracker/main/client/public/.assets/badge_googleplay.png" alt="Get it on Google Play" height="80">
-    </a>
-  </p>
+<p>
+  <a href="#support-the-project">
+    <img src="client/public/.assets/badge_googleplay.png" alt="Get it on Google Play" height="80">
+  </a>
+</p>
 
 > [!NOTE]  
 > The app is not yet published on Google Play as the Google Developer account requires a $25 (~₹2100 INR) fee. Clicking the button will take you to a donation link. If you can contribute, your support is appreciated!
 
-![video](https://github.com/user-attachments/assets/eb267ab0-04bb-4f09-a54b-8fbd31909ad9)
-</details>
+![video](.assets/donate.gif)
 
 ## Screenshots
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" height="500dp" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" height="500dp" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" height="500dp" />
+<img src="metadata/en-US/images/phoneScreenshots/1.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/2.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/3.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/4.png" height="500dp" />
 
 ## Tools and Technologies
 
@@ -125,7 +124,7 @@ https://skillrack.gururaja.in/api/points
 
   Example:
   ```
-  https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>
+  https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>
   ```
 
 - **Response:**
@@ -142,14 +141,14 @@ https://skillrack.gururaja.in/api/points
         "codeTutor": 300,
         "codeTrack": 730,
         "codeTest": 0,
-        "dt": 45,
-        "dc": 46,
-        "medals": 329,
-        "points": 2452,
+        "dt": 52,
+        "dc": 52,
+        "medals": 342,
+        "points": 2604,
         "requiredPoints": 3000,
-        "percentage": 81.73333333333333,
-        "lastFetched": "8:47:55 pm",
-        "url": "https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
+        "percentage": 86.8,
+        "lastFetched": "1:48:29 am",
+        "url": "https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
       }
 
   - On Failure:
@@ -178,7 +177,7 @@ https://skillrack.gururaja.in/api/points
    To refresh the points for a user, send a GET request to the `/refresh` endpoint with the user's SkillRack profile URL as a query parameter.
 
    ```bash
-   curl -X GET "https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
+   curl -X GET "https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>"
    ```
 
 ## Getting Started
@@ -187,40 +186,34 @@ https://skillrack.gururaja.in/api/points
 
 - Node.js
 - npm
-- MongoDB (optional)
 
 ### Installation
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/SkillRack-Points-Tracker.git
+   git clone https://github.com/<your_username>/SkillRack-Points-Tracker.git
    cd SkillRack-Points-Tracker
    ```
 
 2. Install dependencies for the client and server:
    ```sh
-   cd client
-   npm install
-   cd ../server
-   npm install
+   npm run build
    ```
 
-3. Set up your environment variables in a `.env` file in the server directory:
+3. Set up your environment variables in a `.env` file in the server directory (optional):
 
    ```env
-   IS_RECORD_ENABLED=true_or_false
+   IS_RECORD_ENABLED=true_or_false (default: false)
 
-   ## The following is only required when IS_RECORD_ENABLED is true
+   ## The following are only required when IS_RECORD_ENABLED is true
    
-   # MongoDB connection string
+   # RECORD
    MONGODB_URI=your_mongodb_uri
-
-   # LOG
-   BOT_TOKEN=bot_token
-   CHAT_ID=chat_id
-   TOPIC1_ID=topic1_id
-   TOPIC2_ID=topic2_id
-   TOPIC3_ID=topic3_id
+   BOT_TOKEN=your_bot_token
+   CHAT_ID=your_chat_id
+   TOPIC1_ID=your_topic1_id
+   TOPIC2_ID=your_topic2_id
+   TOPIC3_ID=your_topic3_id
    ```
 
 ### Running the Application
@@ -252,7 +245,7 @@ Development is financed by individual user contributions, i.e. you becoming a sp
   or
 
   <a href="https://gururaja.in/donate">
-      <img src="https://github.com/TakiShiwa/donate-with-upi/blob/main/Button/SVG/UPI-teal-01.svg" alt="UPI Pay" height="40">
+      <img src="https://raw.githubusercontent.com/TakiShiwa/donate-with-upi/main/Button/SVG/UPI-teal-01.svg" alt="UPI Pay" height="40">
   </a>
   
 > [!NOTE]  
@@ -261,7 +254,6 @@ Development is financed by individual user contributions, i.e. you becoming a sp
 ## Get help
 
 * [Mail](mailto:mail@gururaja.in)
-* [Github Discussions](https://github.com/Guru-25/SkillRack-Points-Tracker/discussions)
 
 ## License
 
