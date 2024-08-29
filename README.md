@@ -30,8 +30,6 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
 > [!NOTE]  
 > The app is not yet published on Google Play as the Google Developer account requires a $25 (~₹2100 INR) fee. Clicking the button will take you to a donation link. If you can contribute, your support is appreciated!
 
-![video](.assets/donate.gif)
-
 ## Screenshots
 
 <img src="metadata/en-US/images/phoneScreenshots/1.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/2.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/3.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/4.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/5.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/6.png" height="500dp" />
@@ -191,7 +189,7 @@ https://skillrack.gururaja.in/api/points
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/<your_username>/SkillRack-Points-Tracker.git
+   git clone https://github.com/Guru-25/SkillRack-Points-Tracker.git
    cd SkillRack-Points-Tracker
    ```
 
