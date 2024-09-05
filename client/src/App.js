@@ -312,7 +312,7 @@ const App = () => {
               <br /><br />
             </>
           )}
-          Give a ⭐️ on <a href="https://github.com/Guru-25/SkillRack-Points-Tracker" target="_blank" rel="noopener noreferrer"><b>GitHub</b></a>
+          made with ❤️ by <a href="https://gururaja.in" target="_blank" rel="noopener noreferrer"><b>someone</b></a>
         </footer>
         <Modal
           show={state.showLogoutModal}
