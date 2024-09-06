@@ -57,7 +57,9 @@ async function fetchData(url) {
       }
     };
 
-    if (collegeCriteria[college]) {
+    if (id === "466980" || id === "466677") {
+      requiredPoints = 5000;
+    } else if (collegeCriteria[college]) {
       requiredPoints = collegeCriteria[college](year, dept);
     }
 
