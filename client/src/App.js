@@ -294,24 +294,21 @@ const App = () => {
           </>
         )}
         <footer style={{ marginTop: '50px' }}>
-          <br /><br />
           {/* {!isStandalone && isMobile && (
             <a href="https://play.google.com/store/apps/details?id=in.gururaja.in.skillrack" target="_blank" rel="noopener noreferrer">
               <img src=".assets/badge_googleplay.png" alt="Get it on Google Play" height="80" />
             </a>
           )}
           <br /><br /> */}
-          {state.isValidUrl && (
+          {state.isValidUrl && state.requiredPoints === 0 && (
             <>
-              <aside>
-                <details>
-                  <summary>Is the required points incorrect?</summary>
-                  <p>If required points ({state.requiredPoints}) is incorrect, please <a href="mailto:mail@gururaja.in">email us</a>.</p>
-                </details>
-              </aside>
+              <div className='para-container'>
+                <p>Your college is not in our database! Help us update your college's required points by emailing <a href="mailto:mail@gururaja.in">mail@gururaja.in</a>. Once submitted, you'll unlock features like Schedule Planner!</p>
+              </div>
               <br /><br />
             </>
           )}
+          <br /><br />
           made with ❤️ by <a href="https://gururaja.in" target="_blank" rel="noopener noreferrer"><b>someone</b></a>
         </footer>
         <Modal

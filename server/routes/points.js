@@ -50,16 +50,14 @@ async function fetchData(url) {
 
     const collegeCriteria = {
       "Thiagarajar College of Engineering (TCE), Madurai": (year, dept) => {
-        return (year === "2025" || dept !== "CSE") ? 3000 : 5000;
+        return (year === "2025") ? 3000 : 5000;
       },
       "K.L.N College of Engineering, Madurai": (year) => {
         return (year === "2025" || year === "2026") ? 1500 : 0;
       }
     };
 
-    if (id === "466980" || id === "466677") {
-      requiredPoints = 5000;
-    } else if (collegeCriteria[college]) {
+    if (collegeCriteria[college]) {
       requiredPoints = collegeCriteria[college](year, dept);
     }
 

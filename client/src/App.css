@@ -155,3 +155,14 @@ footer a:hover {
 .fade-in {
   animation: fadeIn 0.5s ease-in-out;
 }
+
+.para-container {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
