@@ -1,6 +1,6 @@
 # Contributing to SkillRack Points Tracker
 
-Thank you for considering contributing to SkillRack Points Tracker! We welcome contributions from everyone. By participating in this project, you agree to abide by our code of conduct.
+Thank you for considering contributing to SkillRack Points Tracker! We welcome contributions from everyone.
 
 ## How to Contribute
 
