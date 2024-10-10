@@ -49,16 +49,19 @@ async function fetchData(url) {
     let requiredPoints = 0;
 
     const collegeCriteria = {
-      "Thiagarajar College of Engineering (TCE), Madurai": (year, dept) => {
+      "Thiagarajar College of Engineering (TCE), Madurai": (year) => {
         return (year === "2025") ? 3000 : 5000;
       },
       "K.L.N College of Engineering, Madurai": (year) => {
         return (year === "2025" || year === "2026") ? 1500 : 0;
+      },
+      "Sairam Engineering College, Chennai": (year) => {
+        return (year === "2028") ? 700 : 0;
       }
     };
 
     if (collegeCriteria[college]) {
-      requiredPoints = collegeCriteria[college](year, dept);
+      requiredPoints = collegeCriteria[college](year);
     }
 
     const percentageCalculate = points / requiredPoints * 100;
