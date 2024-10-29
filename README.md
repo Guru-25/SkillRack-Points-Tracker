@@ -1,6 +1,6 @@
 <img src="metadata/en-US/images/featureGraphic.png" width="400">
 
-# SkillRack Points Tracker
+# SkillRack Tracker
 
 Track and calculate your SkillRack points effortlessly with this powerful Progressive Web App (PWA), built using React, Express, Node.js, Axios, and Cheerio. Whether you’re using it on the web as a PWA or as a native Android app packaged with a Trusted Web Activity (TWA), this project scrapes user data from SkillRack, calculates points, and displays them with a progress bar, providing a seamless experience across platforms.
 
@@ -47,7 +47,7 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
 
 ## API Documentation
 
-The SkillRack Points Tracker API allows you to track and calculate points based on activities from SkillRack. Below is the documentation for the available endpoints.
+The SkillRack Tracker API allows you to track and calculate points based on activities from SkillRack. Below is the documentation for the available endpoints.
 
 ### Base URL
 ```
@@ -211,6 +211,8 @@ https://skillrack.gururaja.in/api/points
    TOPIC1_ID=your_topic1_id
    TOPIC2_ID=your_topic2_id
    TOPIC3_ID=your_topic3_id
+   TOPIC4_ID=your_topic4_id
+   ID=your_id
    ```
 
 ### Running the Application
@@ -254,4 +256,4 @@ Development is financed by individual user contributions, i.e. you becoming a sp
 
 ## License
 
-SkillRack Points Tracker's code is available under a GPL v3 license - see the [LICENSE](LICENSE) file for details.
+SkillRack Tracker's code is available under a GPL v3 license - see the [LICENSE](LICENSE) file for details.

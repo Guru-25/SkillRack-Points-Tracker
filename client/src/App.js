@@ -201,7 +201,7 @@ const App = () => {
             `}
           </script>
         </Helmet>
-        <h1>SkillRack Points Tracker</h1>
+        <h1>SkillRack Tracker</h1>
         <Analytics/>
         <SpeedInsights/>
         {!state.isValidUrl && (
