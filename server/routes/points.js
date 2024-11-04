@@ -57,6 +57,9 @@ async function fetchData(url) {
       },
       "Sairam Engineering College, Chennai": (year) => {
         return (year === "2028") ? 700 : 0;
+      },
+      "Sairam Institute of Technology, Chennai": (year) => {
+        return (year === "2028") ? 4800 : 0;
       }
     };
 
