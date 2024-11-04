@@ -1,6 +1,6 @@
-# Contributing to SkillRack Points Tracker
+# Contributing to SkillRack Tracker
 
-Thank you for considering contributing to SkillRack Points Tracker! We welcome contributions from everyone.
+Thank you for considering contributing to SkillRack Tracker! We welcome contributions from everyone.
 
 ## How to Contribute
 
