@@ -16,7 +16,7 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
   
 [<img src=".assets/badge_github.png"
     alt="Get it on GitHub"
-    height="80">](https://github.com/Guru-25/SkillRack-Points-Tracker/releases)
+    height="80">](https://github.com/Guru-25/SkillRack-Tracker/releases)
 [<img src=".assets/badge_izzyondroid.png"
     alt="Get it on IzzyOnDroid"
     height="80">](https://apt.izzysoft.de/fdroid/index/apk/in.gururaja.skillrack)
@@ -187,8 +187,8 @@ https://skillrack.gururaja.in/api/points
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/Guru-25/SkillRack-Points-Tracker.git
-   cd SkillRack-Points-Tracker
+   git clone https://github.com/Guru-25/SkillRack-Tracker.git
+   cd SkillRack-Tracker
    ```
 
 2. Install dependencies for the client and server:
@@ -254,4 +254,4 @@ Development is financed by individual user contributions, i.e. you becoming a sp
 
 ## License
 
-SkillRack Tracker's code is available under a GPL v3 license - see the [LICENSE](LICENSE) file for details.
+SkillRack Tracker's code is available under a AGPL v3 license - see the [LICENSE](LICENSE) file for details.

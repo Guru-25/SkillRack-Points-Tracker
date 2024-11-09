@@ -13,7 +13,7 @@ Start by forking the repository on GitHub. This will create your own copy of the
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/SkillRack-Points-Tracker.git
+git clone https://github.com/your-username/SkillRack-Tracker.git
 ```
 
 ### 3. Create a Branch
@@ -55,7 +55,7 @@ Create a pull request (PR) to the `main` branch of the original repository. Incl
 
 ## Reporting Issues
 
-If you find any issues, please report them in the [Issues section](https://github.com/Guru-25/SkillRack-Points-Tracker/issues).
+If you find any issues, please report them in the [Issues section](https://github.com/Guru-25/SkillRack-Tracker/issues).
 
 ## Suggestions and Feedback
 
