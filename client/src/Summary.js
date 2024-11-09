@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Summary = ({ codeTutor, codeTrack, codeTest, dt, dc, medals, totalPoints, percentage }) => {
+const Summary = ({ codeTutor, codeTrack, codeTest, dt, dc, totalPoints, percentage }) => {
   return (
     <aside style={{ 
       textAlign: 'center', 
@@ -12,14 +12,13 @@ const Summary = ({ codeTutor, codeTrack, codeTest, dt, dc, medals, totalPoints, 
       width: 'fit-content' 
     }}>
       <h3>Points Calculation Summary</h3>
+      <p>Code Tests: {codeTest} x 30 = {codeTest * 30}</p>
+      <p>Code Tracks: {codeTrack} x 2 = {codeTrack * 2}</p>
       <p>Code Tutor: {codeTutor} x 0 = 0</p>
-      <p>Code Track: {codeTrack} x 2 = {codeTrack * 2}</p>
-      <p>Code Test: {codeTest} x 30 = {codeTest * 30}</p>
-      <p>Daily Test: {dt} x 20 = {dt * 20}</p>
-      <p>Daily Challenge: {dc} x 2 = {dc * 2}</p>
-      <p>Medals = {medals}</p>
+      <p>DC: {dc} x 2 = {dc * 2}</p>
+      <p>DT: {dt} x 20 = {dt * 20}</p>
       <hr />
-      <p><strong>Total Points: {totalPoints}</strong> {percentage <= 100 ? `(${parseFloat(percentage.toFixed(2))}%)` : ''}</p>
+      <p><strong>Points = {totalPoints}</strong> {percentage <= 100 ? `(${parseFloat(percentage.toFixed(2))}%)` : ''}</p>
     </aside>
   );
 };
