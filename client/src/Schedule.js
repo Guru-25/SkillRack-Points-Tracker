@@ -81,7 +81,7 @@ const Schedule = ({ initialValues }) => {
 
     let newSchedule = [
       {
-        date: today.toLocaleDateString('en-GB'),
+        date: today.toLocaleDateString('en-GB', { year: '2-digit', month: '2-digit', day: '2-digit' }),
         tracks: currentTracks,
         dt: currentDt,
         dc: currentDc,
@@ -113,7 +113,7 @@ const Schedule = ({ initialValues }) => {
         flag = 1;
       }
       newSchedule.push({
-        date: currentDate.toLocaleDateString('en-GB'),
+        date: currentDate.toLocaleDateString('en-GB', { year: '2-digit', month: '2-digit', day: '2-digit' }),
         tracks: Math.round(currentTracks), // To keep the tracks value an integer
         dt: currentDt,
         dc: currentDc,

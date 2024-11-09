@@ -56,7 +56,7 @@ const ScheduledtDc = ({ initialValues }) => {
 
     let newSchedule = [
       {
-        date: today.toLocaleDateString('en-GB'),
+        date: today.toLocaleDateString('en-GB', { year: '2-digit', month: '2-digit', day: '2-digit' }),
         track: currentTracks,
         totalSolved: currentProblems,
       },
@@ -73,7 +73,7 @@ const ScheduledtDc = ({ initialValues }) => {
       currentProblems += trackIncrement;
 
       newSchedule.push({
-        date: currentDate.toLocaleDateString('en-GB'),
+        date: currentDate.toLocaleDateString('en-GB', { year: '2-digit', month: '2-digit', day: '2-digit' }),
         track: Math.round(currentTracks), // To keep the track value an integer
         totalSolved: Math.round(currentProblems), // Round totalSolved to avoid floating-point issues
       });
