@@ -1,4 +1,4 @@
-<img src="metadata/en-US/images/featureGraphic.png" width="400">
+<img src="fastlane/metadata/android/en-US/images/featureGraphic.png" width="400">
 
 # SkillRack Tracker
 
@@ -32,7 +32,7 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
 
 ## Screenshots
 
-<img src="metadata/en-US/images/phoneScreenshots/1.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/2.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/3.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/4.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/5.png" height="500dp" /> <img src="metadata/en-US/images/phoneScreenshots/6.png" height="500dp" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" height="500dp" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" height="500dp" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" height="500dp" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" height="500dp" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" height="500dp" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" height="500dp" />
 
 ## Tools and Technologies
 
@@ -89,14 +89,13 @@ https://skillrack.gururaja.in/api/points
         "codeTutor": 300,
         "codeTrack": 730,
         "codeTest": 0,
-        "dt": 52,
-        "dc": 52,
-        "medals": 342,
-        "points": 2604,
-        "requiredPoints": 3000,
-        "percentage": 86.8,
-        "lastFetched": "1:48:29 am",
-        "url": "https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
+        "dt": 119,
+        "dc": 95,
+        "points": 4030,
+        "requiredPoints": 5000,
+        "percentage": 80.60000000000001,
+        "lastFetched": "2:36:00 pm",
+        "url": "https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
       }
      
   - On Failure:
@@ -122,7 +121,7 @@ https://skillrack.gururaja.in/api/points
 
   Example:
   ```
-  https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>
+  https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>
   ```
 
 - **Response:**
@@ -139,14 +138,13 @@ https://skillrack.gururaja.in/api/points
         "codeTutor": 300,
         "codeTrack": 730,
         "codeTest": 0,
-        "dt": 52,
-        "dc": 52,
-        "medals": 342,
-        "points": 2604,
-        "requiredPoints": 3000,
-        "percentage": 86.8,
-        "lastFetched": "1:48:29 am",
-        "url": "https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
+        "dt": 119,
+        "dc": 95,
+        "points": 4030,
+        "requiredPoints": 5000,
+        "percentage": 80.60000000000001,
+        "lastFetched": "2:36:00 pm",
+        "url": "https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
       }
 
   - On Failure:
@@ -175,7 +173,7 @@ https://skillrack.gururaja.in/api/points
    To refresh the points for a user, send a GET request to the `/refresh` endpoint with the user's SkillRack profile URL as a query parameter.
 
    ```bash
-   curl -X GET "https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>"
+   curl -X GET "https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>"
    ```
 
 ## Getting Started
