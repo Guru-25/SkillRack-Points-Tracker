@@ -76,36 +76,26 @@ https://skillrack.gururaja.in/api/points
   ```
 
 - **Response:**
-  - On Success:
-    - **200 OK**
-      
-     ```json
-      {
-        "id": "<resumeId>",
-        "name": "GURU RAJA R",
-        "dept": "IT",
-        "year": "2026",
-        "college": "Thiagarajar College of Engineering (TCE), Madurai",
-        "codeTutor": 300,
-        "codeTrack": 730,
-        "codeTest": 0,
-        "dt": 119,
-        "dc": 95,
-        "points": 4030,
-        "requiredPoints": 5000,
-        "percentage": 80.60000000000001,
-        "lastFetched": "2:36:00 pm",
-        "url": "https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
-      }
-     
-  - On Failure:
-    - **500 Internal Server Error**
 
-      ```json
-      {
-        "error": "Failed to fetch data"
-      }
-      ```
+    ```json
+    {
+      "id": "<resumeId>",
+      "name": "GURU RAJA R",
+      "dept": "IT",
+      "year": "2026",
+      "college": "Thiagarajar College of Engineering (TCE), Madurai",
+      "codeTutor": 300,
+      "codeTrack": 730,
+      "codeTest": 0,
+      "dt": 119,
+      "dc": 95,
+      "points": 4030,
+      "requiredPoints": 5000,
+      "percentage": 80.60000000000001,
+      "lastFetched": "2:36:00 pm",
+      "url": "https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
+    }
+    ```
 
 #### 2. **GET /refresh**
 
@@ -125,36 +115,26 @@ https://skillrack.gururaja.in/api/points
   ```
 
 - **Response:**
-  - On Success:
-    - **200 OK**
 
-      ```json
-      {
-        "id": "<resumeId>",
-        "name": "GURU RAJA R",
-        "dept": "IT",
-        "year": "2026",
-        "college": "Thiagarajar College of Engineering (TCE), Madurai",
-        "codeTutor": 300,
-        "codeTrack": 730,
-        "codeTest": 0,
-        "dt": 119,
-        "dc": 95,
-        "points": 4030,
-        "requiredPoints": 5000,
-        "percentage": 80.60000000000001,
-        "lastFetched": "2:36:00 pm",
-        "url": "https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
-      }
-
-  - On Failure:
-    - **500 Internal Server Error**
-
-      ```json
-      {
-        "error": "Failed to fetch data after retry"
-      }
-      ```
+    ```json
+    {
+      "id": "<resumeId>",
+      "name": "GURU RAJA R",
+      "dept": "IT",
+      "year": "2026",
+      "college": "Thiagarajar College of Engineering (TCE), Madurai",
+      "codeTutor": 300,
+      "codeTrack": 730,
+      "codeTest": 0,
+      "dt": 119,
+      "dc": 95,
+      "points": 4030,
+      "requiredPoints": 5000,
+      "percentage": 80.60000000000001,
+      "lastFetched": "2:36:00 pm",
+      "url": "https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
+    }
+    ```
 
 ### Example Use Cases
 
