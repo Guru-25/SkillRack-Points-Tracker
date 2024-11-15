@@ -300,7 +300,7 @@ const App = () => {
           {state.isValidUrl && state.requiredPoints === 0 && (
             <>
               <div className='para-container'>
-                <p>Your college is not in our database! Help us update your college's required points by emailing <a href="mailto:mail@gururaja.in">mail@gururaja.in</a>. Once submitted, you'll unlock features like Schedule Planner!</p>
+                <p>Your college is not in our database! Help us update your college's required points by emailing the "Required points" assigned by your college with the "College name" to <a href="mailto:mail@gururaja.in">mail@gururaja.in</a>. Once submitted, you'll unlock features like Schedule Planner!</p>
               </div>
               <br /><br />
             </>
