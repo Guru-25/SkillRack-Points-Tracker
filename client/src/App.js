@@ -189,7 +189,8 @@ const App = () => {
                 "@context": "https://schema.org",
                 "@type": "WebSite",
                 "name": "SkillRack Tracker",
-                "url": "https://skillrack.gururaja.in",
+                "alternateName": "SkillTrack",
+                "url": "https://skillrack.gururaja.in/",
                 "description": "Track and calculate your SkillRack points effortlessly using this powerful tool.",
                 "author": {
                   "@type": "Person",
