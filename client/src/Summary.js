@@ -12,7 +12,7 @@ const Summary = ({ codeTutor, codeTrack, codeTest, dt, dc, totalPoints, percenta
       color: 'var(--text-color)',
       width: 'fit-content'
     }}>
-      <h3>Points Calculation Summary</h3>
+      <h3 className='fix-width' >Points Calculation Summary</h3>
       <p>Code Tests: {codeTest} x 30 = {codeTest * 30}</p>
       <p>Code Tracks: {codeTrack} x 2 = {codeTrack * 2}</p>
       <p>Code Tutor: {codeTutor} x 0 = 0</p>

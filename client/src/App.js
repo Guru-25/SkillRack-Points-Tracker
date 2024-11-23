@@ -288,7 +288,7 @@ const App = () => {
           <>
             <p>Updated on {state.lastFetched}</p>
             <br />
-            <h2>Hi.. {state.name} 😊</h2>
+            <h2 className='fix-width' >Hi.. {state.name} 😊</h2>
             <div style={{ width: '200px', margin: '50px auto' }}>
               <CircularProgressbar
                 value={state.percentage}
@@ -309,7 +309,7 @@ const App = () => {
 
             {state.points >= state.requiredPoints && state.requiredPoints !== 0 && (
               <>
-                <h3>Congratulations 🎉 {state.name} on completing {state.requiredPoints} points!</h3>
+                <h3 className='fix-width'>Congratulations 🎉 {state.name} on completing {state.requiredPoints} points!</h3>
                 <br />
               </>
             )}

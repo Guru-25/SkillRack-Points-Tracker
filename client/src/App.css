@@ -196,7 +196,7 @@ footer a:hover {
   animation: fadeIn 0.5s ease-in-out;
 }
 
-h3 {
+.fix-width {
   max-width: 350px;
   margin: 0 auto;
   padding: 10px;
