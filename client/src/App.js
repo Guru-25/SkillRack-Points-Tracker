@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { IoMdArrowRoundForward } from "react-icons/io";
 import Cookies from 'js-cookie';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -255,11 +257,11 @@ const App = () => {
           onClick={toggleTheme}
           aria-label="Toggle theme"
         >
-          {theme === 'light' ? '🌙' : '☀️'}
+          {theme === 'light' ? <MdDarkMode color='orange' size={18} /> : <MdLightMode color='orange' size={18} />}
         </button>
         {!state.isValidUrl && (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-            <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> -&gt; Profile -&gt; Enter Password -&gt; Click "View" -&gt; Copy the URL</p>
+            <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> <IoMdArrowRoundForward size={12}/> Profile <IoMdArrowRoundForward size={12}/> Enter Password <IoMdArrowRoundForward size={12}/> Click "View" <IoMdArrowRoundForward size={12}/> Copy the URL</p>
             <input
               type="text"
               value={state.url}

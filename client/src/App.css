@@ -196,6 +196,13 @@ footer a:hover {
   animation: fadeIn 0.5s ease-in-out;
 }
 
+h3 {
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: center;
+}
+
 .para-container {
   max-width: 300px;
   margin: 0 auto;
