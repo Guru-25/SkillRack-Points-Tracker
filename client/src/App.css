@@ -1,8 +1,45 @@
+/* Theme Variables */
+:root[data-theme="light"] {
+  --bg-color: #f4f4f9;
+  --text-color: #333;
+  --input-border: #ddd;
+  --input-focus: #008a00;
+  --progress-circle: rgb(76, 175, 80);
+  --progress-text: rgb(0, 8, 0);
+  --generate-button: hsl(120, 100%, 27%);
+  --summary-border: #ccc;
+  --modal-bg: white;
+  --modal-overlay: rgba(0, 0, 0, 0.5);
+  --link-color: #271baf;
+  --footer-color: #666;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --error-color: hsl(0, 91%, 48%);
+}
+
+:root[data-theme="dark"] {
+  --bg-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --input-border: #404040;
+  --input-focus: #008a00;
+  --progress-circle: #008a00;
+  --progress-text: #e0e0e0;
+  --generate-button: #008a00;
+  --summary-border: #404040;
+  --modal-bg: #2d2d2d;
+  --modal-overlay: rgba(0, 0, 0, 0.7);
+  --link-color: #7b71e3;
+  --footer-color: #888;
+  --card-bg: #2d2d2d;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --error-color: hsl(0, 100%, 65%);
+}
+
 /* General Styles */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   text-align: center;
   margin: 0;
   padding: 0;
@@ -21,13 +58,15 @@ input[type="text"] {
   max-width: 300px;
   padding: 10px;
   box-sizing: border-box;
-  border: 1px solid #ddd;
+  border: 1px solid var(--input-border);
   border-radius: 5px;
   transition: border-color 0.3s ease;
+  background-color: var(--card-bg);
+  color: var(--text-color);
 }
 
 input[type="text"]:focus {
-  border-color: #4caf50;
+  border-color: var(--input-focus);
   outline: none;
 }
 
@@ -65,7 +104,7 @@ button:hover {
 }
 
 .generate-schedule-button {
-  background-color: hsl(120, 100%, 27%);
+  background-color: var(--generate-button);
   color: white;
   padding: 15px 20px;
   font-size: 15px;
@@ -77,7 +116,7 @@ button:hover {
 
 /* Link Styles */
 a {
-  color: #271baf;
+  color: var(--link-color);
   text-decoration: none;
 }
 
@@ -92,7 +131,7 @@ a:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--modal-overlay);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,13 +139,14 @@ a:hover {
 }
 
 .modal-content {
-  background-color: white;
+  background-color: var(--modal-bg);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 80%;
   max-width: 500px;
   text-align: center;
+  color: var(--text-color);
 }
 
 .modal-button {
@@ -130,11 +170,11 @@ a:hover {
 /* Footer Styles */
 footer {
   margin-top: 50px;
-  color: #666;
+  color: var(--footer-color);
 }
 
 footer a {
-  color: #271baf;
+  color: var(--link-color);
 }
 
 footer a:hover {
@@ -162,7 +202,31 @@ footer a:hover {
   padding: 20px;
   text-align: center;
   font-family: 'Arial', sans-serif;
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px var(--card-shadow);
+  color: var(--text-color);
+}
+
+/* Theme Toggle Button Styles */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  border-radius: 50%;
+  background: none;
+  border: 2px solid var(--text-color);
+  color: var(--text-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  background-color: var(--text-color);
+  color: var(--bg-color);
 }

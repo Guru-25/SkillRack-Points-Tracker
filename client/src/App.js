@@ -70,6 +70,22 @@ const App = () => {
     });
   }, [handleStateChange]);
 
+  const [theme, setTheme] = useState(() => {
+    // Check browser preference
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
+
   useEffect(() => {
     // // Check if the app is running as an installed PWA
     // const checkStandalone = () => {
@@ -203,6 +219,13 @@ const App = () => {
         <h1>SkillRack Tracker</h1>
         <Analytics/>
         <SpeedInsights/>
+        <button 
+          className="theme-toggle" 
+          onClick={toggleTheme}
+          aria-label="Toggle theme"
+        >
+          {theme === 'light' ? '🌙' : '☀️'}
+        </button>
         {!state.isValidUrl && (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
             <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> -&gt; Profile -&gt; Enter Password -&gt; Click "View" -&gt; Copy the URL</p>
@@ -217,7 +240,17 @@ const App = () => {
             <button type="submit" className="submit-button">Submit</button>
           </form>
         )}
-        {state.error && <p style={{ color: 'red' }}>{state.error}</p>}
+        {state.error && (
+          <p style={{ 
+            color: 'var(--error-color)',
+            fontWeight: '500',
+            padding: '8px',
+            borderRadius: '4px',
+            transition: 'color 0.3s ease'
+          }}>
+            {state.error}
+          </p>
+        )}
         {state.isValidUrl && (
           <>
             <p>Updated on {state.lastFetched}</p>
@@ -226,12 +259,17 @@ const App = () => {
             <div style={{ width: '200px', margin: '50px auto' }}>
               <CircularProgressbar
                 value={state.percentage}
-                text={(state.points <= state.requiredPoints) && (state.points !== 0) ? `${state.points}/${state.requiredPoints}` : `${state.points}`}
+                text={(state.points <= state.requiredPoints) && (state.points !== 0) 
+                  ? `${state.points}/${state.requiredPoints}` 
+                  : `${state.points}`}
                 styles={buildStyles({
-                  textColor: '#000',
-                  pathColor: '#4caf50',
-                  trailColor: '#d6d6d6',
-                  textSize: '16px'
+                  // Use CSS variables for theme-aware colors
+                  textColor: 'var(--progress-text)',
+                  pathColor: 'var(--progress-circle)',
+                  trailColor: 'var(--input-border)',
+                  textSize: '16px',
+                  // Add transition for smooth theme switching
+                  transition: 'stroke-dashoffset 0.5s ease 0s',
                 })}
               />
             </div>

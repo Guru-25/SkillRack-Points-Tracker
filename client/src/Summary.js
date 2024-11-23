@@ -6,10 +6,11 @@ const Summary = ({ codeTutor, codeTrack, codeTest, dt, dc, totalPoints, percenta
       textAlign: 'center', 
       margin: '20px auto', 
       padding: '20px', 
-      border: '1px solid #ccc', 
+      border: `1px solid var(--summary-border)`,
       borderRadius: '8px', 
-      backgroundColor: '#f9f9f9', 
-      width: 'fit-content' 
+      backgroundColor: 'var(--card-bg)', 
+      color: 'var(--text-color)',
+      width: 'fit-content'
     }}>
       <h3>Points Calculation Summary</h3>
       <p>Code Tests: {codeTest} x 30 = {codeTest * 30}</p>

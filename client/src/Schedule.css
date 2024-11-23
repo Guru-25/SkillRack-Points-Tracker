@@ -5,15 +5,16 @@
     padding: 20px;
     text-align: center;
     font-family: 'Arial', sans-serif;
-    background-color: #ffffff;
+    background-color: var(--card-bg);
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px var(--card-shadow);
+    transition: all 0.3s ease;
 }
 
 .schedule-title {
     font-size: 20px;
     margin-bottom: 20px;
-    color: #333;
+    color: var(--text-color);
     font-weight: bold;
 }
 
@@ -27,7 +28,7 @@
 
 .input-field {
     padding: 12px 20px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--input-border);
     border-radius: 5px;
     font-size: 16px;
     width: 100%;
@@ -35,34 +36,37 @@
     margin: 0 auto;
     box-sizing: border-box; /* Ensure padding doesn't increase total width */
     transition: border-color 0.3s ease;
+    background-color: var(--card-bg);
+    color: var(--text-color);
 }
 
 .input-field:focus {
-    border-color: #4caf50;
+    border-color: var(--input-focus);
 }
 
 .date-input::placeholder {
-    color: #888; /* Placeholder text color */
+    color: var(--footer-color); /* Placeholder text color */
 }
 
 .generate-button {
-    background-color: hsl(120, 100%, 27%);
+    background-color: var(--generate-button);
     color: white;
     border: none;
     border-radius: 5px;
     padding: 12px 20px;
     font-size: 15px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: all 0.3s ease, transform 0.2s ease;
 }
 
 .generate-button:hover {
-    background-color: hsl(120, 100%, 24%);
+    background-color: var(--input-focus);
+    opacity: 0.9;
     transform: translateY(-2px);
 }
 
 .error-message {
-    color: red;
+    color: var(--error-color);
     margin-bottom: 20px;
 }
 
@@ -75,35 +79,35 @@
 .schedule-table {
     width: 100%;
     border-collapse: collapse;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px var(--card-shadow);
 }
 
 .schedule-table th,
 .schedule-table td {
-    border: 1px solid #ddd;
+    border: 1px solid var(--input-border);
     padding: 12px;
     font-size: 14px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .schedule-table th {
-    background-color: hsl(120, 100%, 27%);
+    background-color: var(--input-focus);
     color: white;
     font-weight: bold;
 }
 
 .schedule-table td {
-    background-color: #ffffff;
-    color: #333;
+    background-color: var(--card-bg);
+    color: var(--text-color);
 }
 
 .schedule-table tbody tr:hover {
-    background-color: #f1f1f1;
+    background-color: var(--modal-bg);
 }
 
 .loading {
     font-size: 18px;
-    color: #333;
+    color: var(--text-color);
 }
 
 /* Responsive Design */
@@ -140,19 +144,21 @@
 
 @keyframes fadeIn {
     from {
-      opacity: 0;
-      transform: translateY(-20px);
+        opacity: 0;
+        transform: translateY(-20px);
     }
     to {
-      opacity: 1;
-      transform: translateY(0);
+        opacity: 1;
+        transform: translateY(0);
     }
 }
-  
+
 .fade-in {
     animation: fadeIn 0.5s ease-in-out;
 }
 
 .manual-target-container {
     margin: 10px 0;
+    background-color: var(--card-bg);
+    color: var(--text-color);
 }
