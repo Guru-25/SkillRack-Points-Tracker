@@ -172,7 +172,7 @@ const App = () => {
         Cookies.set('lastUrl', data.url, {
           expires: 365, // Set to expire in 1 year
           sameSite: 'Lax',
-          secure: true // Use this if your site is served over HTTPS
+          secure: true
         });
       } else {
         handleStateChange({ error: 'Please enter a valid SkillRack Profile URL!!', loading: false });

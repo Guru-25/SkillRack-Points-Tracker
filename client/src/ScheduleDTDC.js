@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Schedule.css'; // Import the CSS file
+import './Schedule.css';
 
 const ScheduledtDc = ({ initialValues }) => {
   const [schedule, setSchedule] = useState([]);
