@@ -78,6 +78,8 @@ const App = () => {
     return 'light';
   });
 
+  const [isVisible, setIsVisible] = useState(true);
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
@@ -130,6 +132,19 @@ const App = () => {
 
     fetchInitialData();
   }, [fetchData, handleStateChange]);
+
+  useEffect(() => {
+    let prevScrollPos = window.pageYOffset;
+    
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      setIsVisible(prevScrollPos > currentScrollPos || currentScrollPos < 50);
+      prevScrollPos = currentScrollPos;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const isValidSkillRackUrl = (url) => {
     const regex = /^https?:\/\/www\.skillrack\.com/;
@@ -220,7 +235,7 @@ const App = () => {
         <Analytics/>
         <SpeedInsights/>
         <button 
-          className="theme-toggle" 
+          className={`theme-toggle ${isVisible ? 'visible' : 'hidden'}`}
           onClick={toggleTheme}
           aria-label="Toggle theme"
         >
