@@ -11,6 +11,25 @@ import Schedule from './Schedule';
 import ScheduleDTDC from './ScheduleDTDC';
 import './App.css';
 
+const LoadingSpinner = () => (
+  <div style={{ 
+    textAlign: 'center', 
+    padding: '50px',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'var(--background-color)',
+    zIndex: 1000
+  }}>
+    <h1>Loading...</h1>
+  </div>
+);
+
 // Custom Modal Component
 const Modal = ({ show, onClose, onConfirm, message }) => {
   if (!show) return null;
@@ -33,7 +52,6 @@ const App = () => {
     error: '',
     isValidUrl: false,
     lastFetched: null,
-    loading: false,
     name: '',
     codeTutor: 0,
     codeTrack: 0,
@@ -43,14 +61,21 @@ const App = () => {
     requiredPoints: 0,
     showSchedule: false,
     showScheduleDTDC: false,
-    showLogoutModal: false
+    showLogoutModal: false,
   };
 
   // const [isStandalone, setIsStandalone] = useState(false);
   // const [isMobile, setIsMobile] = useState(false);
 
   const [state, setState] = useState(initialState);
-
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = Cookies.get('theme');
+    if (savedTheme) return savedTheme;
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
+  const [isVisible, setIsVisible] = useState(true);
   const handleStateChange = useCallback((newState) => {
     setState((prevState) => ({ ...prevState, ...newState }));
   }, []);
@@ -70,33 +95,11 @@ const App = () => {
     });
   }, [handleStateChange]);
 
-  const [theme, setTheme] = useState(() => {
-    // First check cookie
-    const savedTheme = Cookies.get('theme');
-    if (savedTheme) {
-      return savedTheme;
-    }
-    // Then check browser preference
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
-  });
-
-  const [isVisible, setIsVisible] = useState(true);
-
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     // Save theme to cookie
     Cookies.set('theme', theme, { expires: 365 }); // Expires in 1 year
   }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prevTheme => {
-      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-      return newTheme;
-    });
-  };
 
   useEffect(() => {
     // // Check if the app is running as an installed PWA
@@ -124,7 +127,6 @@ const App = () => {
       const lastUrl = Cookies.get('lastUrl');
 
       if (lastUrl) {
-        handleStateChange({ loading: true });
         try {
           const { data } = await axios.get(`/api/points/refresh?url=${encodeURIComponent(lastUrl)}`);
           if (data && data.name !== '') {
@@ -133,16 +135,25 @@ const App = () => {
           }
         } catch (error) {
           console.error(error);
-          // If there's an error, clear the cookie
           Cookies.remove('lastUrl');
         }
-        handleStateChange({ loading: false });
       }
+      setIsInitialized(true);
+      setIsLoading(false);
     };
 
     fetchInitialData();
   }, [fetchData, handleStateChange]);
 
+  // Theme management
+  const toggleTheme = () => {
+    setTheme(prevTheme => {
+      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
+      return newTheme;
+    });
+  };
+
+  // Scroll handling
   useEffect(() => {
     let prevScrollPos = window.pageYOffset;
     
@@ -208,9 +219,22 @@ const App = () => {
     handleStateChange({ showScheduleDTDC: true });
   };
 
-  if (state.loading) {
+  // Don't render anything until initialization is complete
+  if (!isInitialized || isLoading) {
     return (
-      <div style={{ textAlign: 'center', padding: '50px' }}>
+      <div style={{ 
+        textAlign: 'center', 
+        padding: '50px',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'var(--background-color)'
+      }}>
         <h1>Loading...</h1>
       </div>
     );
