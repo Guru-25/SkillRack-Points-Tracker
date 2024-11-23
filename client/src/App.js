@@ -71,7 +71,12 @@ const App = () => {
   }, [handleStateChange]);
 
   const [theme, setTheme] = useState(() => {
-    // Check browser preference
+    // First check cookie
+    const savedTheme = Cookies.get('theme');
+    if (savedTheme) {
+      return savedTheme;
+    }
+    // Then check browser preference
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       return 'dark';
     }
@@ -82,10 +87,15 @@ const App = () => {
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    // Save theme to cookie
+    Cookies.set('theme', theme, { expires: 365 }); // Expires in 1 year
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    setTheme(prevTheme => {
+      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
+      return newTheme;
+    });
   };
 
   useEffect(() => {

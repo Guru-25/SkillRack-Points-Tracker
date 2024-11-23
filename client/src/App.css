@@ -28,7 +28,7 @@
   --summary-border: #404040;
   --modal-bg: #2d2d2d;
   --modal-overlay: rgba(0, 0, 0, 0.7);
-  --link-color: #7b71e3;
+  --link-color: hsl(245, 73%, 60%);
   --footer-color: #888;
   --card-bg: #2d2d2d;
   --card-shadow: rgba(0, 0, 0, 0.3);
