@@ -10,6 +10,7 @@ Track and calculate your SkillRack points effortlessly with this powerful Progre
 - Calculates points based on the user's activities.
 - Displays points with a circular progress bar.
 - Schedule Planning
+- Dark mode
 - Public API ⚡️
 
 ## Download
@@ -85,15 +86,15 @@ https://skillrack.gururaja.in/api/points
       "year": "2026",
       "college": "Thiagarajar College of Engineering (TCE), Madurai",
       "codeTutor": 300,
-      "codeTrack": 730,
+      "codeTrack": 758,
       "codeTest": 0,
-      "dt": 119,
-      "dc": 95,
-      "points": 4030,
+      "dt": 131,
+      "dc": 108,
+      "points": 4352,
       "requiredPoints": 5000,
-      "percentage": 80.60000000000001,
-      "lastFetched": "2:36:00 pm",
-      "url": "https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
+      "percentage": 87.03999999999999,
+      "lastFetched": "12:48:36 am",
+      "url": "https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
     }
     ```
 
@@ -111,7 +112,7 @@ https://skillrack.gururaja.in/api/points
 
   Example:
   ```
-  https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>
+  https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>
   ```
 
 - **Response:**
@@ -124,15 +125,15 @@ https://skillrack.gururaja.in/api/points
       "year": "2026",
       "college": "Thiagarajar College of Engineering (TCE), Madurai",
       "codeTutor": 300,
-      "codeTrack": 730,
+      "codeTrack": 758,
       "codeTest": 0,
-      "dt": 119,
-      "dc": 95,
-      "points": 4030,
+      "dt": 131,
+      "dc": 108,
+      "points": 4352,
       "requiredPoints": 5000,
-      "percentage": 80.60000000000001,
-      "lastFetched": "2:36:00 pm",
-      "url": "https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
+      "percentage": 87.03999999999999,
+      "lastFetched": "12:48:36 am",
+      "url": "https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
     }
     ```
 
@@ -153,7 +154,7 @@ https://skillrack.gururaja.in/api/points
    To refresh the points for a user, send a GET request to the `/refresh` endpoint with the user's SkillRack profile URL as a query parameter.
 
    ```bash
-   curl -X GET "https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>"
+   curl -X GET "https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>"
    ```
 
 ## Getting Started

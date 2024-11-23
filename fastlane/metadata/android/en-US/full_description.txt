@@ -6,5 +6,6 @@
     <li>Calculates points based on the user's activities</li>
     <li>Displays points with a circular progress bar</li>
     <li>Schedule Planning</li>
+    <li>Dark mode</li>
     <li>Public API ⚡️</li>
 </ul>
