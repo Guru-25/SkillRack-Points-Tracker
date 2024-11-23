@@ -11,25 +11,6 @@ import Schedule from './Schedule';
 import ScheduleDTDC from './ScheduleDTDC';
 import './App.css';
 
-const LoadingSpinner = () => (
-  <div style={{ 
-    textAlign: 'center', 
-    padding: '50px',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: 'var(--background-color)',
-    zIndex: 1000
-  }}>
-    <h1>Loading...</h1>
-  </div>
-);
-
 // Custom Modal Component
 const Modal = ({ show, onClose, onConfirm, message }) => {
   if (!show) return null;
@@ -61,7 +42,8 @@ const App = () => {
     requiredPoints: 0,
     showSchedule: false,
     showScheduleDTDC: false,
-    showLogoutModal: false,
+    loading: false,
+    showLogoutModal: false
   };
 
   // const [isStandalone, setIsStandalone] = useState(false);
@@ -186,17 +168,17 @@ const App = () => {
       const { data } = await axios.post('/api/points', { url: state.url });
       if (data && data.name !== '') {
         fetchData(data);
-        handleStateChange({ isValidUrl: true });
+        handleStateChange({ isValidUrl: true, loading: false });
         Cookies.set('lastUrl', data.url, {
           expires: 365, // Set to expire in 1 year
           sameSite: 'Lax',
           secure: true // Use this if your site is served over HTTPS
         });
       } else {
-        handleStateChange({ error: 'Please enter a valid SkillRack Profile URL!!' });
+        handleStateChange({ error: 'Please enter a valid SkillRack Profile URL!!', loading: false });
       }
     } catch (error) {
-      handleStateChange({ error: 'Invalid URL. Please enter a valid SkillRack Profile URL!!' });
+      handleStateChange({ error: 'Invalid URL. Please enter a valid SkillRack Profile URL!!', loading: false });
       console.error(error);
     }
     handleStateChange({ loading: false });
@@ -219,11 +201,11 @@ const App = () => {
     handleStateChange({ showScheduleDTDC: true });
   };
 
-  // Don't render anything until initialization is complete
-  if (!isInitialized || isLoading) {
+  // Don't render anything until initialization is complete or while loading
+  if (!isInitialized || isLoading || state.loading) {
     return (
-      <div style={{ 
-        textAlign: 'center', 
+      <div style={{
+        textAlign: 'center',
         padding: '50px',
         position: 'fixed',
         top: 0,
@@ -292,7 +274,7 @@ const App = () => {
         {state.error && (
           <p style={{ 
             color: 'var(--error-color)',
-            fontWeight: '500',
+            fontWeight: '300',
             padding: '8px',
             borderRadius: '4px',
             transition: 'color 0.3s ease'
