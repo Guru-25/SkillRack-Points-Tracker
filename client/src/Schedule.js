@@ -8,13 +8,7 @@ const Schedule = ({ initialValues }) => {
   const [finishDate, setFinishDate] = useState('');
   const [manualTarget, setManualTarget] = useState(false);
   const [targetPoints, setTargetPoints] = useState('');
-
-  useEffect(() => {
-    if (initialValues) {
-      setInitialValues(initialValues);
-      setTargetPoints(initialValues.requiredPoints); // Set the default value for target points
-    }
-  }, [initialValues]);
+  const [displayPoints, setDisplayPoints] = useState('');
 
   const [initialValuesState, setInitialValues] = useState({
     codeTrack: '',
@@ -24,6 +18,19 @@ const Schedule = ({ initialValues }) => {
     requiredPoints: '',
   });
 
+  useEffect(() => {
+    if (initialValues) {
+      setInitialValues(initialValues);
+      // Only set targetPoints if it hasn't been manually changed
+      if (!manualTarget) {
+        setTargetPoints(initialValues.requiredPoints);
+        setDisplayPoints(initialValues.requiredPoints);
+      } else {
+        setDisplayPoints(targetPoints);
+      }
+    }
+  }, [initialValues, manualTarget, targetPoints]);  // Added targetPoints to dependencies
+
   const calculatePoints = (tracks, dt, dc) => {
     return tracks * 2 + dt * 20 + dc * 2;
   };
@@ -32,7 +39,7 @@ const Schedule = ({ initialValues }) => {
     setLoading(true);
     setError('');
 
-    const { codeTrack, dt, dc, points, requiredPoints } = initialValuesState;
+    const { codeTrack, dt, dc, points } = initialValuesState;
 
     if (!finishDate) {
       setError('Please enter the date!!');
@@ -51,7 +58,7 @@ const Schedule = ({ initialValues }) => {
     let currentDc = parseInt(dc);
     let currentPoints = parseInt(points);
 
-    const targetPointsValue = manualTarget ? parseInt(targetPoints) : parseInt(requiredPoints);
+    const targetPointsValue = manualTarget ? parseInt(targetPoints) : parseInt(initialValuesState.requiredPoints);
 
     if (targetPointsValue <= currentPoints) {
       setError('Target points must be greater than current points!!');
@@ -66,10 +73,7 @@ const Schedule = ({ initialValues }) => {
     today.setHours(0, 0, 0, 0);
     finish.setHours(0, 0, 0, 0);
 
-    // Calculate the difference in milliseconds between the two dates
     const diffMilliseconds = finish - today;
-
-    // Convert milliseconds to fraction of a day
     const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
     const daysToFinish = diffMilliseconds / oneDayInMilliseconds;
 
@@ -114,10 +118,10 @@ const Schedule = ({ initialValues }) => {
       }
       newSchedule.push({
         date: currentDate.toLocaleDateString('en-GB', { year: '2-digit', month: '2-digit', day: '2-digit' }),
-        tracks: Math.round(currentTracks), // To keep the tracks value an integer
+        tracks: Math.round(currentTracks),
         dt: currentDt,
         dc: currentDc,
-        points: Math.round(currentPoints), // Round points to avoid floating-point issues
+        points: Math.round(currentPoints),
       });
     }
 
@@ -125,13 +129,11 @@ const Schedule = ({ initialValues }) => {
     setLoading(false);
   };
 
-  const { requiredPoints } = initialValuesState; // Extract requiredPoints from initialValuesState
-
   if (loading) return <div className="loading">Generating schedule...</div>;
 
   return (
     <div className="schedule-container">
-      <h2 className="schedule-title">Schedule for {requiredPoints} Points</h2>
+      <h2 className="schedule-title">Schedule for {displayPoints} Points</h2>
       <div className="form-container">
         <input
           type="date"
@@ -144,7 +146,12 @@ const Schedule = ({ initialValues }) => {
             <input
               type="checkbox"
               checked={manualTarget}
-              onChange={() => setManualTarget(!manualTarget)}
+              onChange={() => {
+                setManualTarget(!manualTarget);
+                if (!manualTarget) {
+                  setTargetPoints(initialValuesState.requiredPoints);
+                }
+              }}
             />
             &nbsp;Manually set target points
           </label>
@@ -155,14 +162,12 @@ const Schedule = ({ initialValues }) => {
                 type="number" 
                 value={targetPoints}
                 onChange={(e) => {
-                  // Only allow numeric characters
                   const value = e.target.value.replace(/\D/g, '');
                   setTargetPoints(value ? parseInt(value) : '');
                 }}
                 onKeyDown={(e) => {
-                  // Allow only numbers and control keys
                   if (
-                    !/^\d$/.test(e.key) && // Not a number
+                    !/^\d$/.test(e.key) && 
                     !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)
                   ) {
                     e.preventDefault();
