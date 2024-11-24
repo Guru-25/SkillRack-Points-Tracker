@@ -9,6 +9,7 @@ const Schedule = ({ initialValues }) => {
   const [manualTarget, setManualTarget] = useState(false);
   const [targetPoints, setTargetPoints] = useState('');
   const [displayPoints, setDisplayPoints] = useState('');
+  const [manualTargetModified, setManualTargetModified] = useState(false);
 
   const [initialValuesState, setInitialValues] = useState({
     codeTrack: '',
@@ -24,16 +25,26 @@ const Schedule = ({ initialValues }) => {
         ...initialValues,
         requiredPoints: initialValues.requiredPoints || ''
       });
+
+      if (!manualTargetModified) {
+        setManualTarget(
+          initialValues.requiredPoints === 0
+        );
+      }
+
       if (!manualTarget) {
-        setTargetPoints(initialValues.requiredPoints > 0 ? initialValues.requiredPoints : '');
+        setTargetPoints(
+          initialValues.requiredPoints > 0 ? initialValues.requiredPoints : ''
+        );
         setDisplayPoints(initialValues.requiredPoints);
       }
     }
-  }, [initialValues, manualTarget]);
+  }, [initialValues, manualTarget, manualTargetModified]);
 
-  // Add new useEffect to update displayPoints when targetPoints changes
   useEffect(() => {
-    setDisplayPoints(manualTarget ? targetPoints : initialValuesState.requiredPoints);
+    setDisplayPoints(
+      manualTarget ? targetPoints : initialValuesState.requiredPoints
+    );
   }, [targetPoints, manualTarget, initialValuesState.requiredPoints]);
 
   const calculatePoints = (tracks, dt, dc) => {
@@ -144,6 +155,7 @@ const Schedule = ({ initialValues }) => {
         <input
           type="date"
           value={finishDate}
+          min={new Date().toISOString().split('T')[0]}
           onChange={(e) => setFinishDate(e.target.value)}
           className="input-field date-input"
         />
@@ -154,6 +166,7 @@ const Schedule = ({ initialValues }) => {
               checked={manualTarget}
               onChange={() => {
                 setManualTarget(!manualTarget);
+                setManualTargetModified(true);
                 if (!manualTarget) {
                   setTargetPoints(initialValuesState.requiredPoints > 0 ? initialValuesState.requiredPoints : '');
                 }
