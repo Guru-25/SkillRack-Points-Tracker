@@ -321,7 +321,7 @@ const App = () => {
             />
             <br />
             
-            {((state.codeTutor + state.codeTrack) >= 600 && state.points < state.requiredPoints) && (
+            {((state.codeTutor + state.codeTrack) >= 600) && (
               <>
                 <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br /><br />
                 {state.showSchedule && (
@@ -369,7 +369,9 @@ const App = () => {
           {state.isValidUrl && state.requiredPoints === 0 && (
             <>
               <div className='para-container'>
-                <p>Your college is not in our database! Help us update your college's required points by emailing the "Required points" assigned by your college with the "College name" to <a href="mailto:mail@gururaja.in">mail@gururaja.in</a>. Once submitted, you'll unlock features like Schedule Planner!</p>
+                <p>
+                  Email <a href="mailto:mail@gururaja.in">mail@gururaja.in</a> with your college name and required points assigned by your college to unlock the progress tracker!
+                </p>
               </div>
               <br /><br />
             </>

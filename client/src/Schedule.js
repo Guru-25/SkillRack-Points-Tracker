@@ -20,16 +20,21 @@ const Schedule = ({ initialValues }) => {
 
   useEffect(() => {
     if (initialValues) {
-      setInitialValues(initialValues);
-      // Only set targetPoints if it hasn't been manually changed
+      setInitialValues({
+        ...initialValues,
+        requiredPoints: initialValues.requiredPoints || ''
+      });
       if (!manualTarget) {
-        setTargetPoints(initialValues.requiredPoints);
+        setTargetPoints(initialValues.requiredPoints > 0 ? initialValues.requiredPoints : '');
         setDisplayPoints(initialValues.requiredPoints);
-      } else {
-        setDisplayPoints(targetPoints);
       }
     }
-  }, [initialValues, manualTarget, targetPoints]);  // Added targetPoints to dependencies
+  }, [initialValues, manualTarget]);
+
+  // Add new useEffect to update displayPoints when targetPoints changes
+  useEffect(() => {
+    setDisplayPoints(manualTarget ? targetPoints : initialValuesState.requiredPoints);
+  }, [targetPoints, manualTarget, initialValuesState.requiredPoints]);
 
   const calculatePoints = (tracks, dt, dc) => {
     return tracks * 2 + dt * 20 + dc * 2;
@@ -58,7 +63,9 @@ const Schedule = ({ initialValues }) => {
     let currentDc = parseInt(dc);
     let currentPoints = parseInt(points);
 
-    const targetPointsValue = manualTarget ? parseInt(targetPoints) : parseInt(initialValuesState.requiredPoints);
+    const targetPointsValue = manualTarget ? 
+      (targetPoints || 0) : 
+      (initialValuesState.requiredPoints || 0);
 
     if (targetPointsValue <= currentPoints) {
       setError('Target points must be greater than current points!!');
@@ -69,7 +76,6 @@ const Schedule = ({ initialValues }) => {
     const today = new Date();
     const finish = new Date(finishDate);
 
-    // Set both dates to the start of the day (midnight) to exclude time
     today.setHours(0, 0, 0, 0);
     finish.setHours(0, 0, 0, 0);
 
@@ -133,7 +139,7 @@ const Schedule = ({ initialValues }) => {
 
   return (
     <div className="schedule-container">
-      <h2 className="schedule-title">Schedule for {displayPoints} Points</h2>
+      <h2 className="schedule-title">Schedule for {displayPoints === 0 ? "" : `${displayPoints}`} Points</h2>
       <div className="form-container">
         <input
           type="date"
@@ -149,7 +155,7 @@ const Schedule = ({ initialValues }) => {
               onChange={() => {
                 setManualTarget(!manualTarget);
                 if (!manualTarget) {
-                  setTargetPoints(initialValuesState.requiredPoints);
+                  setTargetPoints(initialValuesState.requiredPoints > 0 ? initialValuesState.requiredPoints : '');
                 }
               }}
             />
