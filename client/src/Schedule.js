@@ -28,7 +28,7 @@ const Schedule = ({ initialValues }) => {
 
       if (!manualTargetModified) {
         setManualTarget(
-          initialValues.requiredPoints === 0
+          (initialValues.requiredPoints === 0 || (initialValues.points >= initialValues.requiredPoints))
         );
       }
 
@@ -160,7 +160,7 @@ const Schedule = ({ initialValues }) => {
           className="input-field date-input"
         />
         <div className="manual-target-container">
-          {initialValues.requiredPoints !== 0 && (
+          {(initialValues.requiredPoints !== 0 && (initialValues.points < initialValues.requiredPoints)) && (
             <div>
               <label>
                 <input
