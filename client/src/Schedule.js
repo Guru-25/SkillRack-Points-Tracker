@@ -160,23 +160,27 @@ const Schedule = ({ initialValues }) => {
           className="input-field date-input"
         />
         <div className="manual-target-container">
-          <label>
-            <input
-              type="checkbox"
-              checked={manualTarget}
-              onChange={() => {
-                setManualTarget(!manualTarget);
-                setManualTargetModified(true);
-                if (!manualTarget) {
-                  setTargetPoints(initialValuesState.requiredPoints > 0 ? initialValuesState.requiredPoints : '');
-                }
-              }}
-            />
-            &nbsp;Manually set target points
-          </label>
+          {initialValues.requiredPoints !== 0 && (
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={manualTarget}
+                  onChange={() => {
+                    setManualTarget(!manualTarget);
+                    setManualTargetModified(true);
+                    if (!manualTarget) {
+                      setTargetPoints(initialValuesState.requiredPoints > 0 ? initialValuesState.requiredPoints : '');
+                    }
+                  }}
+                  style={{ marginBottom: '18px' }}
+                />
+                &nbsp;Manually set target points
+              </label>
+            </div>
+          )}
           {manualTarget && (
             <div className="fade-in">
-              <br />
               <input
                 type="number" 
                 value={targetPoints}
