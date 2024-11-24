@@ -89,13 +89,14 @@ const ScheduledtDc = ({ initialValues }) => {
 
   return (
     <div className="schedule-container">
-      <h2 className="schedule-title">Schedule to Unlock DT/DC</h2>
+      <h2 className="schedule-title">Schedule to Unlock DT / DC</h2>
       <div className="form-container">
         <input
           type="date"
           value={finishDate}
           onChange={(e) => setFinishDate(e.target.value)}
           className="input-field date-input"
+          style={{ marginBottom: '14px' }}
         />
         <button onClick={generateSchedule} className="generate-button">Generate</button>
       </div>

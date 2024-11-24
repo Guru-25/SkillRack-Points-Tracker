@@ -276,10 +276,7 @@ const App = () => {
         {state.error && (
           <p style={{ 
             color: 'var(--error-color)',
-            fontWeight: '300',
-            padding: '8px',
-            borderRadius: '4px',
-            transition: 'color 0.3s ease'
+            padding: '10px'
           }}>
             {state.error}
           </p>
@@ -344,7 +341,7 @@ const App = () => {
             )}
             {(state.codeTutor + state.codeTrack) < 600 && (
               <>
-                <button onClick={handleGenerateScheduleDTDC} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br />
+                <button onClick={handleGenerateScheduleDTDC} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br /><br />
                 {state.showScheduleDTDC && (
                   <div className="fade-in">
                     <ScheduleDTDC

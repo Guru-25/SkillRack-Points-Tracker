@@ -3,11 +3,11 @@
   --bg-color: #f4f4f9;
   --text-color: #333;
   --input-border: #ddd;
-  --input-focus: #008a00;
+  --input-focus: hsl(120, 100%, 27%);
   --progress-circle: rgb(76, 175, 80);
   --progress-text: rgb(0, 8, 0);
   --generate-button: hsl(120, 100%, 27%);
-  --summary-border: #ccc;
+  --summary-border: hsl(0, 0%, 80%);
   --modal-bg: white;
   --modal-overlay: rgba(0, 0, 0, 0.5);
   --link-color: #271baf;
@@ -24,7 +24,7 @@
   --input-focus: #008a00;
   --progress-circle: #008a00;
   --progress-text: #e0e0e0;
-  --generate-button: #008a00;
+  --generate-button: hsl(120, 100%, 27%);
   --summary-border: #404040;
   --modal-bg: #2d2d2d;
   --modal-overlay: rgba(0, 0, 0, 0.7);
@@ -88,6 +88,7 @@ button:hover {
   max-width: 120px;
   background-color: hsl(120, 100%, 27%);
   color: white;
+  margin-top: 16px;
 }
 
 .submit-button:hover {

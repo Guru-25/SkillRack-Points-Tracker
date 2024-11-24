@@ -15,6 +15,7 @@
     margin-bottom: 20px;
     color: var(--text-color);
     font-weight: bold;
+    padding: 8px 8px 0px 8px;
 }
 
 .form-container {
@@ -56,6 +57,7 @@
     font-size: 15px;
     cursor: pointer;
     transition: all 0.3s ease, transform 0.2s ease;
+    margin-bottom: 10px;
 }
 
 .generate-button:hover {
@@ -66,7 +68,7 @@
 
 .error-message {
     color: var(--error-color);
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .schedule-table-container {

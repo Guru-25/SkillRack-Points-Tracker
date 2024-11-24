@@ -152,16 +152,32 @@ const Schedule = ({ initialValues }) => {
             <div className="fade-in">
               <br />
               <input
-                type="number"
+                type="number" 
                 value={targetPoints}
-                onChange={(e) => setTargetPoints(e.target.value)}
+                onChange={(e) => {
+                  // Only allow numeric characters
+                  const value = e.target.value.replace(/\D/g, '');
+                  setTargetPoints(value ? parseInt(value) : '');
+                }}
+                onKeyDown={(e) => {
+                  // Allow only numbers and control keys
+                  if (
+                    !/^\d$/.test(e.key) && // Not a number
+                    !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)
+                  ) {
+                    e.preventDefault();
+                  }
+                }}
+                min="0"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 placeholder="Enter points"
                 className="input-field target-input"
               />
             </div>
           )}
         </div>
-        <button onClick={generateSchedule} className="generate-button">Generate</button>
+        <button onClick={generateSchedule} className="generate-button" style={{ marginTop: '10px'}} >Generate</button>
       </div>
       {error && <div className="error-message">{error}</div>}
       {schedule.length > 0 && (
