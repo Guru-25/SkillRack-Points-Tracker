@@ -287,7 +287,7 @@ const App = () => {
         {state.isValidUrl && (
           <>
             <p>Updated on {state.lastFetched}</p>
-            <br />
+            <br style={{ marginBottom: '15px' }} />
             <h2 className='fix-width' >Hi.. {state.name} 😊</h2>
             <div style={{ width: '200px', margin: '50px auto' }}>
               <CircularProgressbar

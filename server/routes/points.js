@@ -4,6 +4,7 @@ const cheerio = require('cheerio');
 const User = require('../models/User');
 const router = express.Router();
 const request = require('request');
+const collegeData = require('../data/collegeCriteria.json');
 require('dotenv').config();
 
 // Fetch redirected URL
@@ -43,25 +44,17 @@ async function fetchData(url) {
 
     // Calculate points and percentage
     const points = codeTrack * 2 + codeTest * 30 + dt * 20 + dc * 2;
-    let requiredPoints = 0;
 
-    const collegeCriteria = {
-      "Thiagarajar College of Engineering (TCE), Madurai": (year) => {
-        return (year === "2025") ? 3000 : 5000;
-      },
-      "K.L.N College of Engineering, Madurai": (year) => {
-        return (year === "2025" || year === "2026") ? 1500 : 0;
-      },
-      "Sairam Engineering College, Chennai": (year) => {
-        return (year === "2028") ? 700 : 0;
-      },
-      "Sairam Institute of Technology, Chennai": (year) => {
-        return (year === "2028") ? 4800 : 0;
-      }
+    const getRequiredPoints = (collegeName, year) => {
+      const college = collegeData.colleges.find(c => c.name === collegeName);
+      if (!college) return 0;
+    
+      const criteriaMatch = college.criteria.find(c => c.years.includes(year));
+      return criteriaMatch ? criteriaMatch.requiredPoints : 0;
     };
 
-    if (collegeCriteria[college]) {
-      requiredPoints = collegeCriteria[college](year);
+    if (college) {
+      requiredPoints = getRequiredPoints(college, year);
     }
 
     const percentageCalculate = points / requiredPoints * 100;
@@ -75,24 +68,14 @@ async function fetchData(url) {
 
     return { id, name, dept, year, college, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, percentage, lastFetched, url};
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error(`Invalid URL: ${url}`);
     return null;
   }
 }
 
-// Retry fetching data if it fails initially
-async function fetchDataWithRetry(url, retries = 1) {
-  let data = await fetchData(url);
-  if (!data && retries > 0) {
-    console.log('Retrying fetch...');
-    data = await fetchData(url);
-  }
-  return data;
-}
-
 const IS_RECORD_ENABLED = process.env.IS_RECORD_ENABLED === 'true';
 
-// Send log message to Telegram bot
+// Send log message
 async function sendLogMessage(message, topic) {
   const botToken = process.env.BOT_TOKEN;
   const chatId = process.env.CHAT_ID;
@@ -127,7 +110,7 @@ router.post('/', async (req, res) => {
       }
     }
     
-    const data = await fetchDataWithRetry(url);
+    const data = await fetchData(url);
     if (!data) {
       return res.status(500).json({ error: 'Failed to fetch data' });
     }
@@ -154,9 +137,9 @@ router.post('/', async (req, res) => {
 
     res.json(data);
   } catch (error) {
-    console.error('Error in request processing:', error);
-    res.status(500).json({ error: 'An error occurred while processing the request' });
-  }
+      console.error('Error in request processing:', error);
+      res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
 });
 
 // Handle GET request for refreshing data
@@ -166,7 +149,7 @@ router.get('/refresh', async (req, res) => {
     return res.status(400).json({ error: 'No URL provided' });
   }
 
-  const data = await fetchDataWithRetry(url);
+  const data = await fetchData(url);
   if (data) {
     const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n\`(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${parseFloat(data.percentage.toFixed(2))}%)\`\n\n`;
     if (IS_RECORD_ENABLED) {

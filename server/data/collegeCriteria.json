@@ -1,0 +1,44 @@
+{
+    "colleges": [
+      {
+        "name": "Thiagarajar College of Engineering (TCE), Madurai",
+        "criteria": [
+          {
+            "years": ["2025"],
+            "requiredPoints": 3000
+          },
+          {
+            "years": ["2026", "2027", "2028"],
+            "requiredPoints": 5000
+          }
+        ]
+      },
+      {
+        "name": "K.L.N College of Engineering, Madurai",
+        "criteria": [
+          {
+            "years": ["2025", "2026"],
+            "requiredPoints": 1500
+          }
+        ]
+      },
+      {
+        "name": "Sairam Engineering College, Chennai",
+        "criteria": [
+          {
+            "years": ["2028"],
+            "requiredPoints": 700
+          }
+        ]
+      },
+      {
+        "name": "Sairam Institute of Technology, Chennai",
+        "criteria": [
+          {
+            "years": ["2028"],
+            "requiredPoints": 4800
+          }
+        ]
+      }
+    ]
+}
