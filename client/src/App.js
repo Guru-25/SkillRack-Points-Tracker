@@ -219,7 +219,7 @@ const App = () => {
         justifyContent: 'center',
         background: 'var(--background-color)'
       }}>
-        <h1>Loading...</h1>
+        <h1>Irunga Bhaii...</h1>
       </div>
     );
   }
