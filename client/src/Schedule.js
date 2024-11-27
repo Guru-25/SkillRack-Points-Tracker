@@ -34,7 +34,7 @@ const Schedule = ({ initialValues }) => {
 
       if (!manualTarget) {
         setTargetPoints(
-          initialValues.requiredPoints > 0 ? initialValues.requiredPoints : ''
+          (initialValues.requiredPoints > 0 && initialValues.points < initialValues.requiredPoints) ? initialValues.requiredPoints : ''
         );
         setDisplayPoints(initialValues.requiredPoints);
       }

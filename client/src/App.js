@@ -27,6 +27,44 @@ const Modal = ({ show, onClose, onConfirm, message }) => {
   );
 };
 
+const getName = (name) => {
+  const firstName = name.split(' ')[0].toLowerCase();
+  const capitalizedName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+
+  return capitalizedName;
+}
+
+const getGreeting = (name) => {
+  const date = new Date().toLocaleString('en-GB', { 
+    timeZone: 'Asia/Kolkata',
+    hour12: false
+  });
+  const hour = parseInt(date.split(',')[1].split(':')[0]);
+  
+  const capitalizedName = getName(name);
+  
+  let greeting = '';
+  if (hour >= 6 && hour < 12) {
+    greeting = 'Good morning';
+  } else if (hour >= 12 && hour < 17) {
+    greeting = 'Good afternoon';
+  } else if (hour >= 17 && hour < 20) {
+    greeting = 'Good evening';
+  } else {
+    greeting = 'Happy late night';
+  }
+  
+  return `${greeting}, ${capitalizedName} 😊`;
+}
+
+const ReleaseNote = () => {
+  return (
+    <div className="release-note">
+      <span className="new-badge">NEW!</span>We now have  <a href="https://youtu.be/XlgqZeeoOtI" target="_blank" rel="noopener noreferrer"><b>dark mode</b>!</a>
+    </div>
+  );
+};
+
 const App = () => {
   const initialState = {
     url: '',
@@ -219,7 +257,11 @@ const App = () => {
         justifyContent: 'center',
         background: 'var(--background-color)'
       }}>
-        <h1>Irunga Bhaii...</h1>
+        <h1 style={{
+          animation: 'pulse 2s infinite'
+        }}>
+          Loading...
+        </h1>
       </div>
     );
   }
@@ -285,7 +327,7 @@ const App = () => {
           <>
             <p>Updated on {state.lastFetched}</p>
             <br style={{ marginBottom: '15px' }} />
-            <h2 className='fix-width' >Hi.. {state.name} 😊</h2>
+            <h2 className='fix-width'>{getGreeting(state.name)}</h2>
             <div style={{ width: '200px', margin: '50px auto' }}>
               <CircularProgressbar
                 value={state.percentage}
@@ -306,7 +348,7 @@ const App = () => {
 
             {state.points >= state.requiredPoints && state.requiredPoints !== 0 && (
               <>
-                <h3 className='fix-width'>Congratulations 🎉 {state.name} on completing {state.requiredPoints} points!</h3>
+                <h3 className='fix-width'>Congratulations 🎉 {getName(state.name)} on completing {state.requiredPoints} points!</h3>
                 <br />
               </>
             )}
@@ -376,6 +418,7 @@ const App = () => {
               <br /><br />
             </>
           )}
+          <ReleaseNote />
           <br /><br />
           made with ❤️ by <a href="https://gururaja.in" target="_blank" rel="noopener noreferrer"><b>someone</b></a>
         </footer>
