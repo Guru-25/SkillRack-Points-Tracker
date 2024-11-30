@@ -28,10 +28,21 @@ const Modal = ({ show, onClose, onConfirm, message }) => {
 };
 
 const getName = (name) => {
-  const firstName = name.split(' ')[0].toLowerCase();
-  const capitalizedName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
-
-  return capitalizedName;
+  const words = name.split(' ').filter(word => word.length > 0);
+  
+  let selectedName = words[0];
+  
+  if (selectedName.length <= 2) {
+    const longerName = words.find(word => word.length > 2);
+    if (longerName) {
+      selectedName = longerName;
+    } else {
+      selectedName = words[words.length - 1];
+      return selectedName;
+    }
+  }
+  
+  return selectedName.toLowerCase().charAt(0).toUpperCase() + selectedName.slice(1).toLowerCase();
 }
 
 const getGreeting = (name) => {
