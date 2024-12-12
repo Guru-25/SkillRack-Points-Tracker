@@ -3,13 +3,21 @@ import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async'; // Import HelmetProvider
 import './index.css';
 import App from './App';
+// import Certificate from './Certificate';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <HelmetProvider>
+    {/* <Router>
+      <Routes>
+        <Route path="/certificate/:id" element={<Certificate />} />
+        <Route path="/" element={<App />} />
+      </Routes>
+    </Router> */}
       <App />
     </HelmetProvider>
   </React.StrictMode>

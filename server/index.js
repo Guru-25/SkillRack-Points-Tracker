@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const pointsRouter = require('./routes/points');
+// const certificateRouter = require('./routes/certificate');
 require('dotenv').config();
 
 const app = express();
@@ -24,6 +25,12 @@ if (IS_RECORD_ENABLED) {
 }
 
 app.use('/api/points', pointsRouter);
+// app.use('/api/certificate', certificateRouter);
+
+// // Serve the certificate page
+// app.get('/certificate/:id', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'certificate.html'));
+// });
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

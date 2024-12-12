@@ -4,6 +4,8 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { IoMdArrowRoundForward } from "react-icons/io";
+// import { FaLinkedin } from 'react-icons/fa';
+// // import { useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -68,13 +70,13 @@ const getGreeting = (name) => {
   return `${greeting}, ${capitalizedName} 😊`;
 }
 
-const ReleaseNote = () => {
-  return (
-    <div className="release-note">
-      <span className="new-badge">NEW!</span>We now have  <a href="https://youtu.be/XlgqZeeoOtI" target="_blank" rel="noopener noreferrer"><b>dark mode</b>!</a>
-    </div>
-  );
-};
+// const ReleaseNote = () => {
+//   return (
+//     <div className="release-note">
+//       <span className="new-badge">NEW!</span>We now have  <a href="https://youtu.be/XlgqZeeoOtI" target="_blank" rel="noopener noreferrer"><b>dark mode</b>!</a>
+//     </div>
+//   );
+// };
 
 const App = () => {
   const initialState = {
@@ -109,6 +111,8 @@ const App = () => {
     return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
   const [isVisible, setIsVisible] = useState(true);
+  // const [certificateUrl, setCertificateUrl] = useState('');
+  // // const history = useHistory();
   const handleStateChange = useCallback((newState) => {
     setState((prevState) => ({ ...prevState, ...newState }));
   }, []);
@@ -251,6 +255,25 @@ const App = () => {
   const handleGenerateScheduleDTDC = () => {
     handleStateChange({ showScheduleDTDC: true });
   };
+
+  // const handleGenerateCertificate = async () => {
+  //   try {
+  //     const { data } = await axios.post('/api/certificate/generate', {
+  //       userId: state.id, // Add 'id' to state when fetching user data
+  //       name: state.name,
+  //       points: state.points,
+  //       message: 'Certified SkillRack Points Achiever'
+  //     });
+  //     setCertificateUrl(data.url);
+  //   } catch (error) {
+  //     console.error('Error generating certificate:', error);
+  //   }
+  // };
+
+  // const handleShareOnLinkedIn = () => {
+  //   const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(certificateUrl)}`;
+  //   window.open(shareUrl, '_blank');
+  // };
 
   // Don't render anything until initialization is complete or while loading
   if (!isInitialized || isLoading || state.loading) {
@@ -408,6 +431,16 @@ const App = () => {
               </>
             )}
 
+            {/* <br /><br />
+            <button onClick={handleGenerateCertificate} className="generate-certificate-button">Generate Certificate</button>
+            {certificateUrl && (
+              <div className="certificate-share">
+                <p>Your certificate is ready!</p>
+                <input type="text" value={certificateUrl} readOnly />
+                <button onClick={() => navigator.clipboard.writeText(certificateUrl)}>Copy URL</button>
+                <button onClick={handleShareOnLinkedIn}><FaLinkedin size={20} /> Share on LinkedIn</button>
+              </div>
+            )} */}
             <br /><br />
             <button onClick={handleLogout} className="logout-button">Logout</button><br /><br />
           </>
@@ -429,7 +462,7 @@ const App = () => {
               <br /><br />
             </>
           )}
-          <ReleaseNote />
+          {/* <ReleaseNote /> */}
           <br /><br />
           made with ❤️ by <a href="https://gururaja.in" target="_blank" rel="noopener noreferrer"><b>someone</b></a>
         </footer>
