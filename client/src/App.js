@@ -70,13 +70,13 @@ const getGreeting = (name) => {
   return `${greeting}, ${capitalizedName} 😊`;
 }
 
-// const ReleaseNote = () => {
-//   return (
-//     <div className="release-note">
-//       <span className="new-badge">NEW!</span>We now have  <a href="https://youtu.be/XlgqZeeoOtI" target="_blank" rel="noopener noreferrer"><b>dark mode</b>!</a>
-//     </div>
-//   );
-// };
+const ReleaseNote = () => {
+  return (
+    <div className="release-note">
+      <span className="new-badge">NEW!</span>Added a <a href="https://youtu.be/BsrCYe9Ytuw" target="_blank" rel="noopener noreferrer"><b>tutorial video</b></a> to guide new users!
+    </div>
+  );
+};
 
 const App = () => {
   const initialState = {
@@ -214,7 +214,7 @@ const App = () => {
     handleStateChange({ error: '' });
 
     if (!isValidSkillRackUrl(state.url)) {
-      handleStateChange({ error: 'Please enter a valid SkillRack Profile URL!!' });
+      handleStateChange({ error: 'Invalid URL! Please watch the above Tutorial video!!' });
       return;
     }
 
@@ -230,10 +230,10 @@ const App = () => {
           secure: true
         });
       } else {
-        handleStateChange({ error: 'Please enter a valid SkillRack Profile URL!!', loading: false });
+        handleStateChange({ error: 'Invalid URL! Please watch the above Tutorial video!!', loading: false });
       }
     } catch (error) {
-      handleStateChange({ error: 'Invalid URL. Please enter a valid SkillRack Profile URL!!', loading: false });
+      handleStateChange({ error: 'Invalid URL! Please watch the above Tutorial video!!', loading: false });
       console.error(error);
     }
     handleStateChange({ loading: false });
@@ -337,7 +337,7 @@ const App = () => {
         </button>
         {!state.isValidUrl && (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-            <p>Login to <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> <IoMdArrowRoundForward size={12}/> Profile <IoMdArrowRoundForward size={12}/> Enter Password <IoMdArrowRoundForward size={12}/> Click "View" <IoMdArrowRoundForward size={12}/> Copy the URL</p>
+            <p style={{maxWidth: 600}}>Login <a href="https://www.skillrack.com/faces/candidate/manageprofile.xhtml" target="_blank" rel="noopener noreferrer"><b>SkillRack</b></a> <IoMdArrowRoundForward size={12}/> Profile <IoMdArrowRoundForward size={12}/> Enter Password <IoMdArrowRoundForward size={12}/> Click "View" <IoMdArrowRoundForward size={12}/> Copy the URL<br /><br />Tutorial: <a href="https://youtu.be/BsrCYe9Ytuw" target="_blank" rel="noopener noreferrer"><b>Watch on YouTube</b></a></p>
             <input
               type="text"
               value={state.url}
@@ -462,7 +462,7 @@ const App = () => {
               <br /><br />
             </>
           )}
-          {/* <ReleaseNote /> */}
+          <ReleaseNote />
           <br /><br />
           made with ❤️ by <a href="https://gururaja.in" target="_blank" rel="noopener noreferrer"><b>someone</b></a>
         </footer>
