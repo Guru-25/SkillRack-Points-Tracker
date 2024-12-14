@@ -206,14 +206,25 @@ footer a:hover {
 
 .para-container {
   max-width: 300px;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
+  margin: 20px auto;
+  padding: 30px;
+  text-align: left;
   font-family: 'Arial', sans-serif;
   background-color: var(--card-bg);
-  border-radius: 10px;
-  box-shadow: 0 0 20px var(--card-shadow);
+  border-radius: 12px;
+  box-shadow: 0 4px 25px var(--card-shadow);
   color: var(--text-color);
+}
+
+.para-container ul {
+  list-style-type: none;
+  margin-bottom: 25px;
+  padding: 0;
+}
+
+.para-container li {
+  margin-bottom: 10px;
+  font-size: 16px;
 }
 
 /* Theme Toggle Button Styles */

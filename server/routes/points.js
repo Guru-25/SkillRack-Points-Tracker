@@ -45,16 +45,26 @@ async function fetchData(url) {
     // Calculate points and percentage
     const points = codeTrack * 2 + codeTest * 30 + dt * 20 + dc * 2;
 
-    const getRequiredPoints = (collegeName, year) => {
+    let requiredPoints = 0;
+    let deadline = null;
+
+    const getCollegeCriteria = (collegeName, year) => {
       const college = collegeData.colleges.find(c => c.name === collegeName);
-      if (!college) return 0;
-    
-      const criteriaMatch = college.criteria.find(c => c.years.includes(year));
-      return criteriaMatch ? criteriaMatch.requiredPoints : 0;
+      if (college) {
+        const requiredPointsMatch = college.criteria.find(c => c.years.includes(year));
+        const deadlineMatch = college.criteria.find(c => c.years.includes(year) && c.deadline);
+
+        if (requiredPointsMatch) {
+          requiredPoints = requiredPointsMatch.requiredPoints;
+        }
+        if (deadlineMatch) {
+          deadline = deadlineMatch.deadline;
+        }
+      }
     };
 
     if (college) {
-      requiredPoints = getRequiredPoints(college, year);
+      getCollegeCriteria(college, year);
     }
 
     const percentageCalculate = points / requiredPoints * 100;
@@ -64,9 +74,9 @@ async function fetchData(url) {
     const date = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true });
     const lastFetched = date.split(',')[1].trim();
 
-    console.log({ id, name, dept, year, college, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, percentage, lastFetched, url}); // Log the parsed values
+    console.log({ id, name, dept, year, college, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, deadline, percentage, lastFetched, url}); // Log the parsed values
 
-    return { id, name, dept, year, college, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, percentage, lastFetched, url};
+    return { id, name, dept, year, college, codeTutor, codeTrack, codeTest, dt, dc, points, requiredPoints, deadline, percentage, lastFetched, url};
   } catch (error) {
     console.error(`Invalid URL: ${url}`);
     return null;

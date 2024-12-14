@@ -92,6 +92,7 @@ https://skillrack.gururaja.in/api/points
       "dc": 108,
       "points": 4352,
       "requiredPoints": 5000,
+      "deadline": "2025-04-30",
       "percentage": 87.03999999999999,
       "lastFetched": "12:48:36 am",
       "url": "https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
@@ -131,6 +132,7 @@ https://skillrack.gururaja.in/api/points
       "dc": 108,
       "points": 4352,
       "requiredPoints": 5000,
+      "deadline": "2025-04-30",
       "percentage": 87.03999999999999,
       "lastFetched": "12:48:36 am",
       "url": "https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"

@@ -16,7 +16,7 @@ const Schedule = ({ initialValues }) => {
     dt: '',
     dc: '',
     points: '',
-    requiredPoints: '',
+    requiredPoints: ''
   });
 
   useEffect(() => {
@@ -46,6 +46,19 @@ const Schedule = ({ initialValues }) => {
       manualTarget ? targetPoints : initialValuesState.requiredPoints
     );
   }, [targetPoints, manualTarget, initialValuesState.requiredPoints]);
+
+  useEffect(() => {
+    if (initialValues.deadline) {
+      const currentDate = new Date();
+      const deadlineDate = new Date(initialValues.deadline);
+      if (
+        initialValues.points < initialValues.requiredPoints &&
+        currentDate < deadlineDate
+      ) {
+        setFinishDate(initialValues.deadline);
+      }
+    }
+  }, [initialValues.deadline, initialValues.points, initialValues.requiredPoints]);
 
   const calculatePoints = (tracks, dt, dc) => {
     return tracks * 2 + dt * 20 + dc * 2;

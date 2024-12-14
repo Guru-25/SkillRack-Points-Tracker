@@ -8,7 +8,12 @@
             "requiredPoints": 3000
           },
           {
-            "years": ["2026", "2027", "2028"],
+            "years": ["2026"],
+            "requiredPoints": 5000,
+            "deadline": "2025-04-30"
+          },
+          {
+            "years": ["2027", "2028"],
             "requiredPoints": 5000
           }
         ]

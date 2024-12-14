@@ -93,6 +93,9 @@ const App = () => {
     dt: 0,
     dc: 0,
     requiredPoints: 0,
+    deadline: null,
+    college: null,
+    year: 0,
     showSchedule: false,
     showScheduleDTDC: false,
     loading: false,
@@ -128,7 +131,10 @@ const App = () => {
       codeTest: data.codeTest,
       dt: data.dt,
       dc: data.dc,
-      requiredPoints: data.requiredPoints
+      requiredPoints: data.requiredPoints,
+      deadline: data.deadline,
+      college: data.college,
+      year: data.year
     });
   }, [handleStateChange]);
 
@@ -395,11 +401,11 @@ const App = () => {
               totalPoints={state.points}
               percentage={state.percentage}
             />
-            <br />
+            <br /><br />
             
             {((state.codeTutor + state.codeTrack) >= 600) && (
               <>
-                <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br /><br />
+                <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br /><br /><br />
                 {state.showSchedule && (
                   <div className="fade-in">
                     <Schedule
@@ -408,16 +414,18 @@ const App = () => {
                         dt: state.dt,
                         dc: state.dc,
                         points: state.points,
-                        requiredPoints: state.requiredPoints
+                        requiredPoints: state.requiredPoints,
+                        deadline: state.deadline
                       }}
                     />
+                    <br /><br />
                   </div>
                 )}
               </>
             )}
             {(state.codeTutor + state.codeTrack) < 600 && (
               <>
-                <button onClick={handleGenerateScheduleDTDC} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br /><br />
+                <button onClick={handleGenerateScheduleDTDC} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br /><br /><br />
                 {state.showScheduleDTDC && (
                   <div className="fade-in">
                     <ScheduleDTDC
@@ -426,6 +434,7 @@ const App = () => {
                         problems: state.codeTrack + state.codeTutor
                       }}
                     />
+                    <br /><br />
                   </div>
                 )}
               </>
@@ -441,7 +450,7 @@ const App = () => {
                 <button onClick={handleShareOnLinkedIn}><FaLinkedin size={20} /> Share on LinkedIn</button>
               </div>
             )} */}
-            <br /><br />
+            <br />
             <button onClick={handleLogout} className="logout-button">Logout</button><br /><br />
           </>
         )}
@@ -452,11 +461,21 @@ const App = () => {
             </a>
           )}
           <br /><br /> */}
-          {state.isValidUrl && state.requiredPoints === 0 && (
+          {state.isValidUrl && (
             <>
               <div className='para-container'>
+                <ul>
+                  <li><b>College</b>: {state.college.includes(",") ? state.college.split(",")[0] : state.college}</li>
+                  <li><b>Year</b>: {state.year}</li>
+                  <li><b>Required Points</b>: {state.requiredPoints !== 0 ? state.requiredPoints : <i>Unknown</i>}</li>
+                  <li><b>Deadline</b>: {state.deadline !== null ? state.deadline : <i>Unknown</i>}</li>
+                </ul>
                 <p>
-                  Email <a href="mailto:mail@gururaja.in">mail@gururaja.in</a> with your college name and required points assigned by your college to unlock the progress tracker!
+                  <details>
+                    <summary style={{textAlign: 'center'}}>Report</summary>
+                      <br/>
+                      Email <a href="mailto:mail@gururaja.in">mail@gururaja.in</a> with the correct details assigned by your college!
+                  </details>
                 </p>
               </div>
               <br /><br />
