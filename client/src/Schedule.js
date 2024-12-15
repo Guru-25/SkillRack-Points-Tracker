@@ -270,7 +270,7 @@ const Schedule = ({ initialValues }) => {
                 type="number"
                 value={targetPoints}
                 onChange={(e) => setTargetPoints(e.target.value)}
-                placeholder="Enter points"
+                placeholder={`Points > ${initialValues.points}`}
                 className="input-field target-input"
               />
             </div>
