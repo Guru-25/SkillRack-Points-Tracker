@@ -365,8 +365,10 @@ const App = () => {
         )}
         {state.isValidUrl && (
           <>
-            <p>Updated on {state.lastFetched}</p>
-            <br style={{ marginBottom: '15px' }} />
+            <ReleaseNote />
+            {/* <p>Updated on {state.lastFetched}</p> */}
+            {/* <br style={{ marginBottom: '15px' }} /> */}
+            <br style={{ marginBottom: '6px' }} />
             <h2 className='fix-width'>{getGreeting(state.name)}</h2>
             <div style={{ width: '200px', margin: '50px auto' }}>
               <CircularProgressbar
@@ -482,8 +484,8 @@ const App = () => {
               <br /><br />
             </>
           )}
-          <ReleaseNote />
-          <br /><br />
+          {/* <ReleaseNote /> */}
+          {/* <br /><br /> */}
           made with ❤️ by <a href="https://gururaja.in" target="_blank" rel="noopener noreferrer"><b>someone</b></a>
         </footer>
         <Modal
