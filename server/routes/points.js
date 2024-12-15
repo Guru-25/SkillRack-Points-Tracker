@@ -67,7 +67,7 @@ async function fetchData(url) {
       getCollegeCriteria(college, year);
     }
 
-    const percentageCalculate = points / requiredPoints * 100;
+    const percentageCalculate = ((points / requiredPoints) * 100).toFixed(2);
     const percentage = !isFinite(percentageCalculate) ? 100 : percentageCalculate;
 
     // Format last fetched date
@@ -128,7 +128,7 @@ router.post('/', async (req, res) => {
     if (IS_RECORD_ENABLED) {
       // Perform database operations before sending response
       let user = await User.findOne({ id: data.id });
-      const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n\`(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${parseFloat(data.percentage.toFixed(2))}%)\`\n\n`;
+      const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n\`(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${data.percentage}%)\`\n\n`;
       if (data.name !== '') {
         if (!user) {
           user = new User({ id: data.id, name: data.name, dept: data.dept, url: url });
@@ -161,7 +161,7 @@ router.get('/refresh', async (req, res) => {
 
   const data = await fetchData(url);
   if (data) {
-    const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n\`(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${parseFloat(data.percentage.toFixed(2))}%)\`\n\n`;
+    const logMessage = `\`${data.name} (${data.dept}'${data.year.slice(-2)})\`\n\n\`(${data.codeTutor} x 0) + (${data.codeTrack} x 2) + (${data.codeTest} x 30) + (${data.dt} x 20) + (${data.dc} x 2) = ${data.points} (${data.percentage}%)\`\n\n`;
     if (IS_RECORD_ENABLED) {
       await sendLogMessage(logMessage, ((data.id) !== process.env.ID) ? process.env.TOPIC3_ID : process.env.TOPIC4_ID); // Refreshed
     }

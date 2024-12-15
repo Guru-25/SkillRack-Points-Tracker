@@ -93,9 +93,9 @@ https://skillrack.gururaja.in/api/points
       "points": 4352,
       "requiredPoints": 5000,
       "deadline": "2025-04-30",
-      "percentage": 87.03999999999999,
+      "percentage": 87.04,
       "lastFetched": "12:48:36 am",
-      "url": "https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
+      "url": "https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
     }
     ```
 
@@ -113,7 +113,7 @@ https://skillrack.gururaja.in/api/points
 
   Example:
   ```
-  https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>
+  https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>
   ```
 
 - **Response:**
@@ -133,9 +133,9 @@ https://skillrack.gururaja.in/api/points
       "points": 4352,
       "requiredPoints": 5000,
       "deadline": "2025-04-30",
-      "percentage": 87.03999999999999,
+      "percentage": 87.04,
       "lastFetched": "12:48:36 am",
-      "url": "https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
+      "url": "https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>&key=<resumeKey>"
     }
     ```
 
@@ -156,7 +156,7 @@ https://skillrack.gururaja.in/api/points
    To refresh the points for a user, send a GET request to the `/refresh` endpoint with the user's SkillRack profile URL as a query parameter.
 
    ```bash
-   curl -X GET "https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com:443/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>"
+   curl -X GET "https://skillrack.gururaja.in/api/points/refresh?url=https://www.skillrack.com/faces/resume.xhtml?id=<resumeId>%26key=<resumeKey>"
    ```
 
 ## Getting Started
