@@ -6,6 +6,7 @@ const ScheduledtDc = ({ initialValues }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [finishDate, setFinishDate] = useState('');
+  const [trackIncrement, setTrackIncrement] = useState(0);
 
   useEffect(() => {
     if (initialValues) {
@@ -17,6 +18,19 @@ const ScheduledtDc = ({ initialValues }) => {
     codeTrack: '',
     problems: ''
   });
+
+  const getDifficulty = (increment) => {
+    if (increment <= 10) return 'Easy';
+    if (increment <= 25) return 'Medium';
+    if (increment <= 50) return 'Hard';
+    return 'Very Hard';
+  };
+
+  const getDifficultyColor = (increment) => {
+    if (increment <= 10) return '#4CAF50';
+    if (increment <= 25) return '#ffa500';
+    return '#F44336';
+  };
 
   const generateSchedule = () => {
     setLoading(true);
@@ -65,6 +79,7 @@ const ScheduledtDc = ({ initialValues }) => {
     let currentDate = new Date(today);
     let neededToSolve = targetProblems - currentProblems;
     let trackIncrement = neededToSolve / daysToFinish;
+    setTrackIncrement(trackIncrement);
 
     for (let i = 1; i <= daysToFinish; i++) {
       currentDate.setDate(currentDate.getDate() + 1);
@@ -103,26 +118,37 @@ const ScheduledtDc = ({ initialValues }) => {
       </div>
       {error && <div className="error-message">{error}</div>}
       {schedule.length > 0 && (
-        <div className="schedule-table-container fade-in">
-          <table className="schedule-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Tracks</th>
-                <th>Solved</th>
-              </tr>
-            </thead>
-            <tbody>
-              {schedule.map((day, index) => (
-                <tr key={index}>
-                  <td>{day.date}</td>
-                  <td>{day.track}</td>
-                  <td>{day.totalSolved}</td>
+        <>
+          <div style={{ padding: '1px', textAlign: 'center' }}>
+            <p><b>Tracks / day</b>: {Math.ceil(trackIncrement)}</p>
+            <p>
+              <b>Difficulty</b>: 
+              <span style={{ color: getDifficultyColor(trackIncrement), fontWeight: 'bold', marginLeft: '5px' }}>
+                {getDifficulty(trackIncrement)}
+              </span>
+            </p>
+          </div>
+          <div className="schedule-table-container fade-in">
+            <table className="schedule-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Tracks</th>
+                  <th>Solved</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {schedule.map((day, index) => (
+                  <tr key={index}>
+                    <td>{day.date}</td>
+                    <td>{day.track}</td>
+                    <td>{day.totalSolved}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );

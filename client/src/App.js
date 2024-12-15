@@ -73,7 +73,7 @@ const getGreeting = (name) => {
 const ReleaseNote = () => {
   return (
     <div className="release-note">
-      <span className="new-badge">NEW!</span>Added a <a href="https://youtu.be/BsrCYe9Ytuw" target="_blank" rel="noopener noreferrer"><b>tutorial video</b></a> to guide new users!
+      <span className="new-badge">NEW!</span>Plan with AI <b>2.0</b>: Smarter, better — try now!
     </div>
   );
 };
@@ -403,7 +403,7 @@ const App = () => {
             />
             <br /><br />
             
-            {((state.codeTutor + state.codeTrack) >= 600) && (
+            {((state.codeTutor + state.codeTrack + state.codeTest) >= 600) && (
               <>
                 <button onClick={handleGenerateSchedule} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br /><br /><br />
                 {state.showSchedule && (
@@ -424,7 +424,7 @@ const App = () => {
                 )}
               </>
             )}
-            {(state.codeTutor + state.codeTrack) < 600 && (
+            {(state.codeTutor + state.codeTrack + state.codeTest) < 600 && (
               <>
                 <button onClick={handleGenerateScheduleDTDC} className="generate-schedule-button">✨ Plan with AI ✨</button><br /><br /><br /><br />
                 {state.showScheduleDTDC && (

@@ -10,6 +10,7 @@ const Schedule = ({ initialValues }) => {
   const [targetPoints, setTargetPoints] = useState('');
   const [displayPoints, setDisplayPoints] = useState('');
   const [manualTargetModified, setManualTargetModified] = useState(false);
+  const [trackIncrement, setTrackIncrement] = useState(0);
 
   const [initialValuesState, setInitialValues] = useState({
     codeTrack: '',
@@ -63,6 +64,19 @@ const Schedule = ({ initialValues }) => {
 
   const calculatePoints = (tracks, dt, dc, codeTest) => {
     return Math.floor(tracks) * 2 + Math.floor(dt) * 20 + Math.floor(dc) * 2 + Math.floor(codeTest) * 30;
+  };
+
+  const getDifficulty = (increment) => {
+    if (increment <= 10) return 'Easy';
+    if (increment <= 25) return 'Medium';
+    if (increment <= 50) return 'Hard';
+    return 'Very Hard';
+  };
+
+  const getDifficultyColor = (increment) => {
+    if (increment <= 10) return '#4CAF50';
+    if (increment <= 25) return '#ffa500';
+    return '#F44336';
   };
 
   const generateSchedule = () => {
@@ -143,6 +157,7 @@ const Schedule = ({ initialValues }) => {
     const pointsFromDtDc = daysToFinish * (20 + 2);
     const remainingPointsForTracks = remainingPoints - pointsFromDtDc;
     const trackIncrement = Math.max(0, Math.ceil(remainingPointsForTracks / (2 * daysToFinish)));
+    setTrackIncrement(trackIncrement);
 
     for (let i = 1; i <= daysToFinish; i++) {
       currentDate.setDate(currentDate.getDate() + 1);
@@ -265,30 +280,41 @@ const Schedule = ({ initialValues }) => {
       </div>
       {error && <div className="error-message">{error}</div>}
       {schedule.length > 0 && (
-        <div className="schedule-table-container fade-in">
-          <table className="schedule-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Track</th>
-                <th>DT</th>
-                <th>DC</th>
-                <th>PTS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {schedule.map((day, index) => (
-                <tr key={index}>
-                  <td>{day.date}</td>
-                  <td>{day.tracks}</td>
-                  <td>{day.dt}</td>
-                  <td>{day.dc}</td>
-                  <td>{day.points}</td>
+        <>
+          <div style={{ padding: '1px', textAlign: 'center' }}>
+            <p><b>Tracks / day</b>: {Math.ceil(trackIncrement)}</p>
+            <p>
+              <b>Difficulty</b>: 
+              <span style={{ color: getDifficultyColor(trackIncrement), fontWeight: 'bold', marginLeft: '5px' }}>
+                {getDifficulty(trackIncrement)}
+              </span>
+            </p>
+          </div>
+          <div className="schedule-table-container fade-in">
+            <table className="schedule-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Track</th>
+                  <th>DT</th>
+                  <th>DC</th>
+                  <th>PTS</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {schedule.map((day, index) => (
+                  <tr key={index}>
+                    <td>{day.date}</td>
+                    <td>{day.tracks}</td>
+                    <td>{day.dt}</td>
+                    <td>{day.dc}</td>
+                    <td>{day.points}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );
