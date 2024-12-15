@@ -120,7 +120,7 @@ const Schedule = ({ initialValues }) => {
     }
 
     if (targetPointsValue <= currentPoints) {
-      setError('Target points must be greater than current points!!');
+      setError(`Target points must be greater than current points ${currentPoints}!!`);
       setLoading(false);
       return;
     }
