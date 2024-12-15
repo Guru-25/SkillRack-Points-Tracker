@@ -67,7 +67,7 @@ const getGreeting = (name) => {
     greeting = 'Happy late night';
   }
   
-  return `🪔 ${greeting}, ${capitalizedName} 😊`;
+  return `${greeting}, ${capitalizedName} 😊`;
 }
 
 const ReleaseNote = () => {
@@ -432,7 +432,7 @@ const App = () => {
                     <ScheduleDTDC
                       initialValues={{
                         codeTrack: state.codeTrack,
-                        problems: state.codeTrack + state.codeTutor
+                        problems: state.codeTrack + state.codeTutor + state.codeTest,
                       }}
                     />
                     <br /><br />

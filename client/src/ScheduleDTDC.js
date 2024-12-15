@@ -94,7 +94,7 @@ const ScheduledtDc = ({ initialValues }) => {
         <input
           type="date"
           value={finishDate}
-          min={new Date().toISOString().split('T')[0]}
+          min={new Date(Date.now() + 24 * 60 * 60 * 1000).toLocaleDateString('en-CA')}
           onChange={(e) => setFinishDate(e.target.value)}
           className="input-field date-input"
           style={{ marginBottom: '14px' }}
