@@ -126,7 +126,6 @@ const Schedule = ({ initialValues }) => {
     ];
 
     let currentDate = new Date(today);
-    let flag = 0;
     let finalDt = currentDt + daysToFinish;
     let finalDc = currentDc + daysToFinish;
 
@@ -139,22 +138,74 @@ const Schedule = ({ initialValues }) => {
 
     for (let i = 1; i <= daysToFinish; i++) {
       currentDate.setDate(currentDate.getDate() + 1);
-      currentTracks += trackIncrement;
-      currentDt += 1;
-      currentDc += 1;
 
-      currentPoints = calculatePoints(currentTracks, currentDt, currentDc, currentCodeTest);
-      if (flag === 1) break;
-      if (currentPoints >= targetPointsValue) {
-        flag = 1;
+      // Calculate potential new tracks
+      let potentialTracks = currentTracks + trackIncrement;
+      let potentialDt = currentDt + 1;
+      let potentialDc = currentDc + 1;
+
+      // Calculate potential points
+      let potentialPoints = calculatePoints(potentialTracks, potentialDt, potentialDc, currentCodeTest);
+
+      // If adding the full increment exceeds the target, adjust the increment
+      if (potentialPoints >= targetPointsValue) {
+        // Calculate the exact points needed to reach the target
+        let pointsNeeded = targetPointsValue - currentPoints;
+
+        // Determine the required increments with priority: dt > dc > tracks
+        let additionalDt = 0;
+        let additionalDc = 0;
+        let additionalTracks = 0;
+
+        // Prioritize daily tests (dt)
+        if (pointsNeeded > 0) {
+          additionalDt = Math.min(Math.floor(pointsNeeded / 20), daysToFinish - i + 1);
+          pointsNeeded -= additionalDt * 20;
+        }
+
+        // Then prioritize daily challenges (dc)
+        if (pointsNeeded > 0) {
+          additionalDc = Math.min(Math.floor(pointsNeeded / 2), daysToFinish - i + 1 - additionalDt);
+          pointsNeeded -= additionalDc * 2;
+        }
+
+        // Finally, allocate remaining points to tracks
+        if (pointsNeeded > 0) {
+          additionalTracks = Math.ceil(pointsNeeded / 2);
+          pointsNeeded -= additionalTracks * 2;
+        }
+
+        // Update the current values with the exact needed increments
+        currentDt += additionalDt;
+        currentDc += additionalDc;
+        currentTracks += additionalTracks;
+
+        currentPoints = calculatePoints(currentTracks, currentDt, currentDc, currentCodeTest);
+
+        newSchedule.push({
+          date: currentDate.toLocaleDateString('en-GB', { year: '2-digit', month: '2-digit', day: '2-digit' }),
+          tracks: Math.round(currentTracks),
+          dt: currentDt,
+          dc: currentDc,
+          points: Math.round(currentPoints),
+        });
+
+        break; // Target reached
+      } else {
+        // Continue with regular increment
+        currentTracks = potentialTracks;
+        currentDt = potentialDt;
+        currentDc = potentialDc;
+        currentPoints = calculatePoints(currentTracks, currentDt, currentDc, currentCodeTest);
+
+        newSchedule.push({
+          date: currentDate.toLocaleDateString('en-GB', { year: '2-digit', month: '2-digit', day: '2-digit' }),
+          tracks: Math.round(currentTracks),
+          dt: currentDt,
+          dc: currentDc,
+          points: Math.round(currentPoints),
+        });
       }
-      newSchedule.push({
-        date: currentDate.toLocaleDateString('en-GB', { year: '2-digit', month: '2-digit', day: '2-digit' }),
-        tracks: Math.round(currentTracks),
-        dt: currentDt,
-        dc: currentDc,
-        points: Math.round(currentPoints),
-      });
     }
 
     setSchedule(newSchedule);

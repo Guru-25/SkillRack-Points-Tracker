@@ -198,10 +198,10 @@ const App = () => {
 
   // Scroll handling
   useEffect(() => {
-    let prevScrollPos = window.pageYOffset;
+    let prevScrollPos = window.scrollY;
     
     const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
+      const currentScrollPos = window.scrollY;
       setIsVisible(prevScrollPos > currentScrollPos || currentScrollPos < 50);
       prevScrollPos = currentScrollPos;
     };
@@ -469,7 +469,7 @@ const App = () => {
                   <li><b>College</b>: {state.college.includes(",") ? state.college.split(",")[0] : state.college}</li>
                   <li><b>Year</b>: {state.year}</li>
                   <li><b>Required Points</b>: {state.requiredPoints !== 0 ? state.requiredPoints : <i>Unknown</i>}</li>
-                  <li><b>Deadline</b>: {state.deadline !== null ? state.deadline : <i>Unknown</i>}</li>
+                  <li><b>Deadline</b>: {state.deadline !== null ? new Date(state.deadline).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : <i>Unknown</i>}</li>
                 </ul>
                 <p>
                   <details>
