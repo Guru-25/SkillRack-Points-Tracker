@@ -415,7 +415,8 @@ const App = () => {
                         dc: state.dc,
                         points: state.points,
                         requiredPoints: state.requiredPoints,
-                        deadline: state.deadline
+                        deadline: state.deadline,
+                        codeTest: state.codeTest
                       }}
                     />
                     <br /><br />

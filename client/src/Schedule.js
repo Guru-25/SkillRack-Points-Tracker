@@ -16,7 +16,8 @@ const Schedule = ({ initialValues }) => {
     dt: '',
     dc: '',
     points: '',
-    requiredPoints: ''
+    requiredPoints: '',
+    codeTest: ''
   });
 
   useEffect(() => {
@@ -60,15 +61,15 @@ const Schedule = ({ initialValues }) => {
     }
   }, [initialValues.deadline, initialValues.points, initialValues.requiredPoints]);
 
-  const calculatePoints = (tracks, dt, dc) => {
-    return tracks * 2 + dt * 20 + dc * 2;
+  const calculatePoints = (tracks, dt, dc, codeTest) => {
+    return tracks * 2 + dt * 20 + dc * 2 + codeTest * 30;
   };
 
   const generateSchedule = () => {
     setLoading(true);
     setError('');
 
-    const { codeTrack, dt, dc, points } = initialValuesState;
+    const { codeTrack, dt, dc, points, codeTest } = initialValuesState;
 
     if (!finishDate) {
       setError('Please enter the date!!');
@@ -86,6 +87,7 @@ const Schedule = ({ initialValues }) => {
     let currentDt = parseInt(dt);
     let currentDc = parseInt(dc);
     let currentPoints = parseInt(points);
+    let currentCodeTest = parseInt(codeTest);
 
     const targetPointsValue = manualTarget ? 
       (targetPoints || 0) : 
@@ -141,7 +143,7 @@ const Schedule = ({ initialValues }) => {
       currentDt += 1;
       currentDc += 1;
 
-      currentPoints = calculatePoints(currentTracks, currentDt, currentDc);
+      currentPoints = calculatePoints(currentTracks, currentDt, currentDc, currentCodeTest);
       if (flag === 1) break;
       if (currentPoints >= targetPointsValue) {
         flag = 1;
