@@ -466,6 +466,25 @@ const App = () => {
           <br /><br /> */}
           {state.isValidUrl && (
             <>
+              <details>
+                <summary>Support this Service! ❤️</summary>
+                <br />
+                <p style={{ maxWidth: "300px", margin: "0 auto" }}>
+                    If you find this platform helpful, a small donation of ₹5-10 can help us cover server costs and improve the service. 
+                    Every contribution makes a difference, and we truly appreciate your support!
+                </p>
+                <p>
+                    <strong>Donate here: </strong>
+                    <a 
+                        href="https://gururaja.in/donate" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                    >
+                        Click to Donate
+                    </a>
+                </p>
+              </details>
+              <br /><br />
               <div className='para-container'>
                 <ul>
                   <li><b>College</b>: {state.college.includes(",") ? state.college.split(",")[0] : state.college}</li>
@@ -486,25 +505,7 @@ const App = () => {
           )}
           {/* <ReleaseNote /> */}
           {/* <br /><br /> */}
-          {/* made with ❤️ by <a href="https://gururaja.in" target="_blank" rel="noopener noreferrer"><b>someone</b></a> */}
-          <details>
-            <summary>Support this Service! ❤️</summary>
-            <br />
-            <p style={{ maxWidth: "300px", margin: "0 auto" }}>
-                If you find this platform helpful, a small donation of ₹5-10 can help us cover server costs and improve the service. 
-                Every contribution makes a difference, and we truly appreciate your support!
-            </p>
-            <p>
-                <strong>Donate here: </strong>  
-                <a 
-                    href="https://gururaja.in/donate" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                >
-                    Click to Donate
-                </a>
-            </p>
-          </details>
+          made with ❤️ by <a href="https://gururaja.in" target="_blank" rel="noopener noreferrer"><b>someone</b></a>
         </footer>
         <Modal
           show={state.showLogoutModal}
