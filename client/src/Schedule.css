@@ -1,6 +1,7 @@
 .schedule-container {
     max-width: 400px;
     margin: 0 auto;
+    margin-bottom: 42px;
     padding: 20px;
     text-align: center;
     font-family: 'Arial', sans-serif;

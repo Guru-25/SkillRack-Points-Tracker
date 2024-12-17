@@ -421,7 +421,7 @@ const App = () => {
                         codeTest: state.codeTest
                       }}
                     />
-                    <br /><br />
+                    <br />
                   </div>
                 )}
               </>
@@ -437,7 +437,7 @@ const App = () => {
                         problems: state.codeTrack + state.codeTutor + state.codeTest,
                       }}
                     />
-                    <br /><br />
+                    <br />
                   </div>
                 )}
               </>
@@ -453,11 +453,9 @@ const App = () => {
                 <button onClick={handleShareOnLinkedIn}><FaLinkedin size={20} /> Share on LinkedIn</button>
               </div>
             )} */}
-            <br />
-            <button onClick={handleLogout} className="logout-button">Logout</button><br /><br />
           </>
         )}
-        <footer style={{ marginTop: '50px' }}>
+        <footer>
           {/* {!isStandalone && isMobile && (
             <a href="https://play.google.com/store/apps/details?id=in.gururaja.in.skillrack" target="_blank" rel="noopener noreferrer">
               <img src=".assets/badge_googleplay.png" alt="Get it on Google Play" height="80" />
@@ -467,14 +465,14 @@ const App = () => {
           {state.isValidUrl && (
             <>
               <details>
-                <summary>Support this Service! ❤️</summary>
+                <summary>&nbsp;Support this Service!</summary>
                 <br />
-                <p style={{ maxWidth: "300px", margin: "0 auto" }}>
+                <p style={{ maxWidth: "350px", textAlign: "center", margin: "0 auto" }}>
                     If you find this platform helpful, a small donation of ₹5-10 can help us cover server costs and improve the service. 
                     Every contribution makes a difference, and we truly appreciate your support!
                 </p>
                 <p>
-                    <strong>Donate here: </strong>
+                  <strong>Donate here:&nbsp;
                     <a 
                         href="https://gururaja.in/donate" 
                         target="_blank" 
@@ -482,6 +480,7 @@ const App = () => {
                     >
                         Click to Donate
                     </a>
+                  </strong>
                 </p>
               </details>
               <br /><br />
@@ -494,7 +493,7 @@ const App = () => {
                 </ul>
                 <p>
                   <details>
-                    <summary style={{textAlign: 'center'}}>Report</summary>
+                    <summary style={{textAlign: 'center'}}>&nbsp;Report</summary>
                       <br/>
                       Email <a href="mailto:mail@gururaja.in">mail@gururaja.in</a> with the correct details assigned by your college!
                   </details>
@@ -504,7 +503,11 @@ const App = () => {
             </>
           )}
           {/* <ReleaseNote /> */}
-          {/* <br /><br /> */}
+          {state.isValidUrl && (
+            <>
+              <button onClick={handleLogout} className="logout-button">Logout</button><br /><br /><br /><br />
+            </>
+          )}
           made with ❤️ by <a href="https://gururaja.in" target="_blank" rel="noopener noreferrer"><b>someone</b></a>
         </footer>
         <Modal

@@ -89,6 +89,7 @@ button:hover {
   background-color: hsl(120, 100%, 27%);
   color: white;
   margin-top: 16px;
+  margin-bottom: 50px;
 }
 
 .submit-button:hover {
@@ -170,7 +171,6 @@ a:hover {
 
 /* Footer Styles */
 footer {
-  margin-top: 50px;
   color: var(--footer-color);
 }
 
